@@ -3,7 +3,7 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - deploytoheroku
+      - main
 
 jobs:
   build-frontend:
@@ -48,7 +48,7 @@ jobs:
     needs: build-backend
     environment:
       name: production-heroku
-      url: Bitte angeben!
+      url: https://lapa-mealfactory.herokuapp.com/
     env:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     steps:
@@ -60,6 +60,6 @@ jobs:
       - name: Login to Heroku
         run: heroku container:login
       - name: Push Docker Container
-        run: heroku container:push web -a name
+        run: heroku container:push web -a lapa-mealfactory
       - name: Release Docker Container
-        run: heroku container:release web -a name
+        run: heroku container:release web -a lapa-mealfactory
