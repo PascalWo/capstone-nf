@@ -16,6 +16,7 @@
     <properties>
         <sonar.organization>pascalwo</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.exclusions>src/main/java/de.neuefische.backend/model</sonar.coverage.exclusions>
         <java.version>17</java.version>
     </properties>
     <dependencies>

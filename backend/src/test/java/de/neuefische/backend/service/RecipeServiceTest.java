@@ -9,6 +9,7 @@ import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceTest {
@@ -64,6 +65,28 @@ class RecipeServiceTest {
                 .build();
         verify(recipeRepo).insert(recipeToAdd);
         assertEquals(expected, actual);
+    }
+    @Test
+    void addNewRecipe_whenTitleEqualsNull_shouldThrowException() {
+        //GIVEN
+        Recipe recipeToAdd = Recipe
+                .builder()
+                .title("Pasta")
+                .build();
+        when(recipeRepo.insert(recipeToAdd)).thenReturn(Recipe
+                .builder()
+                .id("123-test")
+                .title("Pasta")
+                .build());
+
+        //WHEN
+        CreateRecipeDto newRecipe = CreateRecipeDto
+                .builder()
+                .title(null)
+                .build();
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> recipeService.addNewRecipe(newRecipe));
     }
 
     @Test
