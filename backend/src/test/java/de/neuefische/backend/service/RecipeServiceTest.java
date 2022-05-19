@@ -68,16 +68,6 @@ class RecipeServiceTest {
     }
     @Test
     void addNewRecipe_whenTitleEqualsNull_shouldThrowException() {
-        //GIVEN
-        Recipe recipeToAdd = Recipe
-                .builder()
-                .title("Pasta")
-                .build();
-        when(recipeRepo.insert(recipeToAdd)).thenReturn(Recipe
-                .builder()
-                .id("123-test")
-                .title("Pasta")
-                .build());
 
         //WHEN
         CreateRecipeDto newRecipe = CreateRecipeDto
