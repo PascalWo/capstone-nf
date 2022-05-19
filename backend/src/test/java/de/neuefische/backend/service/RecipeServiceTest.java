@@ -68,7 +68,6 @@ class RecipeServiceTest {
     }
     @Test
     void addNewRecipe_whenTitleEqualsNull_shouldThrowException() {
-
         //WHEN
         CreateRecipeDto newRecipe = CreateRecipeDto
                 .builder()
