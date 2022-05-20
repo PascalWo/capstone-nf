@@ -1,9 +1,10 @@
 package de.neuefische.backend.controller;
 
-import de.neuefische.backend.TestWebClientConfig;
 import de.neuefische.backend.WebClientConfig;
 import de.neuefische.backend.model.Recipe;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.client.ClientResponse;
+import org.springframework.web.reactive.function.client.ExchangeFunction;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -23,20 +26,31 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SpoonacularApiControllerTest {
 
-    @Autowired
-    private TestWebClientConfig testWebClientConfig;
+    @MockBean
+    private WebClientConfig testWebClientConfig;
 
     @Autowired
     private WebTestClient testClient;
 
-    @MockBean
-    private WebClientConfig webClientConfig;
+    @Mock
+    private ExchangeFunction exchangeFunction;
+
+    @BeforeEach
+    void setUp() {
+        when(testWebClientConfig.getWebClient()).thenReturn(WebClient
+                .builder()
+                .exchangeFunction(exchangeFunction)
+                .build());
+    }
 
     @Test
     void getAllRecipes() {
         //GIVEN
-        when(testWebClientConfig.getExchangeFunction().exchange(any()))
-                .thenReturn(Mono.just(ClientResponse.create(HttpStatus.OK).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body("""
+        when(exchangeFunction.exchange(any()))
+                .thenReturn
+                        (Mono.just(ClientResponse.create(HttpStatus.OK)
+                                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                                .body("""
                         {
                             "results": [
                                 {
@@ -57,7 +71,6 @@ class SpoonacularApiControllerTest {
                             "totalResults": 223
                         }
                          """).build()));
-
 
         //WHEN
         List<Recipe> actual = testClient.get()
