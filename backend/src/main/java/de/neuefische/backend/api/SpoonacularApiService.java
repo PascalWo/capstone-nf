@@ -24,7 +24,6 @@ public class SpoonacularApiService {
     @Value("${spoonacular.lapamealfactory.api.key}")
     private String API_KEY;
 
-
     public List<Recipe> retrieveRecipes(String search) {
 
             ResponseEntity<RecipeInfo> responseEntity = webClientConfig
