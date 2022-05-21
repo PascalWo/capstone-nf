@@ -11,6 +11,7 @@ export default function SearchSpoonacularPage(){
 
     useEffect(() => {
             getSpoonaRecipeBySearch(search)
+        // eslint-disable-next-line
     },[search])
 
     const onSubmit = (event:FormEvent<HTMLFormElement>) => {
