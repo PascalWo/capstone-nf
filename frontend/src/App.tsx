@@ -16,6 +16,7 @@ function App() {
       <Routes>
           <Route path="/" element={<LandingPage/>}/>
           <Route path='/recipes' element={<RecipePage/>} />
+          <Route path='/search/:search' element={<SearchSpoonacularPage/>} />
           <Route path='/search' element={<SearchSpoonacularPage/>} />
       </Routes>
     </div>
