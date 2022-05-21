@@ -1,0 +1,12 @@
+.recipe-card{
+    margin: 3px;
+    background-color: #519E8A;
+    color: bisque;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+
+
+}

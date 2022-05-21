@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route, Routes} from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import Header from "./components/Header";
+import Navbar from "./components/NavBar";
+import RecipePage from "./pages/RecipePage";
+import SearchSpoonacularPage from "./pages/SearchSpoonacularPage";
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Header/>
+        <Navbar/>
+      <Routes>
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path='/recipes' element={<RecipePage/>} />
+          <Route path='/search/:search' element={<SearchSpoonacularPage/>} />
+          <Route path='/search' element={<SearchSpoonacularPage/>} />
+      </Routes>
     </div>
   );
 }
