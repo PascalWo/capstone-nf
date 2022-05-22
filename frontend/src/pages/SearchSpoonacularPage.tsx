@@ -22,14 +22,8 @@ export default function SearchSpoonacularPage(){
 
     return (
         <div>
-            {/*{spoonaSearch? <div>*/}
-            {/*    <input type={"text"} placeholder={"SpoonaSearchIf..."} onChange={(event:ChangeEvent<HTMLInputElement>) => setSpoonaSearch(event.target.value)} onSubmit={() => navigate(`/search/${spoonaSearch}`)}/>*/}
-            {/*</div>: <div>*/}
-            {/*    <input type={"text"} placeholder={"SpoonaSearchElse..."} onChange={(event:ChangeEvent<HTMLInputElement>) => setSpoonaSearch(event.target.value)} onSubmit={() => navigate(`/search/${main}`)}/>*/}
-            {/*</div>}*/}
             <form onSubmit={onSubmit}>
                 <input type={"text"} placeholder={"SpoonaSearch..."} onChangeCapture={(event:ChangeEvent<HTMLInputElement>) => setSpoonaSearch(event.target.value) }/>
-                {/*<input type={"text"} placeholder={"SpoonaSearch..."} onChange={(event:ChangeEvent<HTMLInputElement>) => setSpoonaSearch(event.target.value)}/>*/}
                 <button type={"submit"}>Search</button>
             </form>
             <div>
@@ -37,7 +31,7 @@ export default function SearchSpoonacularPage(){
             <div>
                 <RecipeOverview recipes={spoonaRecipes}/>
             </div> :
-                <div>Test</div>}
+                <div>Placeholder</div>}
             </div>
 
 
