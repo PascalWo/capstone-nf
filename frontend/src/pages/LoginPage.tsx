@@ -1,11 +1,15 @@
-import {FormEvent, useState} from "react";
+import {FormEvent, useContext, useState} from "react";
+import {AuthContext} from "../context/AuthProvider";
 
 export  default function LoginPage() {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
+    const {login} = useContext(AuthContext)
+
     const onSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        login({username: username, password: password})
     }
 
     return <div>
