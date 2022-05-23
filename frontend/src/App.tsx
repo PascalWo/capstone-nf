@@ -7,21 +7,25 @@ import Navbar from "./components/NavBar";
 import RecipePage from "./pages/RecipePage";
 import SearchSpoonacularPage from "./pages/SearchSpoonacularPage";
 import LoginPage from "./pages/LoginPage";
+import RequireAuth from "./routing/RequireAuth";
 
 
 function App() {
   return (
-    <div className="App">
-        <Header/>
-        <Navbar/>
-      <Routes>
-          <Route path="/" element={<LandingPage/>}/>
-          <Route path='/recipes' element={<RecipePage/>} />
-          <Route path='/search/:search' element={<SearchSpoonacularPage/>} />
-          <Route path='/search' element={<SearchSpoonacularPage/>} />
-          <Route path={'/login'} element={<LoginPage />}/>
-      </Routes>
-    </div>
+      <div className="App">
+          <Header/>
+          <Navbar/>
+          <Routes>
+              <Route element={<RequireAuth/>}>
+                  <Route path="/" element={<LandingPage/>}/>
+                  <Route path='/recipes' element={<RecipePage/>}/>
+                  <Route path='/search/:search' element={<SearchSpoonacularPage/>}/>
+                  <Route path='/search' element={<SearchSpoonacularPage/>}/>
+              </Route>
+
+              <Route path={'/login'} element={<LoginPage/>}/>
+          </Routes>
+      </div>
   );
 }
 
