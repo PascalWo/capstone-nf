@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Navbar from "./components/NavBar";
 import RecipePage from "./pages/RecipePage";
 import SearchSpoonacularPage from "./pages/SearchSpoonacularPage";
+import LoginPage from "./pages/LoginPage";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path='/recipes' element={<RecipePage/>} />
           <Route path='/search/:search' element={<SearchSpoonacularPage/>} />
           <Route path='/search' element={<SearchSpoonacularPage/>} />
+          <Route path={'/login'} element={<LoginPage />}/>
       </Routes>
     </div>
   );
