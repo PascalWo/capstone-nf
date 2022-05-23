@@ -2,6 +2,8 @@ package de.neuefische.backend.controller;
 
 import de.neuefische.backend.WebClientConfig;
 import de.neuefische.backend.model.Recipe;
+import de.neuefische.backend.security.model.AppUser;
+import de.neuefische.backend.security.repository.AppUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFunction;
@@ -25,6 +28,14 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SpoonacularApiControllerTest {
+
+    private String jwtToken;
+
+    @Autowired
+    private AppUserRepository appUserRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @MockBean
     private WebClientConfig testWebClientConfig;
@@ -41,6 +52,12 @@ class SpoonacularApiControllerTest {
                 .builder()
                 .exchangeFunction(exchangeFunction)
                 .build());
+    }
+
+    @BeforeEach
+    public void cleanUp(){
+        appUserRepository.deleteAll();
+        jwtToken = generateJWTToken();
     }
 
     @Test
@@ -75,6 +92,7 @@ class SpoonacularApiControllerTest {
         //WHEN
         List<Recipe> actual = testClient.get()
                 .uri("/api/spoonacular/recipes/pasta")
+                .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBodyList(Recipe.class)
@@ -109,8 +127,31 @@ class SpoonacularApiControllerTest {
         //WHEN /THEN
         testClient.get()
                 .uri("/api/spoonacular/recipes/pasta")
+                .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is5xxServerError();
+    }
+
+    private String generateJWTToken() {
+        String hashedPassword = passwordEncoder.encode("passwort");
+        AppUser testUser = AppUser.builder()
+                .username("testuser")
+                .id("123")
+                .password(hashedPassword)
+                .build();
+        appUserRepository.save(testUser);
+
+        return testClient.post()
+                .uri("/auth/login")
+                .bodyValue(AppUser.builder()
+                        .username("testuser")
+                        .id("123")
+                        .password("passwort")
+                        .build())
+                .exchange()
+                .expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
     }
 }
 

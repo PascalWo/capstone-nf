@@ -4,7 +4,6 @@ import RecipeOverview from "../components/RecipeOverview";
 export default function RecipePage(){
     const recipes = useRecipes()
 
-
     return (
         <div>
             <RecipeOverview recipes={recipes}/>
