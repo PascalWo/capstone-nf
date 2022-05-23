@@ -2,6 +2,7 @@ import React from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as FiIcons from 'react-icons/fi';
+import * as RiIcons from 'react-icons/ri';
 
 export const SidebarData = [
     {
@@ -32,6 +33,12 @@ export const SidebarData = [
         title: 'Shopping-List',
         path: '/shoppinglist',
         icon: <FaIcons.FaShoppingCart />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Login',
+        path: '/login',
+        icon: <RiIcons.RiLoginBoxFill/>,
         cName: 'nav-text'
     },
     {
