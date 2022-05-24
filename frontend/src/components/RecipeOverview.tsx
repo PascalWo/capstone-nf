@@ -25,5 +25,4 @@ export default function RecipeOverview({recipes}: RecipeOverviewProps){
           </div>
         </div>
     )
-
 }
