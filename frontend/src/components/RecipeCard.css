@@ -4,14 +4,17 @@
     border: 1px solid whitesmoke;
     overflow: hidden;
     margin: 20px;
-    max-width: 332px;
+    max-width: 312px;
     box-shadow: 10px 10px 10px gray;
+    align-self: normal;
+    display: flex;
+    flex-direction: column;
 }
 
 #recipe-image{
-    padding: 10px;
     background: #519E8A;
     text-align: center;
+    margin: auto;
 }
 
 img{
@@ -21,15 +24,21 @@ img{
 }
 
 #recipe-title{
-    display: flex;
-    justify-content: center;
     padding: 5px;
     color: white;
-    font-size: 20px;
+    font-size: 2.0vmax;
     font-weight: bold;
+    border-bottom: 1px solid whitesmoke;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 0;
 }
 #recipe-description{
     padding: 10px;
     color: #666;
     font-size: 15px;
+    border-top: 1px solid whitesmoke;
 }
