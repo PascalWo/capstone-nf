@@ -1,12 +1,45 @@
 .recipe-card{
-    margin: 3px;
-    background-color: #519E8A;
-    color: bisque;
-    padding: 5px;
+    flex: 1 1 312px;
+    background: #519E8A;
+    border: 1px solid whitesmoke;
+    overflow: hidden;
+    margin: 20px;
+    max-width: 312px;
+    box-shadow: 10px 10px 10px gray;
+    align-self: normal;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: baseline;
+    border-radius: 30px;
+}
 
+#recipe-image{
+    background: #519E8A;
+    text-align: center;
+    margin: auto;
+}
 
+img{
+    width: 312px;
+    height: 231px;
+    object-fit: cover;
+}
+
+#recipe-title{
+    padding: 5px;
+    color: white;
+    font-size: 2.0vmax;
+    font-weight: bold;
+    border-bottom: 1px solid whitesmoke;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+#recipe-description{
+    padding: 10px;
+    color: #666;
+    font-size: 15px;
+    border-top: 1px solid whitesmoke;
 }
