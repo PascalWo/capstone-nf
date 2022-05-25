@@ -27,13 +27,11 @@ public class SpoonacularApiService {
     @Value("${spoona.api.baseurl}")
     private String baseUrl;
 
-    private static final String RECIPES_TO_SHOW = "100";
-
     public List<Recipe> retrieveRecipes(String search) {
 
             ResponseEntity<RecipeInfo> responseEntity = webClient
                     .get()
-                    .uri(baseUrl + "/complexSearch?query=" + search + "&number=" + RECIPES_TO_SHOW)
+                    .uri(baseUrl + "/complexSearch?query=" + search)
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .header("x-api-key", API_KEY)
                     .retrieve()
