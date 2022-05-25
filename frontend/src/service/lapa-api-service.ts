@@ -14,3 +14,10 @@ export const getSpoonaRecipesBy: (search: string | undefined, token?: string) =>
     : {})
         .then(response => response.data)
 }
+
+export const postRecipeItem: (newRecipeItem: Omit<Recipe, "id">, token?: string) => Promise<Recipe> = (newRecipeItem, token) => {
+    return axios.post("/api/recipes", newRecipeItem, token
+        ? {headers: {"Authorization": token}}
+        : {})
+        .then(response => response.data)
+}

@@ -1,6 +1,6 @@
 import {Recipe} from "../model/Recipe";
 import {useContext, useEffect, useState} from "react";
-import {getAllRecipes} from "../service/lapa-api-service";
+import {getAllRecipes, postRecipeItem} from "../service/lapa-api-service";
 import {AuthContext} from "../context/AuthProvider";
 
 export default function useRecipes() {
@@ -13,5 +13,12 @@ export default function useRecipes() {
             .catch(() => "Connection failed!")
     },[token])
 
-    return recipes;
+    const addRecipeItem = (newRecipeItem : Omit<Recipe, "id">) => {
+        postRecipeItem(newRecipeItem, token)
+            .then(addedRecipeItem => setRecipes([...recipes, addedRecipeItem]))
+            .then(() => {console.log("Recipe: " + newRecipeItem.title + " created");})
+            .catch(() => console.error("Connection failed! Please retry later."))
+    }
+
+    return {recipes, addRecipeItem};
 }
