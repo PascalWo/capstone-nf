@@ -33,7 +33,7 @@ public class SpoonacularApiService {
 
             ResponseEntity<RecipeInfo> responseEntity = webClient
                     .get()
-                    .uri(baseUrl + "/complexSearch?query=" + search + "&number=" + RECIPES_TO_SHOW)
+                    .uri(baseUrl + "/complexSearch?query=" + search + "&number=" + RECIPES_TO_SHOW + "&addRecipeInformation=true")
                     .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .header("x-api-key", API_KEY)
                     .retrieve()
