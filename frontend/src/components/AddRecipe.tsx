@@ -1,5 +1,6 @@
 import {FormEvent, useState} from "react";
 import {Recipe} from "../model/Recipe";
+import "./AddRecipe.css"
 
 type AddRecipeProps = {
     addRecipeItem: (newRecipe: Omit<Recipe, "id">) => void
@@ -44,6 +45,7 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
                 <input type={"submit"} value={"Add item"} />
             </form>
             <button onClick={onClickToggleAndGoBack}>Back</button>
+            <p id={"url-warning"}>*Image Source bitte als Website-Link "https://..." angeben!</p>
         </div>
     )
 }
