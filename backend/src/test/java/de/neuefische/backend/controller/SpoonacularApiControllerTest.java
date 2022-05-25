@@ -1,5 +1,6 @@
 package de.neuefische.backend.controller;
 
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
@@ -15,7 +16,7 @@ import java.util.List;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@com.github.tomakehurst.wiremock.junit5.WireMockTest(httpPort = 8484)
+@WireMockTest(httpPort = 8484)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SpoonacularApiControllerTest {
 
