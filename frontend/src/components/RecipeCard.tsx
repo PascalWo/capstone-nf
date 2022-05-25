@@ -1,6 +1,6 @@
 import {Recipe} from "../model/Recipe";
 import "./RecipeCard.css";
-import recipeDefaultImg from "./recipeimage.png"
+import recipeDefaultImg from "./recipeimage.jpeg"
 import {SyntheticEvent} from "react";
 
 type RecipeCardProps = {

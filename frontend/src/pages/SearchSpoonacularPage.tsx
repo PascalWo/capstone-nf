@@ -8,6 +8,7 @@ export default function SearchSpoonacularPage(){
     const {search} = useParams()
     const [spoonaSearch, setSpoonaSearch] = useState<string>("main")
     const navigate = useNavigate()
+    const showAddButton: boolean = false;
 
     useEffect(() => {
             getSpoonaRecipeBySearch(search)
@@ -29,7 +30,7 @@ export default function SearchSpoonacularPage(){
             <div>
             {spoonaSearch?
             <div>
-                <RecipeOverview recipes={spoonaRecipes}/>
+                <RecipeOverview recipes={spoonaRecipes} showAddButton={showAddButton}/>
             </div> :
                 <div>Placeholder</div>}
             </div>
