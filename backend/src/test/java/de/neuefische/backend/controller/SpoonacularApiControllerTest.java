@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -38,31 +39,13 @@ class SpoonacularApiControllerTest {
     }
 
     @Test
-    void getAllRecipes_whenSearchIsPasta() {
+    void getAllRecipes_whenSearchIsPasta_returnPastaRecipes() {
         //GIVEN
         String search = "pasta";
         String RECIPES_TO_SHOW = "50";
-        stubFor(get("/complexSearch?query=" + search + "&number=" + RECIPES_TO_SHOW + "&addRecipeInformation=true").willReturn(okJson("""
-                                        {
-                                            "results": [
-                                                {
-                                                    "id": 654959,
-                                                    "title": "Pasta With Tuna",
-                                                    "image": "https://spoonacular.com/recipeImages/654959-312x231.jpg",
-                                                    "imageType": "jpg"
-                                                },
-                                                {
-                                                    "id": 511728,
-                                                    "title": "Pasta Margherita",
-                                                    "image": "https://spoonacular.com/recipeImages/511728-312x231.jpg",
-                                                    "imageType": "jpg"
-                                                }
-                                            ],
-                                            "offset": 0,
-                                            "number": 2,
-                                            "totalResults": 223
-                                        }
-                                         """)));
+        String filePath = "getAllRecipesPastaTest.json";
+        stubFor(get("/complexSearch?query=" + search + "&number=" + RECIPES_TO_SHOW + "&addRecipeInformation=true").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
+
 
         //WHEN
         List<Recipe> actual =  testClient
@@ -105,7 +88,6 @@ class SpoonacularApiControllerTest {
                 .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is5xxServerError();
-
     }
 
     @Test
@@ -121,119 +103,14 @@ class SpoonacularApiControllerTest {
                 .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is5xxServerError();
-
-
     }
+
     @Test
-    void getRecipeDetails_whenIdIsValid_thenReturnDetailsObject() {
+    void getRecipeDetails_whenIdIsValid_thenReturnDetailsObjectWithJson() {
         //GIVEN
         String id = "716429";
-        stubFor(get("/" + id + "/information").willReturn(okJson("""
-                {
-                     "vegetarian": false,
-                     "vegan": false,
-                     "glutenFree": false,
-                     "dairyFree": false,
-                     "veryHealthy": false,
-                     "cheap": false,
-                     "veryPopular": false,
-                     "sustainable": false,
-                     "lowFodmap": false,
-                     "weightWatcherSmartPoints": 17,
-                     "gaps": "no",
-                     "preparationMinutes": -1,
-                     "cookingMinutes": -1,
-                     "aggregateLikes": 209,
-                     "healthScore": 18,
-                     "creditsText": "Full Belly Sisters",
-                     "license": "CC BY-SA 3.0",
-                     "sourceName": "Full Belly Sisters",
-                     "pricePerServing": 163.15,
-                     "extendedIngredients": [
-                         {
-                             "id": 1001,
-                             "aisle": "Milk, Eggs, Other Dairy",
-                             "image": "butter-sliced.jpg",
-                             "consistency": "SOLID",
-                             "name": "butter",
-                             "nameClean": "butter",
-                             "original": "1 tbsp butter",
-                             "originalName": "butter",
-                             "amount": 1.0,
-                             "unit": "tbsp",
-                             "meta": [],
-                             "measures": {
-                                 "us": {
-                                     "amount": 1.0,
-                                     "unitShort": "Tbsp",
-                                     "unitLong": "Tbsp"
-                                 },
-                                 "metric": {
-                                     "amount": 1.0,
-                                     "unitShort": "Tbsp",
-                                     "unitLong": "Tbsp"
-                                 }
-                             }
-                         },
-                         {
-                             "id": 10011135,
-                             "aisle": "Produce",
-                             "image": "cauliflower.jpg",
-                             "consistency": "SOLID",
-                             "name": "cauliflower florets",
-                             "nameClean": "cauliflower florets",
-                             "original": "about 2 cups frozen cauliflower florets, thawed, cut into bite-sized pieces",
-                             "originalName": "about frozen cauliflower florets, thawed, cut into bite-sized pieces",
-                             "amount": 2.0,
-                             "unit": "cups",
-                             "meta": [
-                                 "frozen",
-                                 "thawed",
-                                 "cut into bite-sized pieces"
-                             ],
-                             "measures": {
-                                 "us": {
-                                     "amount": 2.0,
-                                     "unitShort": "cups",
-                                     "unitLong": "cups"
-                                 },
-                                 "metric": {
-                                     "amount": 473.176,
-                                     "unitShort": "ml",
-                                     "unitLong": "milliliters"
-                                 }
-                             }
-                         }
-                     ],
-                     "id": 716429,
-                     "title": "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
-                     "readyInMinutes": 45,
-                     "servings": 2,
-                     "sourceUrl": "http://fullbellysisters.blogspot.com/2012/06/pasta-with-garlic-scallions-cauliflower.html",
-                     "openLicense": -1,
-                     "image": "https://spoonacular.com/recipeImages/716429-556x370.jpg",
-                     "imageType": "jpg",
-                     "summary": "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for.",
-                     "cuisines": [],
-                     "dishTypes": [
-                         "lunch",
-                         "main course",
-                         "main dish",
-                         "dinner"
-                     ],
-                     "diets": [],
-                     "occasions": [],
-                     "winePairing": {
-                         "pairedWines": [],
-                         "pairingText": "No one wine will suit every pasta dish. Pasta in a tomato-based sauce will usually work well with a medium-bodied red, such as a montepulciano or chianti. Pasta with seafood or pesto will fare better with a light-bodied white, such as a pinot grigio. Cheese-heavy pasta can pair well with red or white - you might try a sangiovese wine for hard cheeses and a chardonnay for soft cheeses. We may be able to make a better recommendation if you ask again with a specific pasta dish.",
-                         "productMatches": []
-                     },
-                     "instructions": "",
-                     "analyzedInstructions": [],
-                     "originalId": null,
-                     "spoonacularSourceUrl": "https://spoonacular.com/pasta-with-garlic-scallions-cauliflower-breadcrumbs-716429"
-                 }
-                """)));
+        String filePath = "getRecpieByIdTest.json";
+        stubFor(get("/" + id + "/information").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
 
         //WHEN
         Recipe actual =  testClient
