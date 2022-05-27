@@ -18,4 +18,11 @@ public class Recipe {
     private String id;
     private String title;
     private String image;
+    private boolean vegetarian;
+    private boolean vegan;
+    private boolean glutenFree;
+    private float pricePerServing;
+    private int readyInMinutes;
+    private int servings;
+    private String summary;
 }

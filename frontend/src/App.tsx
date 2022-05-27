@@ -8,6 +8,7 @@ import RecipePage from "./pages/RecipePage";
 import SearchSpoonacularPage from "./pages/SearchSpoonacularPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./routing/RequireAuth";
+import SpoonacularDetailsPage from "./pages/SpoonacularDetailsPage";
 
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
               <Route element={<RequireAuth/>}>
                   <Route path="/" element={<LandingPage/>}/>
                   <Route path='/recipes' element={<RecipePage/>}/>
-                  <Route path='/search/:search' element={<SearchSpoonacularPage/>}/>
-                  <Route path='/search' element={<SearchSpoonacularPage/>}/>
+                  <Route path='/spoona/search/:search' element={<SearchSpoonacularPage/>}/>
+                  <Route path='/spoona/search' element={<SearchSpoonacularPage/>}/>
+                  <Route path='/spoona/recipe/:id' element={<SpoonacularDetailsPage/>}/>
               </Route>
 
               <Route path={'/login'} element={<LoginPage/>}/>

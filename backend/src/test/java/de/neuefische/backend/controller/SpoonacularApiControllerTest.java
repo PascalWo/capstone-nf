@@ -1,31 +1,23 @@
 package de.neuefische.backend.controller;
 
-import de.neuefische.backend.WebClientConfig;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.ExchangeFunction;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
+@WireMockTest(httpPort = 8484)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SpoonacularApiControllerTest {
 
@@ -37,22 +29,8 @@ class SpoonacularApiControllerTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @MockBean
-    private WebClientConfig testWebClientConfig;
-
     @Autowired
     private WebTestClient testClient;
-
-    @Mock
-    private ExchangeFunction exchangeFunction;
-
-    @BeforeEach
-    void setUp() {
-        when(testWebClientConfig.getWebClient()).thenReturn(WebClient
-                .builder()
-                .exchangeFunction(exchangeFunction)
-                .build());
-    }
 
     @BeforeEach
     public void cleanUp(){
@@ -61,37 +39,18 @@ class SpoonacularApiControllerTest {
     }
 
     @Test
-    void getAllRecipes() {
+    void getAllRecipes_whenSearchIsPasta_returnPastaRecipes() {
         //GIVEN
-        when(exchangeFunction.exchange(any()))
-                .thenReturn
-                        (Mono.just(ClientResponse.create(HttpStatus.OK)
-                                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                                .body("""
-                                        {
-                                            "results": [
-                                                {
-                                                    "id": 654959,
-                                                    "title": "Pasta With Tuna",
-                                                    "image": "https://spoonacular.com/recipeImages/654959-312x231.jpg",
-                                                    "imageType": "jpg"
-                                                },
-                                                {
-                                                    "id": 511728,
-                                                    "title": "Pasta Margherita",
-                                                    "image": "https://spoonacular.com/recipeImages/511728-312x231.jpg",
-                                                    "imageType": "jpg"
-                                                }
-                                            ],
-                                            "offset": 0,
-                                            "number": 2,
-                                            "totalResults": 223
-                                        }
-                                         """).build()));
+        String search = "pasta";
+        String RECIPES_TO_SHOW = "50";
+        String filePath = "getAllRecipesPastaTest.json";
+        stubFor(get("/complexSearch?query=" + search + "&number=" + RECIPES_TO_SHOW + "&addRecipeInformation=true").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
+
 
         //WHEN
-        List<Recipe> actual = testClient.get()
-                .uri("/api/spoonacular/recipes/pasta")
+        List<Recipe> actual =  testClient
+                .get()
+                .uri("/api/spoonacular/recipes/" + search)
                 .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is2xxSuccessful()
@@ -117,16 +76,82 @@ class SpoonacularApiControllerTest {
     }
 
     @Test
-    void getAllRecipes_whenApiNotFound_returnException() {
+    void getAllRecipes_whenApiNotFound_return500Error(){
         //GIVEN
-        when(exchangeFunction.exchange(any()))
-                .thenReturn
-                        (Mono.just(ClientResponse.create(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                                .build()));
-        //WHEN /THEN
-        testClient.get()
+        String search = "pasta";
+        stubFor(get("/complexSearch?query=" + search).willReturn(serverError()));
+
+        //WHEN /Then
+        testClient
+                .get()
+                .uri("/api/spoonacular/recipes/" +search)
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is5xxServerError();
+    }
+
+    @Test
+    void getAllRecipes_whenEmptyResponse_returnException(){
+        //GIVEN
+        String search = "pasta";
+        stubFor(get("/complexSearch?query=" + search).willReturn(status(200)));
+
+        //WHEN /Then
+        testClient
+                .get()
                 .uri("/api/spoonacular/recipes/pasta")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is5xxServerError();
+    }
+
+    @Test
+    void getRecipeDetails_whenIdIsValid_thenReturnDetailsObjectWithJson() {
+        //GIVEN
+        String id = "716429";
+        String filePath = "getRecpieByIdTest.json";
+        stubFor(get("/" + id + "/information").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
+
+        //WHEN
+        Recipe actual =  testClient
+                .get()
+                .uri("/api/spoonacular/recipes/information/" + id)
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(Recipe.class)
+                .returnResult()
+                .getResponseBody();
+
+        //THEN
+        Recipe expected = Recipe
+                .builder()
+                .id("716429")
+                .title("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs")
+                .image("https://spoonacular.com/recipeImages/716429-556x370.jpg")
+                .vegetarian(false)
+                .vegan(false)
+                .glutenFree(false)
+                .pricePerServing(163.15f)
+                .readyInMinutes(45)
+                .servings(2)
+                .summary("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for.")
+                .build();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getRecipeDetails_whenIdIsNotValid_thenReturnServerError() {
+        //GIVEN
+        String id = "716429";
+        String wrongId = "123";
+        stubFor(get("/" + id + "/information").willReturn(serverError()));
+
+        //WHEN /Then
+        testClient
+                .get()
+                .uri("/api/spoonacular/recipes/information/" + wrongId)
                 .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is5xxServerError();
