@@ -22,7 +22,6 @@ export default function RecipeCard({recipe}: RecipeCardProps){
                    src={recipeDefaultImg}
                    alt={"Recipe Default"} />}
             <div id={"recipe-description"}>{recipe.summary?.substring(0,100)}</div>
-
         </div>
     )
 

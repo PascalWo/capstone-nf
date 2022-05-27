@@ -20,4 +20,8 @@ public class SpoonacularService {
     public List<Recipe> getAllRecipes(String search){
         return spoonacularApiService.retrieveRecipes(search);
     }
+
+    public Recipe getRecipeDetails(String id){
+        return spoonacularApiService.retrieveRecipeDetails(id);
+    }
 }

@@ -27,7 +27,7 @@ public class SpoonacularApiService {
     @Value("${spoona.api.baseurl}")
     private String baseUrl;
 
-    private static final String RECIPES_TO_SHOW = "100";
+    private static final String RECIPES_TO_SHOW = "50";
 
     public List<Recipe> retrieveRecipes(String search) {
 
@@ -50,5 +50,28 @@ public class SpoonacularApiService {
             }
 
             return recipeInfo.getResults();
+    }
+
+    public Recipe retrieveRecipeDetails(String id) {
+
+        ResponseEntity<Recipe> responseEntity = webClient
+                .get()
+                .uri(baseUrl + "/" + id + "/information")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .header("x-api-key", API_KEY)
+                .retrieve()
+                .toEntity(Recipe.class)
+                .block();
+
+        if (responseEntity == null){
+            throw new ApiNotRespondException("API not available");
+        }
+        Recipe recipeDetails = responseEntity.getBody();
+
+        if (recipeDetails == null){
+            throw new ApiNotRespondException("Response is Null");
+        }
+
+        return recipeDetails;
     }
 }
