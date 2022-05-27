@@ -6,12 +6,15 @@ import {useNavigate} from "react-router-dom";
 
 type RecipeCardProps = {
     recipe: Recipe;
+    openedFromSpoona: boolean;
 }
 
-export default function RecipeCard({recipe}: RecipeCardProps){
+export default function RecipeCard({recipe, openedFromSpoona}: RecipeCardProps){
     const navigate = useNavigate()
     const onCardClick = () => {
-        navigate(`/spoona/recipe/${recipe.id}`)
+        openedFromSpoona ?
+            navigate(`/recipe/${recipe.id}`)
+            : navigate(`/spoona/recipe/${recipe.id}`)
     }
 
     return (
