@@ -1,3 +1,5 @@
+import {Ingredients} from "./Ingredients";
+
 export type Recipe = {
     id: string;
     title: string;
@@ -9,4 +11,5 @@ export type Recipe = {
     readyInMinutes?: number;
     servings?: number;
     summary?: string;
+    extendedIngredients?: Ingredients[];
 }

@@ -1,6 +1,7 @@
 import {Recipe} from "../model/Recipe";
 import {SyntheticEvent} from "react";
 import recipeDefaultImg from "./recipeimage.jpeg";
+import "./ShowDetailsRecipe.css"
 
 type ShowSpoonacularDetailsRecipeProps = {
     recipe: Recipe;
@@ -27,6 +28,13 @@ export default function ShowDetailsRecipe({recipe}: ShowSpoonacularDetailsRecipe
             <div>ReadyInMinutes: {recipe.readyInMinutes}</div>
             <div>Servings: {recipe.servings}</div>
             <div>{recipe.summary}</div>
+            <div>Zutaten:</div>
+            <div className={"ingredients"}>
+                <div>{recipe.extendedIngredients && recipe.extendedIngredients.map(ingredients => (
+                    <div key={ingredients.name}>Zutat: {ingredients.name}</div>))}</div>
+                <div>{recipe.extendedIngredients && recipe.extendedIngredients.map(ingredients => (
+                    <div key={ingredients.amount}>Anzahl:{ingredients.amount}</div>))}</div>
+            </div>
         </div>
     )
 }
