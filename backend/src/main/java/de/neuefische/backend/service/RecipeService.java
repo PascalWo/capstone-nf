@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class RecipeService {
@@ -29,10 +30,22 @@ public class RecipeService {
         }
         newRecipe.setTitle(recipe.getTitle());
         newRecipe.setImage(recipe.getImage());
+        newRecipe.setVegetarian(recipe.isVegetarian());
+        newRecipe.setVegan(recipe.isVegan());
+        newRecipe.setGlutenFree(recipe.isGlutenFree());
+        newRecipe.setPricePerServing(recipe.getPricePerServing());
+        newRecipe.setReadyInMinutes(recipe.getReadyInMinutes());
+        newRecipe.setServings(recipe.getServings());
+        newRecipe.setSummary(recipe.getSummary());
+
         return recipeRepo.insert(newRecipe);
     }
 
     public void deleteRecipe(String id) {
         recipeRepo.deleteById(id);
+    }
+
+    public Recipe getRecipeDetails(String id){
+        return recipeRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Recipe not found with id: " + id));
     }
 }

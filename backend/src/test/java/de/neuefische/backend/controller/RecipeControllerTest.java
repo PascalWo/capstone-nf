@@ -4,6 +4,7 @@ import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.repository.RecipeRepo;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -184,5 +186,92 @@ class RecipeControllerTest {
                 .expectBody(String.class)
                 .returnResult()
                 .getResponseBody();
+    }
+
+    @Test
+    void getShoppingItemById_whenIdIsValid() {
+        //GIVEN
+        Recipe recipe = Recipe.builder()
+                .id("1")
+                .title("Soup")
+                .image("testImage")
+                .vegetarian(true)
+                .glutenFree(true)
+                .pricePerServing(BigDecimal.valueOf(9.50))
+                .readyInMinutes(25)
+                .servings(4)
+                .summary("Some Summary")
+                .vegan(true)
+                .build();
+
+        Recipe addRecipe = testClient.post()
+                .uri("/api/recipes/")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(recipe)
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(Recipe.class)
+                .returnResult()
+                .getResponseBody();
+
+        //WHEN
+        assertNotNull(addRecipe);
+        Recipe actual = testClient.get()
+                .uri("/api/recipes/information/" + addRecipe.getId())
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectBody(Recipe.class)
+                .returnResult()
+                .getResponseBody();
+        //THEN
+        assertNotNull(actual);
+        Recipe expected = Recipe.builder()
+                .id(actual.getId())
+                .title("Soup")
+                .image("testImage")
+                .vegetarian(true)
+                .glutenFree(true)
+                .pricePerServing(BigDecimal.valueOf(9.50))
+                .readyInMinutes(25)
+                .servings(4)
+                .summary("Some Summary")
+                .vegan(true)
+                .build();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getItemById_whenIdIsNotValid_shouldThrowException() {
+        //GIVEN
+        Recipe recipe = Recipe.builder()
+                .id("1")
+                .title("Soup")
+                .image("testImage")
+                .vegetarian(true)
+                .glutenFree(true)
+                .pricePerServing(BigDecimal.valueOf(9.50))
+                .readyInMinutes(25)
+                .servings(4)
+                .summary("Some Summary")
+                .vegan(true)
+                .build();
+
+        testClient.post()
+                .uri("/api/recipes/")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(recipe)
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(Recipe.class)
+                .returnResult()
+                .getResponseBody();
+
+        //WHEN
+        testClient.get()
+                .uri("/api/recipes/information/" + "5")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                //THEN
+                .expectStatus().is5xxServerError();
     }
 }

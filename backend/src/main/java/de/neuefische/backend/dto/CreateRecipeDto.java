@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,4 +15,11 @@ public class CreateRecipeDto {
 
     private String title;
     private String image;
+    private boolean vegetarian;
+    private boolean vegan;
+    private boolean glutenFree;
+    private BigDecimal pricePerServing;
+    private int readyInMinutes;
+    private int servings;
+    private String summary;
 }
