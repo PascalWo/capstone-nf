@@ -21,7 +21,7 @@ public class SpoonacularService {
         return spoonacularApiService.retrieveRecipes(search);
     }
 
-    public Recipe getRecipeDetails(String id){
+    public Recipe getRecipeDetails(int id){
         return spoonacularApiService.retrieveRecipeDetails(id);
     }
 }

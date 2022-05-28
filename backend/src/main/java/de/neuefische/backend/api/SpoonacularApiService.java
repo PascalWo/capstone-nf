@@ -52,7 +52,7 @@ public class SpoonacularApiService {
             return recipeInfo.getResults();
     }
 
-    public Recipe retrieveRecipeDetails(String id) {
+    public Recipe retrieveRecipeDetails(int id) {
 
         ResponseEntity<Recipe> responseEntity = webClient
                 .get()
