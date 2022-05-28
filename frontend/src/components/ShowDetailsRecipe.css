@@ -1,0 +1,5 @@
+.ingredients{
+    display: flex;
+    flex-direction: row;
+    background-color: #476A6F;
+}

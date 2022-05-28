@@ -27,4 +27,5 @@ public class Recipe {
     private int readyInMinutes;
     private int servings;
     private String summary;
+    private Ingredients[] extendedIngredients;
 }

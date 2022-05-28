@@ -11,7 +11,6 @@ import RequireAuth from "./routing/RequireAuth";
 import SpoonacularDetailsPage from "./pages/SpoonacularDetailsPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 
-
 function App() {
   return (
       <div className="App">
