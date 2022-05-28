@@ -2,11 +2,11 @@ import {Recipe} from "../model/Recipe";
 import {SyntheticEvent} from "react";
 import recipeDefaultImg from "./recipeimage.jpeg";
 
-type ShowDetailsRecipeProps = {
+type ShowSpoonacularDetailsRecipeProps = {
     recipe: Recipe;
 }
 
-export default function ShowDetailsRecipe({recipe}: ShowDetailsRecipeProps){
+export default function ShowDetailsRecipe({recipe}: ShowSpoonacularDetailsRecipeProps){
     return(
         <div>
             <div>Details zum Rezept:</div>
