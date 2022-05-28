@@ -7,7 +7,7 @@ export default function useSpoonaRecipes() {
     const [spoonaRecipes, setSpoonaRecipes] = useState<Recipe[]>([]);
     const {token} = useContext(AuthContext);
 
-    const getSpoonaRecipeBySearch = (search:string | undefined) =>{
+    const getSpoonaRecipeBySearch = (search: string | undefined) =>{
         getSpoonaRecipesBy(search, token)
             .then(data => setSpoonaRecipes(data))
             .catch(() => "Error")

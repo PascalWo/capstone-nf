@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -108,7 +109,7 @@ class SpoonacularApiControllerTest {
     @Test
     void getRecipeDetails_whenIdIsValid_thenReturnDetailsObjectWithJson() {
         //GIVEN
-        String id = "716429";
+        int id = 716429;
         String filePath = "getRecpieByIdTest.json";
         stubFor(get("/" + id + "/information").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
 
@@ -132,7 +133,7 @@ class SpoonacularApiControllerTest {
                 .vegetarian(false)
                 .vegan(false)
                 .glutenFree(false)
-                .pricePerServing(163.15f)
+                .pricePerServing(BigDecimal.valueOf(163.15))
                 .readyInMinutes(45)
                 .servings(2)
                 .summary("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for.")
@@ -144,7 +145,7 @@ class SpoonacularApiControllerTest {
     @Test
     void getRecipeDetails_whenIdIsNotValid_thenReturnServerError() {
         //GIVEN
-        String id = "716429";
+        int id = 716429;
         String wrongId = "123";
         stubFor(get("/" + id + "/information").willReturn(serverError()));
 

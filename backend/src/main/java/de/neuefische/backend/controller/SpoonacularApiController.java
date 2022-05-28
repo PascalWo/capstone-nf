@@ -27,7 +27,7 @@ public class SpoonacularApiController {
     }
 
     @GetMapping("/information/{id}")
-    public Recipe getRecipeDetails(@PathVariable String id) {
+    public Recipe getRecipeDetails(@PathVariable int id) {
         return service.getRecipeDetails(id);
     }
 }

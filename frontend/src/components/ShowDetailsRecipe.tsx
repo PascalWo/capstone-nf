@@ -6,7 +6,7 @@ type ShowSpoonacularDetailsRecipeProps = {
     recipe: Recipe;
 }
 
-export default function ShowSpoonacularDetailsRecipe({recipe}: ShowSpoonacularDetailsRecipeProps){
+export default function ShowDetailsRecipe({recipe}: ShowSpoonacularDetailsRecipeProps){
     return(
         <div>
             <div>Details zum Rezept:</div>
