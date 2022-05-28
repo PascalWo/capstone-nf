@@ -1,17 +1,17 @@
 import {useNavigate, useParams} from "react-router-dom";
-import useSpoonaDetailsRecipe from "../hooks/useSpoonaDetailsRecipe";
 import {useEffect} from "react";
+import useDetailsRecipe from "../hooks/useDetailsRecipe";
 import ShowDetailsRecipe from "../components/ShowDetailsRecipe";
 
-export default function SpoonacularDetailsPage(){
+export default function RecipeDetailsPage(){
     const navigate = useNavigate()
     const {id} = useParams()
-    const {spoonaDetailsRecipe, getSpoonaDetailsRecipeById} = useSpoonaDetailsRecipe()
+    const {detailsRecipe, getDetailsRecipeById} = useDetailsRecipe()
 
     useEffect(() => {
 
         if(id) {
-            getSpoonaDetailsRecipeById(id)
+            getDetailsRecipeById(id)
         }
         // eslint-disable-next-line
     },[id])
@@ -19,10 +19,10 @@ export default function SpoonacularDetailsPage(){
     return (
         <div>
             <div>Detailspage</div>
-            <button onClick={() => navigate(`/spoona/search`)}>Back</button>
+            <button onClick={() => navigate(`/recipes`)}>Back</button>
             <div>
-                {spoonaDetailsRecipe
-                ?<ShowDetailsRecipe recipe={spoonaDetailsRecipe}/>
+                {detailsRecipe
+                ?<ShowDetailsRecipe recipe={detailsRecipe}/>
                 : <p>Kein Rezept mit der ID: {id} gefunden</p>}
                 </div>
         </div>

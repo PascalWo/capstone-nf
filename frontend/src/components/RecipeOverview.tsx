@@ -33,7 +33,7 @@ export default function RecipeOverview({recipes, toggleAdding, showAddButton}: R
                 {recipes
                     .filter(recipe => recipe.title.toLowerCase().includes(search.toLowerCase()))
                     .sort((a, b) => a.title.localeCompare(b.title))
-                    .map(recipe => <RecipeCard key={recipe.id} recipe={recipe}/>)}
+                    .map(recipe => <RecipeCard openedFromSpoona={showAddButton} key={recipe.id} recipe={recipe}/>)}
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ import SearchSpoonacularPage from "./pages/SearchSpoonacularPage";
 import LoginPage from "./pages/LoginPage";
 import RequireAuth from "./routing/RequireAuth";
 import SpoonacularDetailsPage from "./pages/SpoonacularDetailsPage";
-
+import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
                   <Route path='/spoona/search/:search' element={<SearchSpoonacularPage/>}/>
                   <Route path='/spoona/search' element={<SearchSpoonacularPage/>}/>
                   <Route path='/spoona/recipe/:id' element={<SpoonacularDetailsPage/>}/>
+                  <Route path='/recipe/:id' element={<RecipeDetailsPage/>}/>
               </Route>
 
               <Route path={'/login'} element={<LoginPage/>}/>

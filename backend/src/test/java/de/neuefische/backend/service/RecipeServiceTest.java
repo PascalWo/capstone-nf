@@ -5,7 +5,10 @@ import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.repository.RecipeRepo;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -83,5 +86,52 @@ class RecipeServiceTest {
         recipeService.deleteRecipe("1");
         //THEN
         verify(recipeRepo).deleteById("1");
+    }
+
+    @Test
+    void getRecipeById_whenIdIsValid() {
+        //GIVEN
+        when(recipeRepo.findById("1")).thenReturn(
+                Optional.of(Recipe.builder()
+                        .id("1")
+                        .title("Soup")
+                        .image("testImage")
+                        .vegetarian(true)
+                        .glutenFree(true)
+                        .pricePerServing(BigDecimal.valueOf(9.50))
+                        .readyInMinutes(25)
+                        .servings(4)
+                        .summary("Some Summary")
+                        .vegan(true)
+                        .build()));
+
+        //WHEN
+        Recipe actual = recipeService.getRecipeDetails("1");
+
+        //THEN
+        Recipe expected = Recipe.builder()
+                .id("1")
+                .title("Soup")
+                .image("testImage")
+                .vegetarian(true)
+                .glutenFree(true)
+                .pricePerServing(BigDecimal.valueOf(9.50))
+                .readyInMinutes(25)
+                .servings(4)
+                .summary("Some Summary")
+                .vegan(true)
+                .build();
+
+        verify(recipeRepo).findById("1");
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void getRecipeById_ifIdIsNotValid_shouldThrowException() {
+        //GIVEN
+        when(recipeRepo.findById("1")).thenReturn(Optional.empty());
+        //WHEN //THEN
+        assertThrows(NoSuchElementException.class, () -> recipeService.getRecipeDetails("1"));
+        verify(recipeRepo).findById("1");
     }
 }
