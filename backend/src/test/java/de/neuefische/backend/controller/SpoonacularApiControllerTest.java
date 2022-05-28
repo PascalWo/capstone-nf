@@ -8,9 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -38,30 +40,13 @@ class SpoonacularApiControllerTest {
     }
 
     @Test
-    void getAllRecipes_whenSearchIsPasta() {
+    void getAllRecipes_whenSearchIsPasta_returnPastaRecipes() {
         //GIVEN
         String search = "pasta";
-        stubFor(get("/complexSearch?query=" + search).willReturn(okJson("""
-                                        {
-                                            "results": [
-                                                {
-                                                    "id": 654959,
-                                                    "title": "Pasta With Tuna",
-                                                    "image": "https://spoonacular.com/recipeImages/654959-312x231.jpg",
-                                                    "imageType": "jpg"
-                                                },
-                                                {
-                                                    "id": 511728,
-                                                    "title": "Pasta Margherita",
-                                                    "image": "https://spoonacular.com/recipeImages/511728-312x231.jpg",
-                                                    "imageType": "jpg"
-                                                }
-                                            ],
-                                            "offset": 0,
-                                            "number": 2,
-                                            "totalResults": 223
-                                        }
-                                         """)));
+        String RECIPES_TO_SHOW = "50";
+        String filePath = "getAllRecipesPastaTest.json";
+        stubFor(get("/complexSearch?query=" + search + "&number=" + RECIPES_TO_SHOW + "&addRecipeInformation=true").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
+
 
         //WHEN
         List<Recipe> actual =  testClient
@@ -104,7 +89,6 @@ class SpoonacularApiControllerTest {
                 .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is5xxServerError();
-
     }
 
     @Test
@@ -120,8 +104,58 @@ class SpoonacularApiControllerTest {
                 .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
                 .expectStatus().is5xxServerError();
+    }
 
+    @Test
+    void getRecipeDetails_whenIdIsValid_thenReturnDetailsObjectWithJson() {
+        //GIVEN
+        int id = 716429;
+        String filePath = "getRecpieByIdTest.json";
+        stubFor(get("/" + id + "/information").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
 
+        //WHEN
+        Recipe actual =  testClient
+                .get()
+                .uri("/api/spoonacular/recipes/information/" + id)
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(Recipe.class)
+                .returnResult()
+                .getResponseBody();
+
+        //THEN
+        Recipe expected = Recipe
+                .builder()
+                .id("716429")
+                .title("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs")
+                .image("https://spoonacular.com/recipeImages/716429-556x370.jpg")
+                .vegetarian(false)
+                .vegan(false)
+                .glutenFree(false)
+                .pricePerServing(BigDecimal.valueOf(163.15))
+                .readyInMinutes(45)
+                .servings(2)
+                .summary("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for.")
+                .build();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void getRecipeDetails_whenIdIsNotValid_thenReturnServerError() {
+        //GIVEN
+        int id = 716429;
+        String wrongId = "123";
+        stubFor(get("/" + id + "/information").willReturn(serverError()));
+
+        //WHEN /Then
+        testClient
+                .get()
+                .uri("/api/spoonacular/recipes/information/" + wrongId)
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is5xxServerError();
     }
 
     private String generateJWTToken() {

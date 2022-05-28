@@ -18,7 +18,7 @@ export default function SearchSpoonacularPage(){
     const onSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        navigate(`/search/${spoonaSearch}`)
+        navigate(`/spoona/search/${spoonaSearch}`)
     }
 
     return (

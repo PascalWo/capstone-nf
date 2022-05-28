@@ -13,7 +13,7 @@ export const SidebarData = [
     },
     {
         title: 'Search',
-        path: '/search',
+        path: '/spoona/search',
         icon: <FiIcons.FiSearch/>,
         cName: 'nav-text'
     },
