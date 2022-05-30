@@ -167,7 +167,6 @@ class SpoonacularApiControllerTest {
                 .extendedIngredients(new Ingredients[]{ingredient1, ingredient2})
                 .build();
 
-
         assertEquals(expected, actual);
     }
 
