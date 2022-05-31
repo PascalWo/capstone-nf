@@ -1,6 +1,7 @@
 package de.neuefische.backend.controller;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import de.neuefische.backend.model.Ingredients;
 import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
@@ -109,6 +110,30 @@ class SpoonacularApiControllerTest {
     @Test
     void getRecipeDetails_whenIdIsValid_thenReturnDetailsObjectWithJson() {
         //GIVEN
+        Ingredients ingredient1 = Ingredients.builder()
+                .aisle("Milk, Eggs, Other Dairy")
+                .amount(1.0)
+                .consitency(null)
+                .id(1001)
+                .image("butter-sliced.jpg")
+                .name("butter")
+                .original("1 tbsp butter")
+                .originalName("butter")
+                .unit("tbsp")
+                .build();
+
+        Ingredients ingredient2 = Ingredients.builder()
+                .aisle("Produce")
+                .amount(2.0)
+                .consitency(null)
+                .id(10011135)
+                .image("cauliflower.jpg")
+                .name("cauliflower florets")
+                .original("about 2 cups frozen cauliflower florets, thawed, cut into bite-sized pieces")
+                .originalName("about frozen cauliflower florets, thawed, cut into bite-sized pieces")
+                .unit("cups")
+                .build();
+
         int id = 716429;
         String filePath = "getRecpieByIdTest.json";
         stubFor(get("/" + id + "/information").willReturn(aResponse().withStatus(200).withBodyFile(filePath).withHeader("Content-Type",MediaType.APPLICATION_JSON_VALUE )));
@@ -137,6 +162,7 @@ class SpoonacularApiControllerTest {
                 .readyInMinutes(45)
                 .servings(2)
                 .summary("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for.")
+                .extendedIngredients(new Ingredients[]{ingredient1, ingredient2})
                 .build();
 
         assertEquals(expected, actual);
