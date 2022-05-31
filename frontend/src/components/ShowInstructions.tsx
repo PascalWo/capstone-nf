@@ -11,10 +11,15 @@ export default function ShowInstructions({recipe}: ShowInstructionsProps){
             <div>{recipe.analyzedInstructions && recipe.analyzedInstructions.map(instructions => (
                 <div key={instructions.name}>Instructions Name: {instructions.name}</div>))}</div>
 
-            <div>{recipe.analyzedInstructions && recipe.analyzedInstructions.map(instructions => (
-                <div>Step:{instructions.steps.map(steps => (<div>{steps.step}</div>))}</div>))}</div>
-            <div>{recipe.analyzedInstructions && recipe.analyzedInstructions.map(instructions => (
-                <div>Step Number:{instructions.steps.map(steps => (<div>{steps.number}</div>))}</div>))}</div>
+            <div className={"steps-total"}>
+                <div
+                    className={"step-numbers"}>{recipe.analyzedInstructions && recipe.analyzedInstructions.map(instructions => (
+                    <div>{instructions.steps.map(steps => (<div>Step Number: {steps.number}</div>))}</div>))}</div>
+                <div
+                    className={"steps"}>{recipe.analyzedInstructions && recipe.analyzedInstructions.map(instructions => (
+                    <div>{instructions.steps.map(steps => (<div>Step: {steps.step}</div>))}</div>))}</div>
+
+            </div>
 
             <div>{recipe.analyzedInstructions && recipe.analyzedInstructions.map(instructions => (
                 <div>Ingredient Id:{instructions.steps.map(steps => (<div>{steps.ingredients.map(ingredients => (<div>{ingredients.id}</div>))}</div>))}</div>))}</div>

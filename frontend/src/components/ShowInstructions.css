@@ -3,3 +3,9 @@
     flex-direction: column;
     background-color: green;
 }
+
+.steps-total {
+    display: flex;
+    flex-direction: row;
+    background-color: #519E8A;
+}
