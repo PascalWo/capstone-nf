@@ -2,6 +2,7 @@ package de.neuefische.backend.controller;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import de.neuefische.backend.model.Ingredients;
+import de.neuefische.backend.model.Instructions;
 import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
@@ -163,6 +164,8 @@ class SpoonacularApiControllerTest {
                 .servings(2)
                 .summary("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for.")
                 .extendedIngredients(new Ingredients[]{ingredient1, ingredient2})
+                .instructions("")
+                .analyzedInstructions(new Instructions[]{})
                 .build();
 
         assertEquals(expected, actual);

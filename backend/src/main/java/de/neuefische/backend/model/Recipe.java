@@ -28,4 +28,6 @@ public class Recipe {
     private int servings;
     private String summary;
     private Ingredients[] extendedIngredients;
+    private String instructions;
+    private Instructions[] analyzedInstructions;
 }
