@@ -1,0 +1,38 @@
+.equipment {
+    background-color: #476A6F;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: normal;
+}
+
+#equipment-total {
+    display: flex;
+    flex-direction: row;
+}
+
+#equipment-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid black;
+    margin: 5px;
+    max-width: 100px;
+}
+
+#equipment-name {
+    color: black;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+#equipment-image {
+    height: 100px;
+    width: 100px;
+    border-top: solid black;
+    background: #519E8A;
+    text-align: center;
+    margin: auto;
+}
