@@ -21,7 +21,6 @@ export default function ShowRecipeGeneralInfo({recipe}: ShowRecipeGeneralInfoPro
             <div>Vegetarian: {recipe.vegetarian ? "True" : "False"}</div>
             <div>Vegan: {recipe.vegan ? "True" : "False"}</div>
             <div>GlutenFree: {recipe.glutenFree ? "True" : "False"}</div>
-            <div>PricePerServings: {recipe.pricePerServing}</div>
             <div>ReadyInMinutes: {recipe.readyInMinutes}</div>
             <div>Servings: {recipe.servings}</div>
             <div>{recipe.summary}</div>

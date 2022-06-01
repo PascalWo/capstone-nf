@@ -2,6 +2,7 @@ import {Recipe} from "../model/Recipe";
 import "./ShowDetailsRecipe.css"
 import ShowIngredients from "./ShowIngredients";
 import ShowRecipeGeneralInfo from "./ShowRecipeGeneralInfo";
+import ShowInstructions from "./ShowInstructions";
 
 type ShowSpoonacularDetailsRecipeProps = {
     recipe: Recipe;
@@ -14,6 +15,8 @@ export default function ShowDetailsRecipe({recipe}: ShowSpoonacularDetailsRecipe
             <ShowRecipeGeneralInfo recipe={recipe}/>
             <div>Zutaten:</div>
             <ShowIngredients recipe={recipe}/>
+            <div>Instructions</div>
+            <ShowInstructions recipe={recipe}/>
         </div>
     )
 }
