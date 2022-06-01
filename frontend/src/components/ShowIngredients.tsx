@@ -12,7 +12,10 @@ export default function ShowIngredients({recipe}: ShowIngredientsProps){
                 .map(ingredients => (
                     <div id={"ingredient-details"}>
                         <div id={"ingredient-name"}>{ingredients.name}</div>
-                        <div id={"ingredient-amount"}>{ingredients.amount}</div>
+                        <div id={"ingredient-amount-unit"}>
+                            <div id={"ingredient-amount"}>{ingredients.amount}</div>
+                            <div id={"ingredient-unit"}>{ingredients.unit}</div>
+                        </div>
                     </div>
                 ))}
         </div>

@@ -9,21 +9,37 @@
     color: black;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     border: solid whitesmoke;
     align-self: normal;
     margin-right: 20%;
     margin-left: 20%;
 }
 #ingredient-name{
-    display: flex;
     flex-grow: 1;
-    align-self: normal;
-    justify-content: flex-start;
+    flex-basis: 0;
     margin: 10px;
 }
 #ingredient-amount{
     display: flex;
-    align-self: flex-end;
+    align-self: normal;
     margin: 10px;
+}
+#ingredient-unit{
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 0;
+    justify-content: center;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#ingredient-amount-unit{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-self: normal;
+    flex-grow: 1;
+    flex-basis: 0;
 }
 
