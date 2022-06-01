@@ -3,6 +3,7 @@
     flex-direction: column;
     border: solid white;
 }
+
 #title {
     display: flex;
     justify-content: center;

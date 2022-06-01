@@ -9,7 +9,7 @@ type RecipeCardProps = {
     openedFromSpoona: boolean;
 }
 
-export default function RecipeCard({recipe, openedFromSpoona}: RecipeCardProps){
+export default function RecipeCard({recipe, openedFromSpoona}: RecipeCardProps) {
     const navigate = useNavigate()
     const onCardClick = () => {
         openedFromSpoona ?

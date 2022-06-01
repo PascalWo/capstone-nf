@@ -9,17 +9,17 @@ type RecipeOverviewProps = {
     showAddButton: boolean
 }
 
-export default function RecipeOverview({recipes, toggleAdding, showAddButton}: RecipeOverviewProps){
+export default function RecipeOverview({recipes, toggleAdding, showAddButton}: RecipeOverviewProps) {
     const [search, setSearch] = useState<string>("");
 
-    const onSubmit = (event:FormEvent<HTMLFormElement>) => {
+    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (toggleAdding) {
             toggleAdding();
         }
     }
 
-    return(
+    return (
         <div className={"recipe-overview"}>
             <input type={"text"}
                    value={search}

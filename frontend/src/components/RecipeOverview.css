@@ -1,4 +1,4 @@
-.recipe-overview{
+.recipe-overview {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,7 +6,7 @@
     text-decoration: none;
 }
 
-.recipe-cards{
+.recipe-cards {
     display: flex;
     align-items: center;
     justify-content: center;

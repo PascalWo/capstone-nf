@@ -7,7 +7,7 @@ type ShowEquipmentProps = {
     recipe: Recipe;
 }
 
-export default function ShowEquipment ({recipe}: ShowEquipmentProps){
+export default function ShowEquipment({recipe}: ShowEquipmentProps) {
     return (
         <div className={"equipment"}>
             {recipe.analyzedInstructions && recipe.analyzedInstructions

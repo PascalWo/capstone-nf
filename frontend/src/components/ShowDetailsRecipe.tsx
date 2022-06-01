@@ -9,8 +9,8 @@ type ShowSpoonacularDetailsRecipeProps = {
     recipe: Recipe;
 }
 
-export default function ShowDetailsRecipe({recipe}: ShowSpoonacularDetailsRecipeProps){
-    return(
+export default function ShowDetailsRecipe({recipe}: ShowSpoonacularDetailsRecipeProps) {
+    return (
         <div>
             <div>Details zum Rezept:</div>
             <ShowRecipeGeneralInfo recipe={recipe}/>

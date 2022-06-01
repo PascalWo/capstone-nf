@@ -1,12 +1,14 @@
-.instructions{
+.instructions {
     background-color: #476A6F;
 }
+
 #instruction-details {
     display: flex;
     flex-direction: column;
     margin-right: 20%;
     margin-left: 20%;
 }
+
 #instruction-name {
     display: flex;
     justify-content: center;
@@ -14,19 +16,23 @@
     font-size: larger;
     font-weight: bolder;
 }
-#steps-all{
+
+#steps-all {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+
 #step-details {
     display: flex;
     flex-direction: row;
     margin: 10px;
 }
+
 #step-number {
     margin: 5px;
 }
+
 #step-step {
     margin: 5px;
     display: flex;

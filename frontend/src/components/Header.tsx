@@ -1,7 +1,7 @@
 import './Header.css'
 
 export default function Header() {
-    return(
+    return (
         <div className={"header"}>LaPa Meal-Factory</div>
     )
 }

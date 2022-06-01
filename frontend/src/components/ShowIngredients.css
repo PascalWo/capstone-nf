@@ -1,11 +1,12 @@
-.show-ingredients{
+.show-ingredients {
     display: flex;
     flex-direction: column;
     background-color: #476A6F;
     justify-content: center;
     align-items: center;
 }
-#ingredient-details{
+
+#ingredient-details {
     color: black;
     display: flex;
     flex-direction: row;
@@ -15,17 +16,20 @@
     margin-right: 20%;
     margin-left: 20%;
 }
-#ingredient-name{
+
+#ingredient-name {
     flex-grow: 1;
     flex-basis: 0;
     margin: 10px;
 }
-#ingredient-amount{
+
+#ingredient-amount {
     display: flex;
     align-self: normal;
     margin: 10px;
 }
-#ingredient-unit{
+
+#ingredient-unit {
     display: flex;
     flex-grow: 1;
     flex-basis: 0;
@@ -34,7 +38,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-#ingredient-amount-unit{
+
+#ingredient-amount-unit {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
