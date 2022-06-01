@@ -5,20 +5,26 @@
     justify-content: center;
     align-items: center;
 }
-
 #ingredient-details{
     color: black;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+
+    border: solid whitesmoke;
+    align-self: normal;
+    margin-right: 20%;
+    margin-left: 20%;
 }
 #ingredient-name{
     display: flex;
-    flex-direction: row;
+    flex-grow: 1;
+    align-self: normal;
+    justify-content: flex-start;
     margin: 10px;
 }
 #ingredient-amount{
+    display: flex;
+    align-self: flex-end;
     margin: 10px;
 }
 
