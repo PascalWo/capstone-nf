@@ -2,7 +2,6 @@ package de.neuefische.backend.controller;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import de.neuefische.backend.model.Ingredients;
-import de.neuefische.backend.model.Instructions;
 import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
@@ -14,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -159,13 +157,12 @@ class SpoonacularApiControllerTest {
                 .vegetarian(false)
                 .vegan(false)
                 .glutenFree(false)
-                .pricePerServing(BigDecimal.valueOf(163.15))
                 .readyInMinutes(45)
                 .servings(2)
                 .summary("Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs might be just the main course you are searching for.")
-                .extendedIngredients(new Ingredients[]{ingredient1, ingredient2})
+                .extendedIngredients(List.of(ingredient1, ingredient2))
                 .instructions("")
-                .analyzedInstructions(new Instructions[]{})
+                .analyzedInstructions(List.of())
                 .build();
 
         assertEquals(expected, actual);

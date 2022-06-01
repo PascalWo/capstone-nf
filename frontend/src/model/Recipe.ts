@@ -8,10 +8,10 @@ export type Recipe = {
     vegetarian?: boolean;
     vegan?: boolean;
     glutenFree?: boolean;
-    pricePerServing?: number;
     readyInMinutes?: number;
     servings?: number;
     summary?: string;
     extendedIngredients?: Ingredients[];
+    instructions?: string;
     analyzedInstructions?: Instructions[];
 }

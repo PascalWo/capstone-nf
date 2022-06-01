@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,11 +23,10 @@ public class Recipe {
     private boolean vegetarian;
     private boolean vegan;
     private boolean glutenFree;
-    private BigDecimal pricePerServing;
     private int readyInMinutes;
     private int servings;
     private String summary;
-    private Ingredients[] extendedIngredients;
+    private List<Ingredients> extendedIngredients;
     private String instructions;
-    private Instructions[] analyzedInstructions;
+    private List<Instructions> analyzedInstructions;
 }

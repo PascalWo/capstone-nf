@@ -5,7 +5,6 @@ import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.repository.RecipeRepo;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -98,7 +97,6 @@ class RecipeServiceTest {
                         .image("testImage")
                         .vegetarian(true)
                         .glutenFree(true)
-                        .pricePerServing(BigDecimal.valueOf(9.50))
                         .readyInMinutes(25)
                         .servings(4)
                         .summary("Some Summary")
@@ -115,7 +113,6 @@ class RecipeServiceTest {
                 .image("testImage")
                 .vegetarian(true)
                 .glutenFree(true)
-                .pricePerServing(BigDecimal.valueOf(9.50))
                 .readyInMinutes(25)
                 .servings(4)
                 .summary("Some Summary")

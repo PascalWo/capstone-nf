@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -189,7 +188,7 @@ class RecipeControllerTest {
     }
 
     @Test
-    void getShoppingItemById_whenIdIsValid() {
+    void getRecipeById_whenIdIsValid() {
         //GIVEN
         Recipe recipe = Recipe.builder()
                 .id("1")
@@ -197,7 +196,6 @@ class RecipeControllerTest {
                 .image("testImage")
                 .vegetarian(true)
                 .glutenFree(true)
-                .pricePerServing(BigDecimal.valueOf(9.50))
                 .readyInMinutes(25)
                 .servings(4)
                 .summary("Some Summary")
@@ -231,7 +229,6 @@ class RecipeControllerTest {
                 .image("testImage")
                 .vegetarian(true)
                 .glutenFree(true)
-                .pricePerServing(BigDecimal.valueOf(9.50))
                 .readyInMinutes(25)
                 .servings(4)
                 .summary("Some Summary")
@@ -249,7 +246,6 @@ class RecipeControllerTest {
                 .image("testImage")
                 .vegetarian(true)
                 .glutenFree(true)
-                .pricePerServing(BigDecimal.valueOf(9.50))
                 .readyInMinutes(25)
                 .servings(4)
                 .summary("Some Summary")

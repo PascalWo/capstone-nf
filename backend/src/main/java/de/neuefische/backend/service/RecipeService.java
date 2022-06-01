@@ -33,7 +33,6 @@ public class RecipeService {
         newRecipe.setVegetarian(recipe.isVegetarian());
         newRecipe.setVegan(recipe.isVegan());
         newRecipe.setGlutenFree(recipe.isGlutenFree());
-        newRecipe.setPricePerServing(recipe.getPricePerServing());
         newRecipe.setReadyInMinutes(recipe.getReadyInMinutes());
         newRecipe.setServings(recipe.getServings());
         newRecipe.setSummary(recipe.getSummary());
