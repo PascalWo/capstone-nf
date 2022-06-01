@@ -7,15 +7,30 @@ type ShowIngredientsProps = {
 
 export default function ShowIngredients({recipe}: ShowIngredientsProps){
     return  (
+
         <div className={"show-ingredients"}>
-            <div id={"ingredient"}>Zutat: {recipe.extendedIngredients && recipe.extendedIngredients
+
+            {recipe.extendedIngredients && recipe.extendedIngredients
                 .map(ingredients => (
-                    <div id={"ingredient-name"} key={ingredients.name}>{ingredients.name}</div>))}
-            </div>
-            <div id={"amount"}>Menge:{recipe.extendedIngredients && recipe.extendedIngredients
-                .map(ingredients => (
-                    <div id={"ingredient-amount"} key={ingredients.amount}>{ingredients.amount}</div>))}
-            </div>
+                    <div id={"ingredient-details"}>
+                        <div id={"ingredient-name"}>{ingredients.name}</div>
+                        <div id={"ingredient-amount"}>{ingredients.amount}</div>
+                    </div>
+                        ))}
+
+
+
+
+
+
+            {/*<div id={"ingredient"}>Zutat: {recipe.extendedIngredients && recipe.extendedIngredients*/}
+            {/*    .map(ingredients => (*/}
+            {/*        <div id={"ingredient-name"} key={ingredients.name}>{ingredients.name}</div>))}*/}
+            {/*</div>*/}
+            {/*<div id={"amount"}>Menge:{recipe.extendedIngredients && recipe.extendedIngredients*/}
+            {/*    .map(ingredients => (*/}
+            {/*        <div id={"ingredient-amount"} key={ingredients.amount}>{ingredients.amount}</div>))}*/}
+            {/*</div>*/}
         </div>
     )
 }

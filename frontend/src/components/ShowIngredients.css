@@ -1,11 +1,24 @@
 .show-ingredients{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #476A6F;
     justify-content: center;
     align-items: center;
 }
 
-#ingredient {
-    margin: 5%;
+#ingredient-details{
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
+#ingredient-name{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+#ingredient-amount{
+    margin: 10px;
+}
+
