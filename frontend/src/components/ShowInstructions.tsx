@@ -4,7 +4,6 @@ import "./ShowInstructions.css"
 type ShowInstructionsProps = {
     recipe: Recipe;
 }
-
 export default function ShowInstructions({recipe}: ShowInstructionsProps) {
     return (
         <div className={"instructions"}>
