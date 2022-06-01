@@ -1,5 +1,11 @@
-.ingredients{
+.show-ingredients{
     display: flex;
     flex-direction: row;
     background-color: #476A6F;
+    justify-content: center;
+    align-items: center;
+}
+
+#ingredient {
+    margin: 5%;
 }
