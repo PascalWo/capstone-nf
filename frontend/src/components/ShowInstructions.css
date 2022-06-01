@@ -1,6 +1,5 @@
 .instructions{
     background-color: #476A6F;
-
 }
 #instruction-details {
     display: flex;
@@ -19,7 +18,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 #step-details {
     display: flex;
