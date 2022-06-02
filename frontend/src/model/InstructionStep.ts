@@ -4,6 +4,6 @@ import {Equipment} from "./Equipment";
 export type InstructionStep = {
     number: number;
     step: string;
-    ingredients: Ingredients[];
-    equipment: Equipment[];
+    ingredients?: Ingredients[];
+    equipment?: Equipment[];
 }

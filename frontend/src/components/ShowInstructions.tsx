@@ -11,7 +11,7 @@ export default function ShowInstructions({recipe}: ShowInstructionsProps) {
                 .map(instructions => (
                     <div id={"instruction-details"}>
                         <div id={"instruction-name"}> Anleitung:{instructions.name}</div>
-                        <div id={"steps-all"}>{instructions.steps.map(steps => (
+                        <div id={"steps-all"}>{instructions.steps && instructions.steps.map(steps => (
                             <div id={"step-details"}>
                                 <div id={"step-number"}>{steps.number}</div>
                                 <div id={"step-step"}>{steps.step}</div>
