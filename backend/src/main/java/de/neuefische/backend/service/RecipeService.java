@@ -36,6 +36,7 @@ public class RecipeService {
         newRecipe.setReadyInMinutes(recipe.getReadyInMinutes());
         newRecipe.setServings(recipe.getServings());
         newRecipe.setSummary(recipe.getSummary());
+        newRecipe.setExtendedIngredients(recipe.getExtendedIngredients());
 
         return recipeRepo.insert(newRecipe);
     }
