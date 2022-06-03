@@ -1,7 +1,7 @@
 package de.neuefische.backend.dto;
 
-import de.neuefische.backend.model.Ingredients;
-import de.neuefische.backend.model.Instructions;
+import de.neuefische.backend.model.Ingredient;
+import de.neuefische.backend.model.Instruction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +23,7 @@ public class CreateRecipeDto {
     private int readyInMinutes;
     private int servings;
     private String summary;
-    private List<Ingredients> extendedIngredients;
+    private List<Ingredient> extendedIngredients;
     private String instructions;
-    private List<Instructions> analyzedInstructions;
+    private List<Instruction> analyzedInstructions;
 }

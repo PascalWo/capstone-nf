@@ -1,7 +1,7 @@
 package de.neuefische.backend.controller;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import de.neuefische.backend.model.Ingredients;
+import de.neuefische.backend.model.Ingredient;
 import de.neuefische.backend.model.Recipe;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
@@ -109,7 +109,7 @@ class SpoonacularApiControllerTest {
     @Test
     void getRecipeDetails_whenIdIsValid_thenReturnDetailsObjectWithJson() {
         //GIVEN
-        Ingredients ingredient1 = Ingredients.builder()
+        Ingredient ingredient1 = Ingredient.builder()
                 .aisle("Milk, Eggs, Other Dairy")
                 .amount(1.0)
                 .consitency(null)
@@ -121,7 +121,7 @@ class SpoonacularApiControllerTest {
                 .unit("tbsp")
                 .build();
 
-        Ingredients ingredient2 = Ingredients.builder()
+        Ingredient ingredient2 = Ingredient.builder()
                 .aisle("Produce")
                 .amount(2.0)
                 .consitency(null)
