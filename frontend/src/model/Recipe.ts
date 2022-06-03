@@ -1,5 +1,5 @@
-import {Ingredients} from "./Ingredients";
-import {Instructions} from "./Instructions";
+import {Ingredient} from "./Ingredient";
+import {Instruction} from "./Instruction";
 
 export type Recipe = {
     id: string;
@@ -11,7 +11,7 @@ export type Recipe = {
     readyInMinutes?: number;
     servings?: number;
     summary?: string;
-    extendedIngredients?: Ingredients[];
+    extendedIngredients?: Ingredient[];
     instructions?: string;
-    analyzedInstructions?: Instructions[];
+    analyzedInstructions?: Instruction[];
 }

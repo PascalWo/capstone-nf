@@ -12,9 +12,9 @@ export default function ShowEquipment({recipe}: ShowEquipmentProps) {
         <div className={"equipment"}>
             {recipe.analyzedInstructions && recipe.analyzedInstructions
                 .map(instructions => (
-                    <div>{instructions.steps
+                    <div>{instructions.steps && instructions.steps
                         .map(steps => (
-                            <div id={"equipment-total"}>{steps.equipment
+                            <div id={"equipment-total"}>{steps.equipment && steps.equipment
                                 .map(equipment => (
                                     <div id={"equipment-details"}>
                                         <div id={"equipment-name"}>{equipment.name}</div>

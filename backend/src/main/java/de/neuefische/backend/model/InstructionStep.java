@@ -14,6 +14,6 @@ import java.util.List;
 public class InstructionStep {
     private int number;
     private String step;
-    private List<Ingredients> ingredients;
+    private List<Ingredient> ingredients;
     private List<Equipment> equipment;
 }
