@@ -26,7 +26,7 @@ public class Recipe {
     private int readyInMinutes;
     private int servings;
     private String summary;
-    private List<Ingredients> extendedIngredients;
+    private List<Ingredient> extendedIngredients;
     private String instructions;
-    private List<Instructions> analyzedInstructions;
+    private List<Instruction> analyzedInstructions;
 }

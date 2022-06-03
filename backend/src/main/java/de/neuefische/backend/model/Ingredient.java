@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Ingredients {
+public class Ingredient {
 
     private String aisle;
     private double amount;

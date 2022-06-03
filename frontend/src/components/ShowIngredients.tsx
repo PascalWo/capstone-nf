@@ -4,7 +4,7 @@ import "./ShowIngredients.css";
 type ShowIngredientsProps = {
     recipe: Recipe;
 }
-export default function ShowIngredients({recipe}: ShowIngredientsProps){
+export default function ShowIngredients({recipe}: ShowIngredientsProps) {
     return (
         <div className={"show-ingredients"}>
 

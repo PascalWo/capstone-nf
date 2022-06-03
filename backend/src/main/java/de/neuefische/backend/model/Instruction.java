@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Instructions {
+public class Instruction {
     private String name;
     private List<InstructionStep> steps;
 }

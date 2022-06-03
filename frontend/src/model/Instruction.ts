@@ -1,6 +1,6 @@
 import {InstructionStep} from "./InstructionStep";
 
-export type Instructions = {
+export type Instruction = {
     name: string;
     steps: InstructionStep[];
 }

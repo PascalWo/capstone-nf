@@ -7,7 +7,7 @@ type ShowRecipeGeneralInfoProps = {
     recipe: Recipe;
 }
 
-export default function ShowRecipeGeneralInfo({recipe}: ShowRecipeGeneralInfoProps){
+export default function ShowRecipeGeneralInfo({recipe}: ShowRecipeGeneralInfoProps) {
     return (<div className={"general-recipe-info"}>
             <h1 id={"title"}>{recipe.title}</h1>
             <div id={"top-image-info"}>
