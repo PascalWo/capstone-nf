@@ -1,4 +1,4 @@
-export type Ingredients = {
+export type Ingredient = {
     aisle?: string;
     amount?: number;
     consitency?: string;

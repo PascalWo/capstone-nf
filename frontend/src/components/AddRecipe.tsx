@@ -1,9 +1,10 @@
 import {FormEvent, useState} from "react";
 import {Recipe} from "../model/Recipe";
 import "./AddRecipe.css"
-import {Ingredients} from "../model/Ingredients";
-import {Instructions} from "../model/Instructions";
+
 import {InstructionStep} from "../model/InstructionStep";
+import {Ingredient} from "../model/Ingredient";
+import {Instruction} from "../model/Instruction";
 
 type AddRecipeProps = {
     addRecipeItem: (newRecipe: Omit<Recipe, "id">) => void
@@ -19,42 +20,43 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
     const [readyInMinutes, setReadyInMinutes] = useState<number>(0);
     const [servings, setServings] = useState<number>(0);
     const [summary, setSummary] = useState<string>("");
-    const [ingredients, setIngredients] = useState<Ingredients[]>([
+
+
+    const [ingredients, setIngredients] = useState<Ingredient[]>([
         {name: "",amount: 0, unit: ""}
     ]);
-    const [instructionsName, setInstructionsName] = useState<string>("");
-    const [instructionSteps, setInstructionSteps] = useState<InstructionStep[]>([
-        {number: 0, step: ""}
-    ])
-    const [instructions, setInstructions] = useState<Instructions[]>([
+
+    const [instructions, setInstructions] = useState<Instruction[]>([
         {name: "",steps: []}
     ]);
 
     const handleIngredientFormChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        let data: any = [...ingredients];
+        let data: Ingredient[] = [...ingredients];
 
+        // @ts-ignore
         data[index][event.target.name] = event.target.value;
         console.log(data);
         setIngredients(data);
+
     }
-    const handleInstructionsFormChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const handleInstructionsFormChange = (event: React.ChangeEvent<HTMLInputElement>, instructionsIndex: number) => {
         let data: any = [...instructions];
 
-        data[index][event.target.name] = event.target.value;
+        data[instructionsIndex][event.target.name] = event.target.value;
         console.log(data);
         setInstructions(data);
     }
 
-    const handleInstructionStepFormChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        let data: any = [...instructionSteps];
+    const handleInstructionStepFormChange = (event: React.ChangeEvent<HTMLInputElement>, instructionIndex: number, stepIndex: number) => {
+        let data: any = [...instructions];
 
-        data[index][event.target.name] = event.target.value;
+        data[instructionIndex][stepIndex][event.target.name] = event.target.value;
         console.log(data);
-        setInstructionSteps(data);
+        setInstructions(data);
     }
 
     const addIngredientFields = () => {
-        let ingredient: Ingredients = {
+        let ingredient: Ingredient = {
             name: "",
             amount: 0,
             unit: "",
@@ -63,35 +65,27 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
     }
 
     const addInstructionsFields = () => {
-        let instruction: Instructions = {
+        let instruction: Instruction = {
             name: "",
             steps: [],
         }
         setInstructions([...instructions, instruction])
     }
 
-    // const addInstructionsFields = () => {
-    //     let instructionStep: InstructionStep = {
-    //         number: 0,
-    //         step: "",
-    //     }
-    //     let instructionName: String = "";
-    //     let instruction: Instructions = {
-    //         name: "",
-    //         steps: [],
-    //     }
-    //
-    //     setInstructionsName("")
-    //     setInstructions([...instructions,instruction])
-    //     // setInstructionSteps([...instructionSteps, instructionStep])
-    // }
 
-    const addInstructionStepFields = () => {
+    const addInstructionStepFields = (index: number) => {
         let instructionStep: InstructionStep = {
             number: 0,
             step: "",
         }
-        setInstructionSteps([...instructionSteps, instructionStep])
+        setInstructions(instructions.map((instruction, i) => {
+            if (i === index){
+                return {name: instruction.name,
+                steps: [...instruction.steps, instructionStep]}
+            }else{
+                return instruction
+            }
+        }))
     }
 
     const onAdd = (event: FormEvent<HTMLFormElement>) => {
@@ -101,12 +95,6 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
             return
         }
 
-        const newInstructions: Instructions = {
-            name: instructionsName,
-            steps: instructionSteps,
-        }
-        console.log(newInstructions)
-        // setInstructions([newInstructions])
 
         const newRecipe: Omit<Recipe, "id"> = {
             title: title,
@@ -118,7 +106,7 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
             servings: servings,
             summary: summary,
             extendedIngredients: ingredients,
-            analyzedInstructions: [newInstructions],
+            analyzedInstructions: instructions,
 
 
 
@@ -168,7 +156,7 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
 
                 Ingredients:
                 <div>
-                    {ingredients.map((ingredientsInput:Ingredients, index: number) => {
+                    {ingredients.map((ingredientsInput:Ingredient, index: number) => {
                         return (
                             <div>
                                 <input key={"name" + index} name={"name"} type={"text"} placeholder={"name"}
@@ -184,77 +172,30 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
                 </div>
 
                 Instructions:
-                <div>
-                    {instructions.map((instructionsInput:Instructions, index: number) => {
+               <div>
+                    {instructions.map((instructionsInput:Instruction, instructionIndex: number) => {
                         return (
-                        <div>
-                                <input key={"instructionsName2" + index} name={"instructionsName2"} type={"text"} placeholder="InstructionsName2" value={instructionsName}
-                                       onChange={event => setInstructionsName(event.target.value)}/>
-                                <div>
-                                    <input key={"instructionsName3" + index} name={"instructionsName3"} type={"text"} placeholder="InstructionsName3" value={instructionsName}
-                                           onChange={event => setInstructionsName(event.target.value)}/>
-                                    {instructionSteps.map((instructionStepInput:InstructionStep, stepIndex:number) => {
-                                        return (
-                                            <div>
-                                                <input key={"number" + stepIndex} name={"number"} type={"number"} placeholder={"number"}
-                                                       onChange={event => handleInstructionStepFormChange(event, stepIndex)} value={instructionStepInput.number} />
-                                                <input key={"step" + stepIndex} name={"step"} type={"text"} placeholder={"step"}
-                                                       onChange={event => handleInstructionStepFormChange(event, stepIndex)} value={instructionStepInput.step}/>
-                                            </div>
-                                        )
-                                    })}
-                                    <button type={"button"} onClick={addInstructionStepFields}>Add More InstructionSteps..</button>
-                                </div>
+                            <div>
+                                <input key={"instructionsName" + instructionIndex} name={"name"} type={"text"} placeholder={"instructionsName"}
+                                       onChange={event => handleInstructionsFormChange(event, instructionIndex)} value={instructionsInput.name}/>
+                                {instructionsInput.steps.map((instructionsStepInput, stepIndex) => {
+                                    return (
+                                        <div>
+                                            <input key={"stepNumber" + stepIndex} name={"number"} type={"number"} placeholder={"stepNumber"}
+                                                   onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)} value={instructionsStepInput.number}/>
+                                            <input key={"stepDescription" + stepIndex} name={"step"} type={"text"} placeholder={"stepDescription"}
+                                                   onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)} value={instructionsStepInput.step}/>
+                                        </div>
+                                    )
+                                })}
+                                <button type={"button"} onClick={() => addInstructionStepFields(instructionIndex)}>Add More InstructionStepFields..</button>
+                            </div>)
 
-                            </div>
-                        )
-                    })}
+                    })}   )
+
 
                     <button type={"button"} onClick={addInstructionsFields}>Add More InstructionFields..</button>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                {/*Instructions:*/}
-                {/*<div>*/}
-                {/*    {instructions.map((instructionsInput:Instructions, index: number) => {*/}
-                {/*        return (*/}
-                {/*            <div>*/}
-                {/*                <input key={"name" + index} name={"name"} type={"text"} placeholder={"name"}*/}
-                {/*                       onChange={event => handleInstructionsFormChange(event, index)} value={instructionsInput.name}/>*/}
-                {/*                <input key={"steps" + index} name={"steps"} type={"text"} placeholder={"steps"}*/}
-                {/*                       onChange={event => handleInstructionsFormChange(event, index)} value={instructionsInput.steps}/>*/}
-                {/*                <div>*/}
-                {/*                    {instructionSteps.map((instructionStepInput:InstructionStep, index:number) => {*/}
-                {/*                        return (*/}
-                {/*                            <div>*/}
-                {/*                                <input key={"number" + index} name={"number"} type={"number"} placeholder={"number"}*/}
-                {/*                                       onChange={event => handleInstructionStepFormChange(event, index)} value={instructionStepInput.number} />*/}
-                {/*                                <input key={"step" + index} name={"step"} type={"text"} placeholder={"step"}*/}
-                {/*                                       onChange={event => handleInstructionStepFormChange(event, index)} value={instructionStepInput.step}/>*/}
-                {/*                            </div>*/}
-                {/*                        )*/}
-                {/*                    })}*/}
-                {/*                    <button type={"button"} onClick={addInstructionStepFields}>Add More..</button>*/}
-                {/*                </div>*/}
-
-                {/*            </div>*/}
-                {/*        )*/}
-                {/*    })}*/}
-                {/*    <button type={"button"} onClick={addInstructionsFields}>Add More..</button>*/}
-                {/*</div>*/}
-
-
+                    </div>
 
                 <input type={"submit"} value={"Add item"}/>
             </form>
