@@ -38,23 +38,29 @@ public class SpoonacularService {
         recipe.getAnalyzedInstructions()
                 .forEach(instruction -> instruction
                         .getSteps()
-                        .forEach(instructionStep -> instructionStep
-                                .getEquipment()
-                                .forEach(equipment -> equipmentList.add(equipment))));
+                        .forEach(instructionStep -> equipmentList.addAll(instructionStep
+                                .getEquipment())));
 
-        System.out.println(equipmentList);
-
-         ArrayList<Equipment> newList = new ArrayList<>();
+        ArrayList<Equipment> newEquipmentList = new ArrayList<>();
         for (Equipment equipment: equipmentList) {
-            if (!newList.contains(equipment)){
-                newList.add(equipment);
+            if (!newEquipmentList.contains(equipment)){
+                newEquipmentList.add(equipment);
             }
         }
-        System.out.println(newList);
-        recipe.setEquipment(newList);
-
-        System.out.println(recipe);
+        recipe.setEquipment(newEquipmentList);
 
         return recipe;
+    }
+
+    public Recipe setNewImageUrl(Recipe recipe){
+         recipe.getAnalyzedInstructions()
+                .forEach(instruction -> instruction
+                        .getSteps()
+                        .forEach(instructionStep -> instructionStep
+                                .getEquipment()
+                                .forEach(equipment -> equipment
+                                        .setImage("https://spoonacular.com/cdn/equipment_100x100/" + equipment
+                                                .getImage()))));
+         return recipe;
     }
 }
