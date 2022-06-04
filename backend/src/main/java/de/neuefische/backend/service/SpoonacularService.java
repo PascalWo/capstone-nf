@@ -22,6 +22,15 @@ public class SpoonacularService {
     }
 
     public Recipe getRecipeDetails(int id){
-        return spoonacularApiService.retrieveRecipeDetails(id);
+        Recipe recipe = spoonacularApiService.retrieveRecipeDetails(id);
+        recipe.getAnalyzedInstructions()
+                .forEach(instruction -> instruction
+                        .getSteps()
+                        .forEach(instructionStep -> instructionStep
+                                .getEquipment()
+                                .forEach(equipment -> equipment
+                                        .setImage("https://spoonacular.com/cdn/equipment_100x100/" + equipment
+                                                .getImage()))));
+        return recipe;
     }
 }

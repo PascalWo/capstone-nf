@@ -39,10 +39,6 @@ public class RecipeService {
         newRecipe.setSummary(recipe.getSummary());
         newRecipe.setExtendedIngredients(recipe.getExtendedIngredients());
         newRecipe.setAnalyzedInstructions(recipe.getAnalyzedInstructions());
-
-        recipe.getAnalyzedInstructions().forEach(instruction -> instruction.getSteps().forEach(instructionStep -> instructionStep.getEquipment().forEach(equipment -> System.out.println(equipment.getImage()))));
-        recipe.getAnalyzedInstructions().forEach(instruction -> instruction.getSteps().forEach(instructionStep -> instructionStep.getEquipment().forEach(equipment -> equipment.setImage("https://spoonacular.com/cdn/equipment_100x100/" + equipment.getImage()))));
-        System.out.println(newRecipe);
         return recipeRepo.insert(newRecipe);
     }
 
