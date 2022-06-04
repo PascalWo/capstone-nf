@@ -43,4 +43,6 @@ img {
     color: #666;
     font-size: 15px;
     border-top: 1px solid whitesmoke;
+    flex-grow: 1;
+    flex-basis: 0;
 }

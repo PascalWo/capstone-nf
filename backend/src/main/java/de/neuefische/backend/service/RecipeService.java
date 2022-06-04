@@ -39,6 +39,7 @@ public class RecipeService {
         newRecipe.setSummary(recipe.getSummary());
         newRecipe.setExtendedIngredients(recipe.getExtendedIngredients());
         newRecipe.setAnalyzedInstructions(recipe.getAnalyzedInstructions());
+        newRecipe.setEquipment(recipe.getEquipment());
         return recipeRepo.insert(newRecipe);
     }
 
