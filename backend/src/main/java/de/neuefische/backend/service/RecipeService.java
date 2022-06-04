@@ -25,6 +25,7 @@ public class RecipeService {
 
     public Recipe addNewRecipe(CreateRecipeDto recipe){
         Recipe newRecipe = new Recipe();
+
         if(recipe.getTitle() == null){
             throw new IllegalArgumentException("Title of the new Recipe was not given");
         }
@@ -38,7 +39,7 @@ public class RecipeService {
         newRecipe.setSummary(recipe.getSummary());
         newRecipe.setExtendedIngredients(recipe.getExtendedIngredients());
         newRecipe.setAnalyzedInstructions(recipe.getAnalyzedInstructions());
-
+        newRecipe.setEquipment(recipe.getEquipment());
         return recipeRepo.insert(newRecipe);
     }
 

@@ -35,6 +35,7 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
         setIngredients(data);
 
     }
+    
     const handleInstructionsFormChange = (event: ChangeEvent<HTMLInputElement>, instructionsIndex: number) => {
         let data: any = [...instructions];
 

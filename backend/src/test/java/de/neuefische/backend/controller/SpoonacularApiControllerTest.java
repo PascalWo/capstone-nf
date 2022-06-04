@@ -163,6 +163,7 @@ class SpoonacularApiControllerTest {
                 .extendedIngredients(List.of(ingredient1, ingredient2))
                 .instructions("")
                 .analyzedInstructions(List.of())
+                .equipment(List.of())
                 .build();
 
         assertEquals(expected, actual);

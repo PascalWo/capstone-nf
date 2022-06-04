@@ -1,5 +1,6 @@
 package de.neuefische.backend.dto;
 
+import de.neuefische.backend.model.Equipment;
 import de.neuefische.backend.model.Ingredient;
 import de.neuefische.backend.model.Instruction;
 import lombok.AllArgsConstructor;
@@ -26,4 +27,5 @@ public class CreateRecipeDto {
     private List<Ingredient> extendedIngredients;
     private String instructions;
     private List<Instruction> analyzedInstructions;
+    private List<Equipment> equipment;
 }
