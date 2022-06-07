@@ -22,7 +22,7 @@ export default function RecipeDetailsPage(){
             <button onClick={() => navigate(`/recipes`)}>Back</button>
             <div>
                 {detailsRecipe
-                ?<ShowDetailsRecipe recipe={detailsRecipe}/>
+                ?<ShowDetailsRecipe recipe={detailsRecipe} openedFromSpoonaApi={false}/>
                 : <p>Kein Rezept mit der ID: {id} gefunden</p>}
                 </div>
         </div>

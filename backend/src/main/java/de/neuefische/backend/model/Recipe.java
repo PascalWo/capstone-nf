@@ -29,4 +29,5 @@ public class Recipe {
     private List<Ingredient> extendedIngredients;
     private String instructions;
     private List<Instruction> analyzedInstructions;
+    private List<Equipment> equipment;
 }

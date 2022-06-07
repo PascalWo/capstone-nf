@@ -26,10 +26,6 @@ export default function ShowRecipeGeneralInfo({recipe}: ShowRecipeGeneralInfoPro
             <div id={"bottom-image-info"}>
                 <p>ReadyInMinutes: {recipe.readyInMinutes}</p>
                 <p>Servings: {recipe.servings}</p>
-                <form id={"details-buttons"}>
-                    <button type={"submit"}>Favorit</button>
-                    <button type={"submit"}>Einkaufswagen</button>
-                </form>
             </div>
         </div>
     )
