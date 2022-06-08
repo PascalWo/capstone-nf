@@ -5,7 +5,7 @@ import ShowRecipeGeneralInfo from "./ShowRecipeGeneralInfo";
 import ShowInstructions from "./ShowInstructions";
 import ShowEquipment from "./ShowEquipment";
 import {useState} from "react";
-import EditRecipe from "./EditRecipe";
+import AddRecipe from "./AddRecipe";
 
 type ShowSpoonacularDetailsRecipeProps = {
     recipe: Recipe;
@@ -14,20 +14,20 @@ type ShowSpoonacularDetailsRecipeProps = {
 }
 
 export default function ShowDetailsRecipe({recipe, openedFromSpoonaApi, addRecipeItem}: ShowSpoonacularDetailsRecipeProps) {
-    const [editingEnabled, setEditingEnabled] = useState<boolean>(false);
+    const [savingEnabled, setSavingEnabled] = useState<boolean>(false);
 
-    const toggleEditing = () => {
-        setEditingEnabled(!editingEnabled);
+    const toggleSaving = () => {
+        setSavingEnabled(!savingEnabled);
     }
 
     return (
         <div>
             <div>Details zum Rezept:</div>
-            {!editingEnabled &&
+            {!savingEnabled &&
                 <div>
             <ShowRecipeGeneralInfo recipe={recipe}/>
             <div>{openedFromSpoonaApi &&
-                <button onClick={toggleEditing} type={"submit"}>Speichern</button>}
+                <button onClick={toggleSaving} type={"submit"}>Speichern</button>}
                 <button type={"submit"}>Favorit</button>
                 <button type={"submit"}>Einkaufswagen</button>
             </div>
@@ -38,8 +38,8 @@ export default function ShowDetailsRecipe({recipe, openedFromSpoonaApi, addRecip
             <div>Equipment</div>
             <ShowEquipment recipe={recipe}/>
                 </div>}
-            {editingEnabled &&
-            <EditRecipe toggleEditing={toggleEditing} recipe={recipe} addRecipeItem={addRecipeItem}/>}
+            {savingEnabled &&
+            <AddRecipe toggleAdding={toggleSaving} recipe={recipe} addRecipeItem={addRecipeItem}/>}
         </div>
     )
 }

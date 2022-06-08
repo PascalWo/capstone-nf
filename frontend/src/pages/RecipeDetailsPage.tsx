@@ -19,7 +19,7 @@ export default function RecipeDetailsPage(){
     return (
         <div>
             <div>Detailspage</div>
-            <button onClick={() => navigate(-1)}>Back</button>
+            <button onClick={() => navigate(-1)}>Back to Overview</button>
             <div>
                 {detailsRecipe
                 ?<ShowDetailsRecipe recipe={detailsRecipe} openedFromSpoonaApi={false}/>

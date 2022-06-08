@@ -34,7 +34,6 @@ export default function AddRecipe({addRecipeItem, toggleAdding, recipe}: AddReci
         data[index][event.target.name] = event.target.value;
         console.log(data);
         setIngredients(data);
-
     }
     
     const handleInstructionsFormChange = (event: ChangeEvent<HTMLInputElement>, instructionsIndex: number) => {
@@ -241,7 +240,7 @@ export default function AddRecipe({addRecipeItem, toggleAdding, recipe}: AddReci
                 <input type={"submit"}
                        value={"Add item"}/>
             </form>
-            <button onClick={onClickToggleAndGoBack}>Back</button>
+            <button onClick={onClickToggleAndGoBack}>Cancel</button>
             <p id={"url-warning"}>*Image Source bitte als Website-Link "https://..." angeben!</p>
         </div>
     )
