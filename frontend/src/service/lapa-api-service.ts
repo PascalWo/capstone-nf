@@ -33,3 +33,10 @@ export const postRecipeItem: (newRecipeItem: Omit<Recipe, "id">, token?: string)
         : {})
         .then(response => response.data)
 }
+
+export const putRecipe: (id: string, updatedRecipe: Recipe, token?: string) => Promise<Recipe> = (id, updatedRecipe, token) => {
+    return axios.put(`/api/recipes/${id}`, updatedRecipe, token
+        ? {headers: {"Authorization": token}}
+        : {})
+        .then(response => response.data)
+}

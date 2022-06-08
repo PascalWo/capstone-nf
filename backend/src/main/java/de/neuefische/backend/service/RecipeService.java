@@ -24,22 +24,11 @@ public class RecipeService {
     }
 
     public Recipe addNewRecipe(CreateRecipeDto recipe){
-        Recipe newRecipe = new Recipe();
-
-        if(recipe.getTitle() == null){
+        if(recipe.getTitle() == null || recipe.getTitle().equals("")){
             throw new IllegalArgumentException("Title of the new Recipe was not given");
         }
-        newRecipe.setTitle(recipe.getTitle());
-        newRecipe.setImage(recipe.getImage());
-        newRecipe.setVegetarian(recipe.isVegetarian());
-        newRecipe.setVegan(recipe.isVegan());
-        newRecipe.setGlutenFree(recipe.isGlutenFree());
-        newRecipe.setReadyInMinutes(recipe.getReadyInMinutes());
-        newRecipe.setServings(recipe.getServings());
-        newRecipe.setSummary(recipe.getSummary());
-        newRecipe.setExtendedIngredients(recipe.getExtendedIngredients());
-        newRecipe.setAnalyzedInstructions(recipe.getAnalyzedInstructions());
-        newRecipe.setEquipment(recipe.getEquipment());
+        Recipe newRecipe = createRecipeFromDto(recipe);
+
         return recipeRepo.insert(newRecipe);
     }
 
@@ -49,5 +38,37 @@ public class RecipeService {
 
     public Recipe getRecipeDetails(String id){
         return recipeRepo.findById(id).orElseThrow(() -> new NoSuchElementException("Recipe not found with id: " + id));
+    }
+
+    public Recipe updateRecipeByID(String id, CreateRecipeDto updatedRecipe) {
+        if(!recipeRepo.existsById(id)){
+            throw new NoSuchElementException("Recipe with ID: " + id + "does not exist!");
+        }
+        if (updatedRecipe.getTitle() == null || updatedRecipe.getTitle().equals("")){
+            throw new IllegalArgumentException("Recipe Title does not be empty!");
+        }
+
+        Recipe saveRecipe = createRecipeFromDto(updatedRecipe);
+        saveRecipe.setId(id);
+
+        return recipeRepo.save(saveRecipe);
+    }
+
+    public Recipe createRecipeFromDto(CreateRecipeDto recipeDto){
+        Recipe recipe = new Recipe();
+
+        recipe.setTitle(recipeDto.getTitle());
+        recipe.setImage(recipeDto.getImage());
+        recipe.setVegetarian(recipeDto.isVegetarian());
+        recipe.setVegan(recipeDto.isVegan());
+        recipe.setGlutenFree(recipeDto.isGlutenFree());
+        recipe.setReadyInMinutes(recipeDto.getReadyInMinutes());
+        recipe.setServings(recipeDto.getServings());
+        recipe.setSummary(recipeDto.getSummary());
+        recipe.setExtendedIngredients(recipeDto.getExtendedIngredients());
+        recipe.setAnalyzedInstructions(recipeDto.getAnalyzedInstructions());
+        recipe.setEquipment(recipeDto.getEquipment());
+
+        return recipe;
     }
 }
