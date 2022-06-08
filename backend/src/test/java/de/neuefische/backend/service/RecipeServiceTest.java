@@ -105,12 +105,25 @@ class RecipeServiceTest {
         verify(recipeRepo).insert(recipeToAdd);
         assertEquals(expected, actual);
     }
+
     @Test
     void addNewRecipe_whenTitleEqualsNull_shouldThrowException() {
         //WHEN
         CreateRecipeDto newRecipe = CreateRecipeDto
                 .builder()
                 .title(null)
+                .build();
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> recipeService.addNewRecipe(newRecipe));
+    }
+
+    @Test
+    void addNewRecipe_whenTitleEqualsEmptyString_shouldThrowException() {
+        //WHEN
+        CreateRecipeDto newRecipe = CreateRecipeDto
+                .builder()
+                .title("")
                 .build();
 
         //THEN
@@ -273,5 +286,33 @@ class RecipeServiceTest {
                 .build();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void updateRecipeById_whenTitleEqualsEmptyString_shouldThrowException() {
+        //WHEN
+        String id = "123";
+        CreateRecipeDto newRecipe = CreateRecipeDto
+                .builder()
+                .title("")
+                .build();
+        when(recipeRepo.existsById(id)).thenReturn(true);
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> recipeService.updateRecipeByID(id,newRecipe));
+    }
+
+    @Test
+    void updateRecipeById_whenTitleEqualsNull_shouldThrowException() {
+        //WHEN
+        String id = "123";
+        CreateRecipeDto newRecipe = CreateRecipeDto
+                .builder()
+                .title(null)
+                .build();
+        when(recipeRepo.existsById(id)).thenReturn(true);
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> recipeService.updateRecipeByID(id,newRecipe));
     }
 }
