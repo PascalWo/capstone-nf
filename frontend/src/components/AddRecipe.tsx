@@ -6,23 +6,24 @@ import {Ingredient} from "../model/Ingredient";
 import {Instruction} from "../model/Instruction";
 
 type AddRecipeProps = {
-    addRecipeItem: (newRecipe: Omit<Recipe, "id">) => void
-    toggleAdding?: () => void
+    addRecipeItem?: (newRecipe: Omit<Recipe, "id">) => void
+    toggleComponent?: () => void
+    recipe?: Recipe
 }
 
-export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps) {
-    const [title, setTitle] = useState<string>("");
-    const [image, setImage] = useState<string>("");
-    const [vegan, setVegan] = useState<boolean>(false);
-    const [vegetarian, setVegetarian] = useState<boolean>(false);
-    const [glutenFree, setGlutenFree] = useState<boolean>(false);
-    const [readyInMinutes, setReadyInMinutes] = useState<number>(0);
-    const [servings, setServings] = useState<number>(0);
-    const [summary, setSummary] = useState<string>("");
-    const [ingredients, setIngredients] = useState<Ingredient[]>([
+export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddRecipeProps) {
+    const [title, setTitle] = useState<string>(recipe? recipe.title: "");
+    const [image, setImage] = useState<string>(recipe&& recipe.image? recipe.image: "");
+    const [vegan, setVegan] = useState<boolean>(recipe? recipe.vegan: false);
+    const [vegetarian, setVegetarian] = useState<boolean>(recipe? recipe.vegetarian: false);
+    const [glutenFree, setGlutenFree] = useState<boolean>(recipe? recipe.glutenFree: false);
+    const [readyInMinutes, setReadyInMinutes] = useState<number>(recipe? recipe.readyInMinutes: 0);
+    const [servings, setServings] = useState<number>(recipe? recipe.servings: 0);
+    const [summary, setSummary] = useState<string>(recipe? recipe.summary: "");
+    const [ingredients, setIngredients] = useState<Ingredient[]>(recipe? recipe.extendedIngredients: [
         {name: "",amount: 0, unit: ""}
     ]);
-    const [instructions, setInstructions] = useState<Instruction[]>([
+    const [instructions, setInstructions] = useState<Instruction[]>(recipe? recipe.analyzedInstructions: [
         {name: "",steps: []}
     ]);
 
@@ -33,7 +34,6 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
         data[index][event.target.name] = event.target.value;
         console.log(data);
         setIngredients(data);
-
     }
     
     const handleInstructionsFormChange = (event: ChangeEvent<HTMLInputElement>, instructionsIndex: number) => {
@@ -100,7 +100,9 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
             summary: summary,
             extendedIngredients: ingredients,
             analyzedInstructions: instructions,
+            equipment: recipe&& recipe.equipment
         }
+        addRecipeItem&&
         addRecipeItem(newRecipe);
         setTitle("")
         setImage("");
@@ -112,15 +114,11 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
         setSummary("");
         setIngredients([{name: "",amount: 0, unit: ""}]);
         setInstructions([{name: "",steps: []}]);
-        if (toggleAdding) {
-            toggleAdding();
-        }
+        toggleComponent&& toggleComponent();
     }
 
     const onClickToggleAndGoBack = () => {
-        if (toggleAdding) {
-            toggleAdding();
-        }
+        toggleComponent&& toggleComponent();
     }
 
     return (
@@ -238,7 +236,7 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
                 <input type={"submit"}
                        value={"Add item"}/>
             </form>
-            <button onClick={onClickToggleAndGoBack}>Back</button>
+            <button onClick={onClickToggleAndGoBack}>Cancel</button>
             <p id={"url-warning"}>*Image Source bitte als Website-Link "https://..." angeben!</p>
         </div>
     )
