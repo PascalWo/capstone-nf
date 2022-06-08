@@ -21,7 +21,7 @@ export default function SpoonacularDetailsPage(){
     return (
         <div>
             <div>Detailspage</div>
-            <button onClick={() => navigate(`/spoona/search`)}>Back</button>
+            <button onClick={() => navigate(-1)}>Back to Overview</button>
             <div>
                 {spoonaDetailsRecipe
                 ?<ShowDetailsRecipe recipe={spoonaDetailsRecipe} openedFromSpoonaApi={true} addRecipeItem={addRecipeItem}/>

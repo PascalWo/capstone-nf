@@ -15,7 +15,7 @@ export default function RecipePage(){
     return (
         <div>
             {addingEnabled
-            ?<AddRecipe addRecipeItem={addRecipeItem} toggleAdding={toggleAdding}/>
+            ?<AddRecipe addRecipeItem={addRecipeItem} toggleComponent={toggleAdding}/>
             :<RecipeOverview toggleAdding={toggleAdding} recipes={recipes} showAddButton={showAddButton}/>}
         </div>
     )
