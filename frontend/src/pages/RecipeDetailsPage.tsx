@@ -6,7 +6,7 @@ import ShowDetailsRecipe from "../components/ShowDetailsRecipe";
 export default function RecipeDetailsPage(){
     const navigate = useNavigate()
     const {id} = useParams()
-    const {detailsRecipe, getDetailsRecipeById} = useDetailsRecipe()
+    const {detailsRecipe, getDetailsRecipeById, updateRecipe} = useDetailsRecipe()
 
     useEffect(() => {
 
@@ -22,9 +22,9 @@ export default function RecipeDetailsPage(){
             <button onClick={() => navigate(-1)}>Back to Overview</button>
             <div>
                 {detailsRecipe
-                ?<ShowDetailsRecipe recipe={detailsRecipe} openedFromSpoonaApi={false}/>
-                : <p>Kein Rezept mit der ID: {id} gefunden</p>}
-                </div>
+                    ? <ShowDetailsRecipe recipe={detailsRecipe} openedFromSpoonaApi={false} updateRecipe={updateRecipe}/>
+                    : <p>Kein Rezept mit der ID: {id} gefunden</p>}
+            </div>
         </div>
     )
 }
