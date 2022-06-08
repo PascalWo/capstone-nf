@@ -39,7 +39,7 @@ export default function ShowDetailsRecipe({recipe, openedFromSpoonaApi, addRecip
             <ShowEquipment recipe={recipe}/>
                 </div>}
             {savingEnabled &&
-            <AddRecipe toggleAdding={toggleSaving} recipe={recipe} addRecipeItem={addRecipeItem}/>}
+            <AddRecipe toggleComponent={toggleSaving} recipe={recipe} addRecipeItem={addRecipeItem}/>}
         </div>
     )
 }

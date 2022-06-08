@@ -7,11 +7,11 @@ import {Instruction} from "../model/Instruction";
 
 type AddRecipeProps = {
     addRecipeItem?: (newRecipe: Omit<Recipe, "id">) => void
-    toggleAdding?: () => void
+    toggleComponent?: () => void
     recipe?: Recipe
 }
 
-export default function AddRecipe({addRecipeItem, toggleAdding, recipe}: AddRecipeProps) {
+export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddRecipeProps) {
     const [title, setTitle] = useState<string>(recipe? recipe.title: "");
     const [image, setImage] = useState<string>(recipe&& recipe.image? recipe.image: "");
     const [vegan, setVegan] = useState<boolean>(recipe? recipe.vegan: false);
@@ -114,15 +114,11 @@ export default function AddRecipe({addRecipeItem, toggleAdding, recipe}: AddReci
         setSummary("");
         setIngredients([{name: "",amount: 0, unit: ""}]);
         setInstructions([{name: "",steps: []}]);
-        if (toggleAdding) {
-            toggleAdding();
-        }
+        toggleComponent&& toggleComponent();
     }
 
     const onClickToggleAndGoBack = () => {
-        if (toggleAdding) {
-            toggleAdding();
-        }
+        toggleComponent&& toggleComponent();
     }
 
     return (
