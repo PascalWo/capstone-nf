@@ -6,23 +6,24 @@ import {Ingredient} from "../model/Ingredient";
 import {Instruction} from "../model/Instruction";
 
 type AddRecipeProps = {
-    addRecipeItem: (newRecipe: Omit<Recipe, "id">) => void
+    addRecipeItem?: (newRecipe: Omit<Recipe, "id">) => void
     toggleAdding?: () => void
+    recipe?: Recipe
 }
 
-export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps) {
-    const [title, setTitle] = useState<string>("");
-    const [image, setImage] = useState<string>("");
-    const [vegan, setVegan] = useState<boolean>(false);
-    const [vegetarian, setVegetarian] = useState<boolean>(false);
-    const [glutenFree, setGlutenFree] = useState<boolean>(false);
-    const [readyInMinutes, setReadyInMinutes] = useState<number>(0);
-    const [servings, setServings] = useState<number>(0);
-    const [summary, setSummary] = useState<string>("");
-    const [ingredients, setIngredients] = useState<Ingredient[]>([
+export default function AddRecipe({addRecipeItem, toggleAdding, recipe}: AddRecipeProps) {
+    const [title, setTitle] = useState<string>(recipe? recipe.title: "");
+    const [image, setImage] = useState<string>(recipe&& recipe.image? recipe.image: "");
+    const [vegan, setVegan] = useState<boolean>(recipe? recipe.vegan: false);
+    const [vegetarian, setVegetarian] = useState<boolean>(recipe? recipe.vegetarian: false);
+    const [glutenFree, setGlutenFree] = useState<boolean>(recipe? recipe.glutenFree: false);
+    const [readyInMinutes, setReadyInMinutes] = useState<number>(recipe? recipe.readyInMinutes: 0);
+    const [servings, setServings] = useState<number>(recipe? recipe.servings: 0);
+    const [summary, setSummary] = useState<string>(recipe? recipe.summary: "");
+    const [ingredients, setIngredients] = useState<Ingredient[]>(recipe? recipe.extendedIngredients: [
         {name: "",amount: 0, unit: ""}
     ]);
-    const [instructions, setInstructions] = useState<Instruction[]>([
+    const [instructions, setInstructions] = useState<Instruction[]>(recipe? recipe.analyzedInstructions: [
         {name: "",steps: []}
     ]);
 
@@ -100,7 +101,9 @@ export default function AddRecipe({addRecipeItem, toggleAdding}: AddRecipeProps)
             summary: summary,
             extendedIngredients: ingredients,
             analyzedInstructions: instructions,
+            equipment: recipe&& recipe.equipment
         }
+        addRecipeItem&&
         addRecipeItem(newRecipe);
         setTitle("")
         setImage("");

@@ -6,14 +6,14 @@ export type Recipe = {
     id: string;
     title: string;
     image?: string;
-    vegetarian?: boolean;
-    vegan?: boolean;
-    glutenFree?: boolean;
-    readyInMinutes?: number;
-    servings?: number;
-    summary?: string;
-    extendedIngredients?: Ingredient[];
+    vegetarian: boolean;
+    vegan: boolean;
+    glutenFree: boolean;
+    readyInMinutes: number;
+    servings: number;
+    summary: string;
+    extendedIngredients: Ingredient[];
     instructions?: string;
-    analyzedInstructions?: Instruction[];
+    analyzedInstructions: Instruction[];
     equipment?: Equipment[];
 }
