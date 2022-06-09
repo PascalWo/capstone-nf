@@ -38,15 +38,18 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
     }
 
     const handleInstructionsFormChange = (event: ChangeEvent<HTMLInputElement>, instructionsIndex: number) => {
-        let data: any = [...instructions];
+        let data: Instruction[] = [...instructions];
 
+        // @ts-ignore
         data[instructionsIndex][event.target.name] = event.target.value;
         setInstructions(data);
     }
 
     const handleInstructionStepFormChange = (event: ChangeEvent<HTMLInputElement>, instructionIndex: number, stepIndex: number) => {
-        let data: any = [...instructions];
+        let data: Instruction[] = [...instructions];
 
+
+        // @ts-ignore
         data[instructionIndex].steps[stepIndex][event.target.name] = event.target.value;
         setInstructions(data);
     }
@@ -83,6 +86,24 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                 return instruction
             }
         }))
+    }
+
+    const removeIngredientField = (index: number) => {
+        let data: Ingredient[] = [...ingredients];
+        data.splice(index, 1)
+        setIngredients(data)
+    }
+
+    const removeInstructionStepField = (instructionIndex:number, stepIndex: number) => {
+        let data: Instruction[] = [...instructions];
+        data[instructionIndex].steps.splice(stepIndex, 1 )
+        setInstructions(data)
+    }
+
+    const removeInstructionField = (instructionIndex:number) => {
+        let data: Instruction[] = [...instructions];
+        data.splice(instructionIndex, 1 )
+        setInstructions(data)
     }
 
     const onAdd = (event: FormEvent<HTMLFormElement>) => {
@@ -203,6 +224,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                            placeholder={"unit"}
                                            onChange={event => handleIngredientFormChange(event, index)}
                                            value={ingredientsInput.unit}/>
+                                    <button onClick={() => removeIngredientField(index)}>Remove Ingredient</button>
                                 </div>
                             )
                         })}
@@ -241,6 +263,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                                            placeholder={"stepDescription"}
                                                            onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
                                                            value={instructionsStepInput.step}/>
+                                                    <button onClick={() => removeInstructionStepField(instructionIndex, stepIndex)}>Remove InstructionStep</button>
                                                 </div>
                                             )
                                         })}
@@ -248,6 +271,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                             onClick={() => addInstructionStepFields(instructionIndex)}>
                                         Add More InstructionStepFields..
                                     </button>
+                                    <button onClick={() => removeInstructionField(instructionIndex)}>Remove Instruction</button>
                                 </div>)
                         })}
 
