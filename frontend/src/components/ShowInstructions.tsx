@@ -8,14 +8,33 @@ export default function ShowInstructions({recipe}: ShowInstructionsProps) {
     return (
         <div className={"instructions"}>
             {recipe.analyzedInstructions && recipe.analyzedInstructions
-                .map(instructions => (
-                    <div id={"instruction-details"}>
-                        <div id={"instruction-name"}> Anleitung:{instructions.name}</div>
-                        <div id={"steps-all"}>{instructions.steps && instructions.steps.map(steps => (
-                            <div id={"step-details"}>
-                                <div id={"step-number"}>{steps.number}</div>
-                                <div id={"step-step"}>{steps.step}</div>
-                            </div>))}
+                .map((instructions, index) => (
+                    <div
+                        key={"instruction-details" + index}
+                        id={"instruction-details"}>
+                        <div
+                            key={"name" + index}
+                            id={"instruction-name"}>
+                            Anleitung:{instructions.name}
+                        </div>
+                        <div
+                            key={"steps-all" + index}
+                            id={"steps-all"}>
+                            {instructions.steps && instructions.steps
+                                .map((steps,stepIndex) => (
+                                    <div
+                                        key={"step-details" + stepIndex}
+                                        id={"step-details"}>
+                                        <div
+                                            key={"step-number" + stepIndex}
+                                            id={"step-number"}>{steps.number}
+                                        </div>
+                                        <div
+                                            key={"step-step" + stepIndex}
+                                            id={"step-step"}>
+                                            {steps.step}
+                                        </div>
+                                    </div>))}
                         </div>
                     </div>
                 ))}

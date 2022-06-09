@@ -28,7 +28,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
         {name: "", steps: []}
     ]);
 
-    const handleIngredientFormChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
+    const handleIngredientFormChange = (event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>, index: number) => {
         let data: Ingredient[] = [...ingredients];
 
         // @ts-ignore
@@ -47,7 +47,6 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
 
     const handleInstructionStepFormChange = (event: ChangeEvent<HTMLInputElement>, instructionIndex: number, stepIndex: number) => {
         let data: Instruction[] = [...instructions];
-
 
         // @ts-ignore
         data[instructionIndex].steps[stepIndex][event.target.name] = event.target.value;
@@ -73,7 +72,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
 
     const addInstructionStepFields = (index: number) => {
         let instructionStep: InstructionStep = {
-            number: 0,
+            number: 1,
             step: "",
         }
         setInstructions(instructions.map((instruction, i) => {
@@ -186,16 +185,36 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                        checked={glutenFree}
                        onChange={event => setGlutenFree(event.target.checked)}/>
                 Ready in Minutes:
-                <input type={"number"}
-                       placeholder="ReadyInMinutes"
-                       value={readyInMinutes}
-                       onChange={event => setReadyInMinutes(event.target.valueAsNumber)}/>
+                <select name={"readyInMinutes"} value={readyInMinutes} onChange={event => setReadyInMinutes(Number(event.target.value))}>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                    <option value={20}>20</option>
+                    <option value={25}>25</option>
+                    <option value={30}>30</option>
+                    <option value={35}>35</option>
+                    <option value={45}>45</option>
+                    <option value={50}>50</option>
+                    <option value={55}>55</option>
+                    <option value={60}>60</option>
+                    <option value={90}>90</option>
+                </select>
                 Servings:
-                <input type={"number"}
-                       placeholder="Servings"
-                       value={servings}
-                       onChange={event => setServings(event.target.valueAsNumber)}/>
-                <input type={"text"}
+                <select name={"servings"} value={servings} onChange={event => setServings(Number(event.target.value))}>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                    <option value={6}>6</option>
+                    <option value={7}>7</option>
+                    <option value={8}>8</option>
+                    <option value={9}>9</option>
+                    <option value={10}>10</option>
+                </select>
+                Summary:
+                <input key={"summary"}
+                       type={"text"}
                        placeholder="Summary"
                        value={summary}
                        onChange={event => setSummary(event.target.value)}/>
@@ -217,18 +236,24 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                            type={"number"}
                                            placeholder={"amount"}
                                            onChange={event => handleIngredientFormChange(event, index)}
-                                           value={ingredientsInput.amount}/>
-                                    <input key={"unit" + index}
-                                           name={"unit"}
-                                           type={"text"}
-                                           placeholder={"unit"}
-                                           onChange={event => handleIngredientFormChange(event, index)}
-                                           value={ingredientsInput.unit}/>
-                                    <button onClick={() => removeIngredientField(index)}>Remove Ingredient</button>
+                                           value={ingredientsInput.amount}
+                                    />
+                                    <select key={"unit" + index} name={"unit"} value={ingredientsInput.unit} onChange={event => handleIngredientFormChange(event, index)} >
+                                        <option value={"stk"}>stk</option>
+                                        <option value={"g"}>g</option>
+                                        <option value={"kg"}>kg</option>
+                                        <option value={"ml"}>ml</option>
+                                        <option value={"l"}>l</option>
+                                        <option value={"tl"}>tl</option>
+                                        <option value={"el"}>el</option>
+                                        <option value={"pr"}>pr</option>
+                                    </select>
+                                    <button key={"remove" + index} type={"button"} onClick={() => removeIngredientField(index)}>Remove Ingredient</button>
                                 </div>
                             )
                         })}
                     <button
+                        key={"add-ingredient"}
                         type={"button"}
                         onClick={addIngredientFields}>
                         Add More..
@@ -251,7 +276,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                         .steps
                                         .map((instructionsStepInput, stepIndex) => {
                                             return (
-                                                <div>
+                                                <div key={"step" + stepIndex}>
                                                     <input key={"stepNumber" + stepIndex}
                                                            name={"number"}
                                                            type={"number"}
@@ -259,19 +284,20 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                                            onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
                                                            value={instructionsStepInput.number}/>
                                                     <input key={"stepDescription" + stepIndex}
-                                                           name={"step"} type={"text"}
+                                                           name={"step"}
+                                                           type={"text"}
                                                            placeholder={"stepDescription"}
                                                            onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
                                                            value={instructionsStepInput.step}/>
-                                                    <button onClick={() => removeInstructionStepField(instructionIndex, stepIndex)}>Remove InstructionStep</button>
+                                                    <button key={"removeButton" + stepIndex} type={"button"} onClick={() => removeInstructionStepField(instructionIndex, stepIndex)}>Remove InstructionStep</button>
                                                 </div>
                                             )
                                         })}
-                                    <button type={"button"}
+                                    <button key={"add-step-field"} type={"button"}
                                             onClick={() => addInstructionStepFields(instructionIndex)}>
                                         Add More InstructionStepFields..
                                     </button>
-                                    <button onClick={() => removeInstructionField(instructionIndex)}>Remove Instruction</button>
+                                    <button type={"button"} onClick={() => removeInstructionField(instructionIndex)}>Remove Instruction</button>
                                 </div>)
                         })}
 
