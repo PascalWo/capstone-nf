@@ -42,7 +42,6 @@ public class RecipeController {
     @PutMapping("{id}")
     public Recipe updateRecipeById(@PathVariable String id, @RequestBody CreateRecipeDto updatedRecipe) {
         return recipeService.updateRecipeByID(id, updatedRecipe);
-
     }
 }
 
