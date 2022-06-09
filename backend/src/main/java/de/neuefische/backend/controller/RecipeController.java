@@ -38,6 +38,11 @@ public class RecipeController {
     public Recipe getRecipeDetails(@PathVariable String id) {
         return recipeService.getRecipeDetails(id);
     }
+
+    @PutMapping("{id}")
+    public Recipe updateRecipeById(@PathVariable String id, @RequestBody CreateRecipeDto updatedRecipe) {
+        return recipeService.updateRecipeByID(id, updatedRecipe);
+    }
 }
 
 

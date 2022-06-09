@@ -1,7 +1,7 @@
 import {useContext, useState} from "react";
 import {Recipe} from "../model/Recipe";
 import {AuthContext} from "../context/AuthProvider";
-import {getDetailsRecipeBy} from "../service/lapa-api-service";
+import {getDetailsRecipeBy, putRecipe} from "../service/lapa-api-service";
 
 export default function useDetailsRecipe() {
     const [detailsRecipe, setDetailsRecipe] = useState<Recipe>();
@@ -12,5 +12,13 @@ export default function useDetailsRecipe() {
             .then(data => setDetailsRecipe(data))
             .catch(() => "Error")
     }
-    return {detailsRecipe, getDetailsRecipeById, setDetailsRecipe}
+
+    const updateRecipe = (id:string, recipeToUpdate: Recipe) => {
+        return putRecipe(id, recipeToUpdate, token)
+            .then(updatedRecipe => {
+                setDetailsRecipe(updatedRecipe)})
+            .catch(() => "Error")
+    }
+
+    return {detailsRecipe, getDetailsRecipeById, setDetailsRecipe, updateRecipe}
 }

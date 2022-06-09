@@ -9,22 +9,23 @@ type AddRecipeProps = {
     addRecipeItem?: (newRecipe: Omit<Recipe, "id">) => void
     toggleComponent?: () => void
     recipe?: Recipe
+    updateRecipe?: (id: string, updateRecipe: Recipe) => void
 }
 
-export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddRecipeProps) {
-    const [title, setTitle] = useState<string>(recipe? recipe.title: "");
-    const [image, setImage] = useState<string>(recipe&& recipe.image? recipe.image: "");
-    const [vegan, setVegan] = useState<boolean>(recipe? recipe.vegan: false);
-    const [vegetarian, setVegetarian] = useState<boolean>(recipe? recipe.vegetarian: false);
-    const [glutenFree, setGlutenFree] = useState<boolean>(recipe? recipe.glutenFree: false);
-    const [readyInMinutes, setReadyInMinutes] = useState<number>(recipe? recipe.readyInMinutes: 0);
-    const [servings, setServings] = useState<number>(recipe? recipe.servings: 0);
-    const [summary, setSummary] = useState<string>(recipe? recipe.summary: "");
-    const [ingredients, setIngredients] = useState<Ingredient[]>(recipe? recipe.extendedIngredients: [
-        {name: "",amount: 0, unit: ""}
+export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent, recipe}: AddRecipeProps) {
+    const [title, setTitle] = useState<string>(recipe ? recipe.title : "");
+    const [image, setImage] = useState<string>(recipe && recipe.image ? recipe.image : "");
+    const [vegan, setVegan] = useState<boolean>(recipe ? recipe.vegan : false);
+    const [vegetarian, setVegetarian] = useState<boolean>(recipe ? recipe.vegetarian : false);
+    const [glutenFree, setGlutenFree] = useState<boolean>(recipe ? recipe.glutenFree : false);
+    const [readyInMinutes, setReadyInMinutes] = useState<number>(recipe ? recipe.readyInMinutes : 0);
+    const [servings, setServings] = useState<number>(recipe ? recipe.servings : 0);
+    const [summary, setSummary] = useState<string>(recipe ? recipe.summary : "");
+    const [ingredients, setIngredients] = useState<Ingredient[]>(recipe ? recipe.extendedIngredients : [
+        {name: "", amount: 0, unit: ""}
     ]);
-    const [instructions, setInstructions] = useState<Instruction[]>(recipe? recipe.analyzedInstructions: [
-        {name: "",steps: []}
+    const [instructions, setInstructions] = useState<Instruction[]>(recipe ? recipe.analyzedInstructions : [
+        {name: "", steps: []}
     ]);
 
     const handleIngredientFormChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
@@ -35,7 +36,7 @@ export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddR
         console.log(data);
         setIngredients(data);
     }
-    
+
     const handleInstructionsFormChange = (event: ChangeEvent<HTMLInputElement>, instructionsIndex: number) => {
         let data: any = [...instructions];
 
@@ -73,10 +74,12 @@ export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddR
             step: "",
         }
         setInstructions(instructions.map((instruction, i) => {
-            if (i === index){
-                return {name: instruction.name,
-                steps: [...instruction.steps, instructionStep]}
-            }else{
+            if (i === index) {
+                return {
+                    name: instruction.name,
+                    steps: [...instruction.steps, instructionStep]
+                }
+            } else {
                 return instruction
             }
         }))
@@ -100,9 +103,9 @@ export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddR
             summary: summary,
             extendedIngredients: ingredients,
             analyzedInstructions: instructions,
-            equipment: recipe&& recipe.equipment
+            equipment: recipe && recipe.equipment
         }
-        addRecipeItem&&
+        addRecipeItem &&
         addRecipeItem(newRecipe);
         setTitle("")
         setImage("");
@@ -112,20 +115,37 @@ export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddR
         setReadyInMinutes(0);
         setServings(0);
         setSummary("");
-        setIngredients([{name: "",amount: 0, unit: ""}]);
-        setInstructions([{name: "",steps: []}]);
-        toggleComponent&& toggleComponent();
+        setIngredients([{name: "", amount: 0, unit: ""}]);
+        setInstructions([{name: "", steps: []}]);
+        toggleComponent && toggleComponent();
+
+        const updatedRecipe: Recipe = {
+            id: recipe ? recipe.id : "",
+            title: title,
+            image: image,
+            vegetarian: vegetarian,
+            vegan: vegan,
+            glutenFree: glutenFree,
+            readyInMinutes: readyInMinutes,
+            servings: servings,
+            summary: summary,
+            extendedIngredients: ingredients,
+            analyzedInstructions: instructions,
+            equipment: recipe && recipe.equipment
+        }
+        updateRecipe &&
+        updateRecipe(updatedRecipe.id, updatedRecipe)
     }
 
     const onClickToggleAndGoBack = () => {
-        toggleComponent&& toggleComponent();
+        toggleComponent && toggleComponent();
     }
 
     return (
         <div>
             <h1>Hier können Sie ein neues Rezept hinzufügen:</h1>
             <form className={"add-form"} onSubmit={onAdd}>
-                <input type={"text"}                       placeholder="Title"
+                <input type={"text"} placeholder="Title"
                        value={title}
                        onChange={event => setTitle(event.target.value)}/>
                 <input type={"url"}
@@ -162,79 +182,84 @@ export default function AddRecipe({addRecipeItem, toggleComponent, recipe}: AddR
                 Ingredients:
                 <div>
                     {ingredients
-                        .map((ingredientsInput:Ingredient, index: number) => {
-                        return (
-                            <div>
-                                <input key={"name" + index}
-                                       name={"name"}
-                                       type={"text"}
-                                       placeholder={"name"}
-                                       onChange={event => handleIngredientFormChange(event, index)}
-                                       value={ingredientsInput.name}/>
-                                <input key={"amount" + index}
-                                       name={"amount"}
-                                       type={"number"}
-                                       placeholder={"amount"}
-                                       onChange={event => handleIngredientFormChange(event, index)}
-                                       value={ingredientsInput.amount}/>
-                                <input key={"unit" + index}
-                                       name={"unit"}
-                                       type={"text"}
-                                       placeholder={"unit"}
-                                       onChange={event => handleIngredientFormChange(event, index)}
-                                       value={ingredientsInput.unit}/>
-                            </div>
-                        )
-                    })}
+                        .map((ingredientsInput: Ingredient, index: number) => {
+                            return (
+                                <div>
+                                    <input key={"name" + index}
+                                           name={"name"}
+                                           type={"text"}
+                                           placeholder={"name"}
+                                           onChange={event => handleIngredientFormChange(event, index)}
+                                           value={ingredientsInput.name}/>
+                                    <input key={"amount" + index}
+                                           name={"amount"}
+                                           type={"number"}
+                                           placeholder={"amount"}
+                                           onChange={event => handleIngredientFormChange(event, index)}
+                                           value={ingredientsInput.amount}/>
+                                    <input key={"unit" + index}
+                                           name={"unit"}
+                                           type={"text"}
+                                           placeholder={"unit"}
+                                           onChange={event => handleIngredientFormChange(event, index)}
+                                           value={ingredientsInput.unit}/>
+                                </div>
+                            )
+                        })}
                     <button
                         type={"button"}
                         onClick={addIngredientFields}>
-                        Add More..</button>
+                        Add More..
+                    </button>
                 </div>
 
                 Instructions:
-               <div>
+                <div>
                     {instructions
-                        .map((instructionsInput:Instruction, instructionIndex: number) => {
-                        return (
-                            <div>
-                                <input key={"instructionsName" + instructionIndex}
-                                       name={"name"}
-                                       type={"text"}
-                                       placeholder={"instructionsName"}
-                                       onChange={event => handleInstructionsFormChange(event, instructionIndex)}
-                                       value={instructionsInput.name}/>
-                                {instructionsInput
-                                    .steps
-                                    .map((instructionsStepInput, stepIndex) => {
-                                    return (
-                                        <div>
-                                            <input key={"stepNumber" + stepIndex}
-                                                   name={"number"}
-                                                   type={"number"}
-                                                   placeholder={"stepNumber"}
-                                                   onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
-                                                   value={instructionsStepInput.number}/>
-                                            <input key={"stepDescription" + stepIndex}
-                                                   name={"step"} type={"text"}
-                                                   placeholder={"stepDescription"}
-                                                   onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
-                                                   value={instructionsStepInput.step}/>
-                                        </div>
-                                    )
-                                })}
-                                <button type={"button"}
-                                        onClick={() => addInstructionStepFields(instructionIndex)}>
-                                    Add More InstructionStepFields..</button>
-                            </div>)
-                    })}
+                        .map((instructionsInput: Instruction, instructionIndex: number) => {
+                            return (
+                                <div>
+                                    <input key={"instructionsName" + instructionIndex}
+                                           name={"name"}
+                                           type={"text"}
+                                           placeholder={"instructionsName"}
+                                           onChange={event => handleInstructionsFormChange(event, instructionIndex)}
+                                           value={instructionsInput.name}/>
+                                    {instructionsInput
+                                        .steps
+                                        .map((instructionsStepInput, stepIndex) => {
+                                            return (
+                                                <div>
+                                                    <input key={"stepNumber" + stepIndex}
+                                                           name={"number"}
+                                                           type={"number"}
+                                                           placeholder={"stepNumber"}
+                                                           onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
+                                                           value={instructionsStepInput.number}/>
+                                                    <input key={"stepDescription" + stepIndex}
+                                                           name={"step"} type={"text"}
+                                                           placeholder={"stepDescription"}
+                                                           onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
+                                                           value={instructionsStepInput.step}/>
+                                                </div>
+                                            )
+                                        })}
+                                    <button type={"button"}
+                                            onClick={() => addInstructionStepFields(instructionIndex)}>
+                                        Add More InstructionStepFields..
+                                    </button>
+                                </div>)
+                        })}
 
                     <button type={"button"}
                             onClick={addInstructionsFields}>
-                        Add More InstructionFields..</button>
-                    </div>
-                <input type={"submit"}
-                       value={"Add item"}/>
+                        Add More InstructionFields..
+                    </button>
+                </div>
+                {addRecipeItem &&
+                    <button type={"submit"}>Add recipe</button>}
+                {updateRecipe &&
+                    <button type={"submit"}>Edit recipe</button>}
             </form>
             <button onClick={onClickToggleAndGoBack}>Cancel</button>
             <p id={"url-warning"}>*Image Source bitte als Website-Link "https://..." angeben!</p>
