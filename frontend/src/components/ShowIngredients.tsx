@@ -10,11 +10,11 @@ export default function ShowIngredients({recipe}: ShowIngredientsProps) {
 
             {recipe.extendedIngredients && recipe.extendedIngredients
                 .map((ingredients, index) => (
-                    <div key={"details" +index} id={"ingredient-details"}>
-                        <div key={"name" +index} id={"ingredient-name"}>{ingredients.name}</div>
-                        <div key={"amount+unit" +index} id={"ingredient-amount-unit"}>
-                            <div key={"amount" +index} id={"ingredient-amount"}>{ingredients.amount}</div>
-                            <div key={"unit" +index} id={"ingredient-unit"}>{ingredients.unit}</div>
+                    <div key={"details" + index} id={"ingredient-details"}>
+                        <div key={"name" + index} id={"ingredient-name"}>{ingredients.name}</div>
+                        <div key={"amount+unit" + index} id={"ingredient-amount-unit"}>
+                            <div key={"amount" + index} id={"ingredient-amount"}>{ingredients.amount}</div>
+                            <div key={"unit" + index} id={"ingredient-unit"}>{ingredients.unit}</div>
                         </div>
                     </div>
                 ))}
