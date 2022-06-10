@@ -55,3 +55,9 @@ export const postShoppingItem: (newShoppingItem: Omit<ShoppingItem, "id">, token
         : {})
         .then(response => response.data)
 }
+export const postShoppingItemList: (newShoppingItemList: Omit<ShoppingItem[], "id">, token?: string) => Promise<ShoppingItem[]> = (newShoppingItemList, token) => {
+    return axios.post("/api/shoppingitem/list", newShoppingItemList, token
+        ? {headers: {"Authorization": token}}
+        : {})
+        .then(response => response.data)
+}

@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {ShoppingItem} from "../model/ShoppingItem";
 import {AuthContext} from "../context/AuthProvider";
-import {getAllShoppingItem, postShoppingItem} from "../service/lapa-api-service";
+import {getAllShoppingItem, postShoppingItem, postShoppingItemList} from "../service/lapa-api-service";
 
 export default function useShoppingItems() {
     const [shoppingItems, setShoppingItems] = useState<ShoppingItem[]>([]);
@@ -23,5 +23,15 @@ export default function useShoppingItems() {
             .catch(() => console.error("Connection failed! Please retry later."))
     }
 
-    return {shoppingItems, addShoppingItems};
+    const addShoppingItemList = (newShoppingItemList: Omit<ShoppingItem[], "id">) => {
+        postShoppingItemList(newShoppingItemList, token)
+            .then(addedShoppingItemList => addedShoppingItemList.map((item: ShoppingItem) => {setShoppingItems([...shoppingItems, item])}))
+            .then(() => {
+                // console.log("ShoppingItemList: " + newShoppingItem.map(item => item.name) + " created");
+                console.log("ShoppingItemList: " + newShoppingItemList + " created");
+            })
+            .catch(() => console.error("Connection failed! Please retry later."))
+    }
+
+    return {shoppingItems, addShoppingItems, addShoppingItemList};
 }
