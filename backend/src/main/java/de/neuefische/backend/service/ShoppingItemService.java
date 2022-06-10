@@ -38,4 +38,8 @@ public class ShoppingItemService {
     public void deleteShoppingItem(String id) {
         shoppingItemRepo.deleteById(id);
     }
+
+    public void addNewItemList(List<CreateShoppingItemDto> itemList){
+        itemList.forEach(this::addNewItem);
+    }
 }
