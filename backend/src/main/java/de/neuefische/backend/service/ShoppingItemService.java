@@ -24,7 +24,7 @@ public class ShoppingItemService {
 
     public ShoppingItem addNewItem(CreateShoppingItemDto item) {
         ShoppingItem newItem = new ShoppingItem();
-        if(item.getName() == null){
+        if(item.getName() == null || item.getName().equals("")){
             throw new IllegalArgumentException("Name of the given shopping item was null");
         }
         newItem.setName(item.getName());

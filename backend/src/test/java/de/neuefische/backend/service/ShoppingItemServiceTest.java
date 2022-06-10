@@ -1,5 +1,6 @@
 package de.neuefische.backend.service;
 
+import de.neuefische.backend.dto.CreateRecipeDto;
 import de.neuefische.backend.dto.CreateShoppingItemDto;
 import de.neuefische.backend.model.ShoppingItem;
 import de.neuefische.backend.repository.ShoppingItemRepo;
@@ -89,6 +90,30 @@ class ShoppingItemServiceTest {
                 .done(false).build();
         verify(shoppingItemRepo).insert(itemToAdd);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void addNewItem_whenNameEqualsNull_shouldThrowException() {
+        //WHEN
+        CreateShoppingItemDto shoppingItemDto = CreateShoppingItemDto
+                .builder()
+                .name(null)
+                .build();
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.addNewItem(shoppingItemDto));
+    }
+
+    @Test
+    void addNewItem_whenTitleEqualsEmptyString_shouldThrowException() {
+        //WHEN
+        CreateShoppingItemDto shoppingItemDto = CreateShoppingItemDto
+                .builder()
+                .name("")
+                .build();
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.addNewItem(shoppingItemDto));
     }
 
     @Test
