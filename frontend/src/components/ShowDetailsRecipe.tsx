@@ -26,6 +26,10 @@ export default function ShowDetailsRecipe({recipe, openedFromSpoonaApi, addRecip
         setEditingEnabled(!editingEnabled);
     }
 
+    const deepCloneRecipe = () => {
+        return JSON.parse(JSON.stringify(recipe))
+    }
+
     return (
         <div>
             <div>Details zum Rezept:</div>
@@ -47,9 +51,9 @@ export default function ShowDetailsRecipe({recipe, openedFromSpoonaApi, addRecip
             <ShowEquipment recipe={recipe}/>
                 </div>}
             {savingEnabled &&
-                <AddRecipe toggleComponent={toggleSaving} recipe={recipe} addRecipeItem={addRecipeItem}/>}
+                <AddRecipe toggleComponent={toggleSaving} recipe={deepCloneRecipe()} addRecipeItem={addRecipeItem}/>}
             {editingEnabled &&
-                <AddRecipe toggleComponent={toggleEditing} recipe={recipe} updateRecipe={updateRecipe}/>}
+                <AddRecipe toggleComponent={toggleEditing} recipe={deepCloneRecipe()} updateRecipe={updateRecipe}/>}
         </div>
     )
 }
