@@ -1,7 +1,6 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.ShoppingItem;
-import de.neuefische.backend.repository.RecipeRepo;
 import de.neuefische.backend.repository.ShoppingItemRepo;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
@@ -40,32 +39,41 @@ class ShoppingItemControllerTest {
         jwtToken = generateJWTToken();
     }
 
-    ShoppingItem item1 = ShoppingItem.builder()
-            .id("1")
-            .name("Apfel")
-            .amount(3)
-            .unit("stk")
-            .done(false)
-            .build();
-    ShoppingItem item2 = ShoppingItem.builder()
-            .id("2")
-            .name("Käse")
-            .amount(200)
-            .unit("g")
-            .done(false)
-            .build();
-    ShoppingItem itemToAdd = ShoppingItem.builder()
-            .name("Mehl")
-            .amount(500)
-            .unit("g")
-            .done(false)
-            .build();
+    ShoppingItem item1() {
+        return ShoppingItem.builder()
+                .id("1")
+                .name("Apfel")
+                .amount(3)
+                .unit("stk")
+                .done(false)
+                .build();
+    }
+
+    ShoppingItem item2() {
+        return ShoppingItem.builder()
+                .id("2")
+                .name("Käse")
+                .amount(200)
+                .unit("g")
+                .done(false)
+                .build();
+    }
+
+    ShoppingItem itemToAdd() {
+        return ShoppingItem.builder()
+                .name("Mehl")
+                .amount(500)
+                .unit("g")
+                .done(false)
+                .build();
+    }
 
     @Test
     void getShoppingItems() {
         //GIVEN
-        shoppingItemRepo.insert(itemToAdd);
-        shoppingItemRepo.insert(item2);
+        ShoppingItem newItem = itemToAdd();
+        shoppingItemRepo.insert(newItem);
+        shoppingItemRepo.insert(item2());
 
         //WHEN
         List<ShoppingItem> actual = testClient.get()
@@ -80,14 +88,14 @@ class ShoppingItemControllerTest {
         //THEN
         List<ShoppingItem> expected = List.of(
                 ShoppingItem.builder()
-                        .id(itemToAdd.getId())
+                        .id(newItem.getId())
                         .name("Mehl")
                         .amount(500)
                         .unit("g")
                         .done(false)
                         .build(),
                 ShoppingItem.builder()
-                        .id(item2.getId())
+                        .id(item2().getId())
                         .name("Käse")
                         .amount(200)
                         .unit("g")
@@ -102,7 +110,7 @@ class ShoppingItemControllerTest {
         ShoppingItem actual = testClient.post()
                 .uri("/api/shoppingitem")
                 .headers(http -> http.setBearerAuth(jwtToken))
-                .bodyValue(itemToAdd)
+                .bodyValue(itemToAdd())
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody(ShoppingItem.class)
@@ -128,21 +136,20 @@ class ShoppingItemControllerTest {
         ShoppingItem addedShoppingItem = testClient.post()
                 .uri("/api/shoppingitem")
                 .headers(http -> http.setBearerAuth(jwtToken))
-                .bodyValue(itemToAdd)
+                .bodyValue(itemToAdd())
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody(ShoppingItem.class)
                 .returnResult()
                 .getResponseBody();
 
-        //WHEN
+        //WHEN + THEN
         assertNotNull(addedShoppingItem);
         testClient.delete()
                 .uri("/api/shoppingitem/" + addedShoppingItem.getId())
                 .headers(http -> http.setBearerAuth(jwtToken))
                 .exchange()
-        //THEN
-        .expectStatus().is2xxSuccessful();
+                .expectStatus().is2xxSuccessful();
     }
 
     private String generateJWTToken() {

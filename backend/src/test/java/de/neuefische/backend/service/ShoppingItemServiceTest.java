@@ -15,36 +15,47 @@ class ShoppingItemServiceTest {
     private final ShoppingItemRepo shoppingItemRepo = mock(ShoppingItemRepo.class);
     private final ShoppingItemService shoppingItemService = new ShoppingItemService(shoppingItemRepo);
 
-    ShoppingItem item1 = ShoppingItem.builder()
-            .id("1")
-            .name("Apfel")
-            .amount(3)
-            .unit("stk")
-            .done(false)
-            .build();
-    ShoppingItem item2 = ShoppingItem.builder()
-            .id("2")
-            .name("Käse")
-            .amount(200)
-            .unit("g")
-            .done(false)
-            .build();
-    ShoppingItem itemToAdd = ShoppingItem.builder()
-            .name("Mehl")
-            .amount(500)
-            .unit("g")
-            .done(false)
-            .build();
-    CreateShoppingItemDto newItemDto = CreateShoppingItemDto.builder()
-            .name("Mehl")
-            .amount(500)
-            .unit("g")
-            .done(false).build();
+    ShoppingItem item1() {
+        return ShoppingItem.builder()
+                .id("1")
+                .name("Apfel")
+                .amount(3)
+                .unit("stk")
+                .done(false)
+                .build();
+    }
+
+    ShoppingItem item2() {
+        return ShoppingItem.builder()
+                .id("2")
+                .name("Käse")
+                .amount(200)
+                .unit("g")
+                .done(false)
+                .build();
+    }
+
+    ShoppingItem itemToAdd() {
+        return ShoppingItem.builder()
+                .name("Mehl")
+                .amount(500)
+                .unit("g")
+                .done(false)
+                .build();
+    }
+
+    CreateShoppingItemDto newItemDto() {
+        return CreateShoppingItemDto.builder()
+                .name("Mehl")
+                .amount(500)
+                .unit("g")
+                .done(false).build();
+    }
 
     @Test
     void getShoppingItems() {
         //GIVEN
-        when(shoppingItemRepo.findAll()).thenReturn(List.of(item1, item2));
+        when(shoppingItemRepo.findAll()).thenReturn(List.of(item1(), item2()));
         //WHEN
 
         List<ShoppingItem> actual = shoppingItemService.getShoppingItems();
@@ -71,7 +82,7 @@ class ShoppingItemServiceTest {
     @Test
     void addNewItem() {
         //GIVEN
-        when(shoppingItemRepo.insert(itemToAdd)).thenReturn(ShoppingItem.builder()
+        when(shoppingItemRepo.insert(itemToAdd())).thenReturn(ShoppingItem.builder()
                 .id("1234-test")
                 .name("Mehl")
                 .amount(500)
@@ -79,7 +90,7 @@ class ShoppingItemServiceTest {
                 .done(false).build());
 
         //WHEN
-        ShoppingItem actual = shoppingItemService.addNewItem(newItemDto);
+        ShoppingItem actual = shoppingItemService.addNewItem(newItemDto());
 
         //THEN
         ShoppingItem expected = ShoppingItem.builder()
@@ -88,7 +99,7 @@ class ShoppingItemServiceTest {
                 .amount(500)
                 .unit("g")
                 .done(false).build();
-        verify(shoppingItemRepo).insert(itemToAdd);
+        verify(shoppingItemRepo).insert(itemToAdd());
         assertEquals(expected, actual);
     }
 
