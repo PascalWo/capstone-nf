@@ -61,8 +61,6 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
         setUnit("");
     }
 
-
-
     const onListAdd= (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -97,19 +95,22 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
                         .map((ingredientsInput: Ingredient, index: number) => {
                             return (
                                 <div>
-                                    <input key={"name" + index}
-                                           name={"name"}
-                                           type={"text"}
-                                           placeholder={"name"}
-                                           onChange={event => handleIngredientFormChange(event, index)}
-                                           value={ingredientsInput.name}/>
-                                    <input key={"amount" + index}
-                                           name={"amount"}
-                                           type={"number"}
-                                           placeholder={"amount"}
-                                           onChange={event => handleIngredientFormChange(event, index)}
-                                           value={ingredientsInput.amount}
-                                    />
+                                    <input
+                                        value={ingredientsInput.name}
+                                        key={"name" + index}
+                                        name={"name"}
+                                        type={"text"}
+                                        placeholder={"name"}
+                                        onChange={event => handleIngredientFormChange(event, index)}/>
+
+                                    <input
+                                        value={ingredientsInput.amount}
+                                        key={"amount" + index}
+                                        name={"amount"}
+                                        type={"number"}
+                                        placeholder={"amount"}
+                                        onChange={event => handleIngredientFormChange(event, index)}/>
+
                                     <select key={"unit" + index} name={"unit"} value={ingredientsInput.unit} onChange={event => handleIngredientFormChange(event, index)} >
                                         <option value={"stk"}>stk</option>
                                         <option value={"g"}>g</option>
