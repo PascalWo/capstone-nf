@@ -1,5 +1,6 @@
 import axios from "axios";
 import {Recipe} from "../model/Recipe";
+import {ShoppingItem} from "../model/ShoppingItem";
 
 export const getAllRecipes: (token?: string) => Promise<Recipe[]> = (token: string | undefined) => {
     return axios.get("/api/recipes", token
@@ -36,6 +37,13 @@ export const postRecipeItem: (newRecipeItem: Omit<Recipe, "id">, token?: string)
 
 export const putRecipe: (id: string, updatedRecipe: Recipe, token?: string) => Promise<Recipe> = (id, updatedRecipe, token) => {
     return axios.put(`/api/recipes/${id}`, updatedRecipe, token
+        ? {headers: {"Authorization": token}}
+        : {})
+        .then(response => response.data)
+}
+
+export const getAllShoppingItem: (token?: string) => Promise<ShoppingItem[]> = (token) => {
+    return axios.get("/api/shoppingitem", token
         ? {headers: {"Authorization": token}}
         : {})
         .then(response => response.data)
