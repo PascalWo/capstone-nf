@@ -11,7 +11,6 @@ export default function useShoppingItems() {
         getAllShoppingItem(token)
             .then(allShoppingItems => setShoppingItems(allShoppingItems))
             .catch(() => "Connection failed! Please retry later.")
-
     }, [token])
 
     const addShoppingItems = (newShoppingItem: Omit<ShoppingItem, "id">) => {
