@@ -26,6 +26,10 @@ export default function ShoppingItemDetailsPage({shoppingItem2, name2}: Shopping
     // @ts-ignore
     const {shoppingItem} = state
 
+    useEffect(() => {
+        onClickToggleAdding()
+    }, [shoppingItem])
+
     // useEffect(() => {
     //     {shoppingItem}
     //     // eslint-disable-next-line
@@ -33,8 +37,8 @@ export default function ShoppingItemDetailsPage({shoppingItem2, name2}: Shopping
 
     // useEffect(shoppingItem)
 
-    useEffect(() => {
-    }, [])
+    // useEffect(() => {
+    // }, [])
 
 
     return (

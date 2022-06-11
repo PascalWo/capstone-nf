@@ -1,5 +1,6 @@
 import {ShoppingItem} from "../model/ShoppingItem";
 import {FormEvent, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 type ShowShoppingitemDetailsProps = {
     item: ShoppingItem
@@ -12,6 +13,8 @@ export default function EditShoppingItemDetails ({item, updateShoppingItem, togg
     const [name, setName] = useState<string>(item.name)
     const [amount, setAmount] = useState<number>(item.amount)
     const [unit, setUnit] = useState<string>(item.unit);
+
+    const navigate = useNavigate()
 
 
     const saveNewItem =  (event : FormEvent<HTMLFormElement> ) => {
@@ -27,6 +30,7 @@ export default function EditShoppingItemDetails ({item, updateShoppingItem, togg
 
         updateShoppingItem(updatedItem)
         toggleComponent()
+        navigate(`/shoppinglist`)
     }
 
     return(
