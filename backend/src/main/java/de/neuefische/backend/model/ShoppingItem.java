@@ -1,6 +1,5 @@
 package de.neuefische.backend.model;
 
-import de.neuefische.backend.dto.CreateShoppingItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @Document(collection = "shoppingItems")
 public class ShoppingItem {
-
-    public ShoppingItem(CreateShoppingItemDto dto){
-        this.name = dto.getName();
-        this.amount = dto.getAmount();
-        this.unit = dto.getUnit();
-        this.done = dto.isDone();
-    }
 
     @Id
     private String id;
