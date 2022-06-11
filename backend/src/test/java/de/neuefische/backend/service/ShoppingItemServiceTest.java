@@ -6,6 +6,7 @@ import de.neuefische.backend.model.ShoppingItem;
 import de.neuefische.backend.repository.ShoppingItemRepo;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,12 +45,30 @@ class ShoppingItemServiceTest {
                 .build();
     }
 
+    ShoppingItem itemToAdd2() {
+        return ShoppingItem.builder()
+                .name("Nudeln")
+                .amount(500)
+                .unit("g")
+                .done(false)
+                .build();
+    }
+
     CreateShoppingItemDto newItemDto() {
         return CreateShoppingItemDto.builder()
                 .name("Mehl")
                 .amount(500)
                 .unit("g")
                 .done(false).build();
+    }
+
+    CreateShoppingItemDto newItemDto2() {
+        return CreateShoppingItemDto.builder()
+                .name("Nudeln")
+                .amount(500)
+                .unit("g")
+                .done(false)
+                .build();
     }
 
     @Test
@@ -133,5 +152,47 @@ class ShoppingItemServiceTest {
         shoppingItemService.deleteShoppingItem("1");
         //THEN
         verify(shoppingItemRepo).deleteById("1");
+    }
+
+    @Test
+    void addNewItemList() {
+        //GIVEN
+        List<ShoppingItem> shoppingItemList = List.of(itemToAdd(),itemToAdd2());
+        List<CreateShoppingItemDto> dtoList = List.of(newItemDto(),newItemDto2());
+        when(shoppingItemRepo.insert(shoppingItemList)).thenReturn(List.of(
+                ShoppingItem.builder()
+                        .id("123-456")
+                        .name("Mehl")
+                        .amount(500)
+                        .unit("g")
+                        .done(false)
+                        .build(),
+                ShoppingItem.builder()
+                        .id("234-567")
+                        .name("Nudeln")
+                        .amount(500)
+                        .unit("g")
+                        .done(false)
+                        .build()));
+
+        //WHEN
+        List<ShoppingItem> actual = shoppingItemService.addNewItemList(dtoList);
+
+        //THEN
+        List<ShoppingItem> expected = List.of(ShoppingItem.builder()
+                .id("123-456")
+                .name("Mehl")
+                .amount(500)
+                .unit("g")
+                .done(false).build(),
+        ShoppingItem.builder()
+                .id("234-567")
+                .name("Nudeln")
+                .amount(500)
+                .unit("g")
+                .done(false)
+                .build());
+        verify(shoppingItemRepo).insert(shoppingItemList);
+        assertEquals(expected, actual);
     }
 }

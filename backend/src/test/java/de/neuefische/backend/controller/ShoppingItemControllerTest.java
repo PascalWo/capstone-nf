@@ -152,6 +152,47 @@ class ShoppingItemControllerTest {
                 .expectStatus().is2xxSuccessful();
     }
 
+    @Test
+    void postNewItemList() {
+        //WHEN
+        List<ShoppingItem> actual = testClient.post()
+                .uri("/api/shoppingitem/list")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(List.of(item1(),item2(), itemToAdd()))
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBodyList(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //THEN
+        assertNotNull(actual);
+        List<ShoppingItem> expected = List.of(ShoppingItem.builder()
+                        .id(actual.get(0).getId())
+                        .name("Apfel")
+                        .amount(3)
+                        .unit("stk")
+                        .done(false)
+                        .build(),
+                ShoppingItem.builder()
+                        .id(actual.get(1).getId())
+                        .name("Käse")
+                        .amount(200)
+                        .unit("g")
+                        .done(false)
+                        .build(),
+                ShoppingItem.builder()
+                        .id(actual.get(2).getId())
+                        .name("Mehl")
+                        .amount(500)
+                        .unit("g")
+                        .done(false)
+                        .build()
+
+        );
+        assertEquals(expected, actual);
+    }
+
     private String generateJWTToken() {
         String hashedPassword = passwordEncoder.encode("passwort");
         AppUser testUser = AppUser.builder()

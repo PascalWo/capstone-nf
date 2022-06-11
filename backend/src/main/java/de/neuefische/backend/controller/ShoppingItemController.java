@@ -31,4 +31,10 @@ public class ShoppingItemController {
     public void deleteShoppingItem(@PathVariable String id) {
         shoppingItemService.deleteShoppingItem(id);
     }
+
+    @PostMapping("/list")
+    public List<ShoppingItem> postNewItemList(@RequestBody List<CreateShoppingItemDto> newItemList) {
+       return shoppingItemService.addNewItemList(newItemList);
+    }
 }
+
