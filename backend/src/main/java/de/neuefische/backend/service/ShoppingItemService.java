@@ -39,7 +39,8 @@ public class ShoppingItemService {
         shoppingItemRepo.deleteById(id);
     }
 
-    public void addNewItemList(List<CreateShoppingItemDto> itemList){
-        itemList.forEach(this::addNewItem);
+    public List<ShoppingItem> addNewItemList(List<CreateShoppingItemDto> dtoList){
+        List<ShoppingItem> shoppingItemList = dtoList.stream().map(dto -> new ShoppingItem(dto.getName(), dto.getAmount(), dto.getUnit(), dto.isDone())).toList();
+        return shoppingItemRepo.insert(shoppingItemList);
     }
 }

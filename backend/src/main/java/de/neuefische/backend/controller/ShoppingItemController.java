@@ -33,8 +33,8 @@ public class ShoppingItemController {
     }
 
     @PostMapping("/list")
-    public void postNewItemList(@RequestBody List<CreateShoppingItemDto> newItemList) {
-        shoppingItemService.addNewItemList(newItemList);
+    public List<ShoppingItem> postNewItemList(@RequestBody List<CreateShoppingItemDto> newItemList) {
+       return shoppingItemService.addNewItemList(newItemList);
     }
 }
 
