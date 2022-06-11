@@ -61,11 +61,15 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
         setUnit("");
     }
 
+
+
     const onListAdd= (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // const newShoppingItemList: Omit<ShoppingItem[], "id"> = {
-        // }
+        const shoppingItemList: ShoppingItem[] = ingredients.map(item => {return {name: item.name, amount: item.amount, unit: item.unit, done: false}})
+
+        addShoppingItemList(shoppingItemList);
+        toggleComponent();
     }
 
     return (
@@ -86,7 +90,7 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
                 </select>
                 <button type={"submit"}>Add ShoppingItem</button>
             </form>
-            <form>
+            <form onSubmit={onListAdd}>
                 Ingredients:
                 <div>
                     {ingredients
@@ -127,7 +131,7 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
                         Add More..
                     </button>
                 </div>
-                <button type={"submit"}>Add ShoppingItem</button>
+                <button type={"submit"}>Add ShoppingItemList</button>
             </form>
         </div>
     )
