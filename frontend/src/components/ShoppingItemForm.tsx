@@ -111,23 +111,29 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
                                         placeholder={"amount"}
                                         onChange={event => handleIngredientFormChange(event, index)}/>
 
-                                    <select key={"unit" + index} name={"unit"} value={ingredientsInput.unit} onChange={event => handleIngredientFormChange(event, index)} >
-                                        <option value={"stk"}>stk</option>
-                                        <option value={"g"}>g</option>
-                                        <option value={"kg"}>kg</option>
-                                        <option value={"ml"}>ml</option>
+                                    <select key={"unit" + index}
+                                            name={"unit"}
+                                            value={ingredientsInput.unit}
+                                            onChange={event => handleIngredientFormChange(event, index)} >
                                         <option value={"l"}>l</option>
                                         <option value={"tl"}>tl</option>
                                         <option value={"el"}>el</option>
                                         <option value={"pr"}>pr</option>
+                                        <option value={"stk"}>stk</option>
+                                        <option value={"g"}>g</option>
+                                        <option value={"kg"}>kg</option>
+                                        <option value={"ml"}>ml</option>
                                     </select>
-                                    <button key={"remove" + index} type={"button"} onClick={() => removeIngredientField(index)}>Remove Ingredient</button>
+                                    <button key={"remove" + index}
+                                            type={"button"}
+                                            onClick={() => removeIngredientField(index)}>
+                                        Remove Ingredient</button>
                                 </div>
                             )
                         })}
                     <button
-                        key={"add-ingredient"}
                         type={"button"}
+                        key={"add-ingredient"}
                         onClick={addIngredientFields}>
                         Add More..
                     </button>
