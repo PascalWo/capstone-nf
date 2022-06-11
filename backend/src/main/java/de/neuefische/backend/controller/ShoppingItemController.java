@@ -36,5 +36,10 @@ public class ShoppingItemController {
     public List<ShoppingItem> postNewItemList(@RequestBody List<CreateShoppingItemDto> newItemList) {
        return shoppingItemService.addNewItemList(newItemList);
     }
+
+    @PutMapping()
+    public ShoppingItem updateShoppingItemById(@RequestBody ShoppingItem updatedItem) {
+        return shoppingItemService.updateShoppingItemByID(updatedItem);
+    }
 }
 

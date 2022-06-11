@@ -43,4 +43,7 @@ public class ShoppingItemService {
         List<ShoppingItem> shoppingItemList = dtoList.stream().map(dto -> new ShoppingItem(dto.getName(), dto.getAmount(), dto.getUnit(), dto.isDone())).toList();
         return shoppingItemRepo.insert(shoppingItemList);
     }
+    public ShoppingItem updateShoppingItemByID(ShoppingItem updatedItem) {
+        return shoppingItemRepo.save(updatedItem);
+    }
 }

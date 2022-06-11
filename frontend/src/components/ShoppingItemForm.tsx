@@ -8,9 +8,11 @@ type ShoppingItemFormProps = {
     toggleComponent: () => void
     recipe?: Recipe
     addShoppingItemList: (newShoppingItemList: Omit<ShoppingItem[], "id">) => void
+    saveShoppingItem?: (updatedShoppingItem : ShoppingItem) => Promise<ShoppingItem | void>
+    shoppingItem?: ShoppingItem
 }
 
-export default function ShoppingItemForm({addShoppingItems, toggleComponent, recipe, addShoppingItemList}: ShoppingItemFormProps){
+export default function ShoppingItemForm({addShoppingItems, toggleComponent, recipe, addShoppingItemList, saveShoppingItem, shoppingItem}: ShoppingItemFormProps){
     const [name, setName] = useState("");
     const [amount, setAmount] = useState(1);
     const [unit, setUnit] = useState("stk");
@@ -69,6 +71,21 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
         addShoppingItemList(shoppingItemList);
         toggleComponent();
     }
+
+    // const saveNewItem =  (event : FormEvent<HTMLFormElement> ) => {
+    //     event.preventDefault()
+    //
+    //     const updatedItem = {
+    //         id: shoppingItem? shoppingItem.id : 0,
+    //         name: name,
+    //         amount: amount,
+    //         unit: unit,
+    //         done: shoppingItem? shoppingItem.done : false,
+    //     }
+    //
+    //
+    //     saveShoppingItem(updatedItem)
+    // }
 
     return (
         <div className={"new-item"}>
