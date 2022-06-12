@@ -6,15 +6,27 @@
     align-items: center;
 }
 
-#ingredient-details {
-    color: black;
+#ingredient-details1 {
+    color: whitesmoke;
+    font-weight: bold;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    border: solid whitesmoke;
     align-self: normal;
-    margin-right: 10%;
-    margin-left: 10%;
+    padding-right: 10%;
+    padding-left: 10%;
+    background-color: #7EB09B;
+
+}
+#ingredient-details2 {
+    color: whitesmoke;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: normal;
+    padding-right: 10%;
+    padding-left: 10%;
 }
 
 #ingredient-name {

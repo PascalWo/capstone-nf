@@ -13,8 +13,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: larger;
-    font-weight: bolder;
 }
 
 #steps-all {
@@ -36,4 +34,9 @@
 #step-step {
     margin: 5px;
     display: flex;
+}
+
+#placeholder {
+    background-color: #7EB09B;
+    padding: 5%;
 }

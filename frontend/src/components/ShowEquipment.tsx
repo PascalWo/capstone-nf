@@ -10,6 +10,7 @@ type ShowEquipmentProps = {
 export default function ShowEquipment({recipe}: ShowEquipmentProps) {
     return (
         <div className={"equipment"}>
+            <h2>Equipment</h2>
                 <div id={"equipment-total"}>
                     {recipe.equipment && recipe.equipment
                     .map((equipment, index) => (

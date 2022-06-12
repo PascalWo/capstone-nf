@@ -8,8 +8,9 @@ import {useState} from "react";
 import AddRecipe from "./AddRecipe";
 import ShoppingItemForm from "./ShoppingItemForm";
 import useShoppingItems from "../hooks/useShoppingItems";
+import * as AiIcons from "react-icons/ai";
 
-type ShowSpoonacularDetailsRecipeProps = {
+type ShowDetailsRecipeProps = {
     recipe: Recipe;
     openedFromSpoonaApi: boolean;
     addRecipeItem?: (newRecipe: Omit<Recipe, "id">) => void
@@ -21,7 +22,7 @@ export default function ShowDetailsRecipe({
                                               openedFromSpoonaApi,
                                               addRecipeItem,
                                               updateRecipe
-                                          }: ShowSpoonacularDetailsRecipeProps) {
+                                          }: ShowDetailsRecipeProps) {
     const {addShoppingItems, addShoppingItemList} = useShoppingItems()
     const [savingEnabled, setSavingEnabled] = useState<boolean>(false);
     const [editingEnabled, setEditingEnabled] = useState<boolean>(false);
@@ -45,39 +46,27 @@ export default function ShowDetailsRecipe({
     }
 
     return (
-        <div>
-            <div>Details zum Rezept:</div>
+        <div className={"recipe-details"}>
             {!savingEnabled && !editingEnabled && !cartEnabled &&
                 <div>
                     <ShowRecipeGeneralInfo recipe={recipe}/>
-                    <div>
+                    <div id={"recipe-details-buttons"}>
                         {openedFromSpoonaApi &&
-                            <button
+                            <AiIcons.AiOutlinePlus
                                 onClick={toggleSaving}
-                                type={"submit"}>
-                                Speichern
-                            </button>}
+                                id={"details-button-symbol"}/>}
                         {!openedFromSpoonaApi &&
-                            <button
+                            <AiIcons.AiFillEdit
                                 onClick={toggleEditing}
-                                type={"submit"}>
-                                Edit
-                            </button>}
-                        <button
-                            type={"submit"}>
-                            Favorite
-                        </button>
-                        <button
+                                id={"details-button-symbol"}/>}
+                        <AiIcons.AiFillHeart
+                            id={"details-button-symbol"}/>
+                        <AiIcons.AiFillShopping
                             onClick={toggleCart}
-                            type={"submit"}>
-                            Einkaufswagen
-                        </button>
+                            id={"details-button-symbol"}/>
                     </div>
-                    <div>Zutaten:</div>
                     <ShowIngredients recipe={recipe}/>
-                    <div>Instructions</div>
                     <ShowInstructions recipe={recipe}/>
-                    <div>Equipment</div>
                     <ShowEquipment recipe={recipe}/>
                 </div>}
             {savingEnabled &&
@@ -85,7 +74,8 @@ export default function ShowDetailsRecipe({
             {editingEnabled &&
                 <AddRecipe toggleComponent={toggleEditing} recipe={deepCloneRecipe()} updateRecipe={updateRecipe}/>}
             {cartEnabled &&
-            <ShoppingItemForm addShoppingItems={addShoppingItems} toggleComponent={toggleCart} recipe={deepCloneRecipe()} addShoppingItemList={addShoppingItemList}/>}
+                <ShoppingItemForm addShoppingItems={addShoppingItems} toggleComponent={toggleCart}
+                                  recipe={deepCloneRecipe()} addShoppingItemList={addShoppingItemList}/>}
         </div>
     )
 }

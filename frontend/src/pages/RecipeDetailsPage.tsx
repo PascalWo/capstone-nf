@@ -2,6 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useEffect} from "react";
 import useDetailsRecipe from "../hooks/useDetailsRecipe";
 import ShowDetailsRecipe from "../components/ShowDetailsRecipe";
+import * as AiIcons from "react-icons/ai";
 
 export default function RecipeDetailsPage(){
     const navigate = useNavigate()
@@ -18,13 +19,12 @@ export default function RecipeDetailsPage(){
 
     return (
         <div>
-            <div>Detailspage</div>
-            <button onClick={() => navigate(-1)}>Back to Overview</button>
             <div>
                 {detailsRecipe
                     ? <ShowDetailsRecipe recipe={detailsRecipe} openedFromSpoonaApi={false} updateRecipe={updateRecipe}/>
                     : <p>Kein Rezept mit der ID: {id} gefunden</p>}
             </div>
+            <AiIcons.AiFillLeftCircle id={"details-button-symbol"} onClick={() => navigate(-1)}/>
         </div>
     )
 }
