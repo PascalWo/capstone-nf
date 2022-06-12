@@ -36,5 +36,14 @@ public class ShoppingItemController {
     public List<ShoppingItem> postNewItemList(@RequestBody List<CreateShoppingItemDto> newItemList) {
        return shoppingItemService.addNewItemList(newItemList);
     }
-}
 
+    @GetMapping("{id}")
+    public ShoppingItem getShoppingItemById(@PathVariable String id){
+        return shoppingItemService.getShoppingItemById(id);
+    }
+
+    @PutMapping("{id}")
+    public ShoppingItem updateShoppingItemById(@PathVariable String id, @RequestBody CreateShoppingItemDto updatedItem) {
+        return shoppingItemService.updateShoppingItemByID(id, updatedItem);
+    }
+}
