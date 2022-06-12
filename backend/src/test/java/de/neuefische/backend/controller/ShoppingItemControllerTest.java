@@ -4,6 +4,7 @@ import de.neuefische.backend.model.ShoppingItem;
 import de.neuefische.backend.repository.ShoppingItemRepo;
 import de.neuefische.backend.security.model.AppUser;
 import de.neuefische.backend.security.repository.AppUserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,6 +192,147 @@ class ShoppingItemControllerTest {
 
         );
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void getShoppingItemById_whenIdIsValid() {
+        //GIVEN
+        ShoppingItem addShoppingItem = testClient.post()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(itemToAdd())
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //WHEN
+        assertNotNull(addShoppingItem);
+        ShoppingItem actual = testClient.get()
+                .uri("/api/shoppingitem/" + addShoppingItem.getId())
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+        //THEN
+        assertNotNull(actual);
+        ShoppingItem expected = ShoppingItem.builder().id(actual.getId()).name("Mehl")
+                .amount(500)
+                .unit("g")
+                .done(false).build();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getItemById_whenIdIsNotValid_shouldThrowServerError() {
+        //GIVEN
+        testClient.post()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(item1())
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //WHEN THEN
+        testClient.get()
+                .uri("/api/shoppingitem/" + "5")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is5xxServerError();
+    }
+
+    @Test
+    void updateShoppingItemByID_whenValid_thenReturnUpdatedShopping() {
+        //GIVEN
+        ShoppingItem addedShoppingItem = testClient.post()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(itemToAdd())
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //WHEN
+        assertNotNull(addedShoppingItem);
+        ShoppingItem updatedItem = ShoppingItem.builder()
+                .id(addedShoppingItem.getId())
+                .name("Banane")
+                .amount(2)
+                .unit("stk")
+                .done(false)
+                .build();
+        ShoppingItem actual = testClient.put()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(updatedItem)
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //THEN
+        ShoppingItem expected = ShoppingItem.builder()
+                .id(addedShoppingItem.getId())
+                .name("Banane")
+                .amount(2)
+                .unit("stk")
+                .done(false)
+                .build();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void updateShoppingItemByID_whenIDdoesNoteExist_thenReturnNewShoppingItem() {
+        //GIVEN
+        ShoppingItem addedShoppingItem = testClient.post()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(itemToAdd())
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //WHEN
+        ShoppingItem updatedItem = ShoppingItem.builder()
+                .id("23")
+                .name("Banane")
+                .amount(2)
+                .unit("stk")
+                .done(false).build();
+        testClient.put()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(updatedItem)
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        List<ShoppingItem> actual = testClient.get()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBodyList(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //THEN
+        assertNotNull(addedShoppingItem);
+        List<ShoppingItem> expected = List.of(addedShoppingItem, updatedItem);
+        assertEquals(expected,actual);
+
     }
 
     private String generateJWTToken() {

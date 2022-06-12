@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -194,5 +196,55 @@ class ShoppingItemServiceTest {
                 .build());
         verify(shoppingItemRepo).insert(shoppingItemList);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void getShoppingItemById_whenIdIsValid() {
+        //GIVEN
+        when(shoppingItemRepo.findById("1")).thenReturn(
+                Optional.of(item1()));
+
+        //WHEN
+        ShoppingItem actual = shoppingItemService.getShoppingItemById("1");
+
+        //THEN
+        ShoppingItem expected = item1();
+
+        verify(shoppingItemRepo).findById("1");
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void getShoppingItemsById_ifIdIsNotValid_shouldThrowException() {
+        //GIVEN
+        when(shoppingItemRepo.findById("1")).thenReturn(Optional.empty());
+        //WHEN //THEN
+        assertThrows(NoSuchElementException.class, () -> shoppingItemService.getShoppingItemById("1"));
+        verify(shoppingItemRepo).findById("1");
+    }
+
+    @Test
+    void updateShoppingItemByID() {
+        // GIVEN
+        when(shoppingItemRepo.save(item1())).thenReturn(ShoppingItem.builder()
+                .id("1234-test")
+                .name("Apfel")
+                .amount(3)
+                .unit("stk")
+                .done(false)
+                .build());
+
+        // WHEN
+        ShoppingItem actual = shoppingItemService.updateShoppingItemByID(item1());
+
+        // THEN
+        ShoppingItem expexted = ShoppingItem.builder()
+                .id("1234-test")
+                .name("Apfel")
+                .amount(3)
+                .unit("stk")
+                .done(false)
+                .build();
+        assertEquals(expexted,actual);
     }
 }
