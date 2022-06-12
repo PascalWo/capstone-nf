@@ -12,9 +12,9 @@ export default function ShowRecipeGeneralInfo({recipe}: ShowRecipeGeneralInfoPro
     return (<div className={"general-recipe-info"}>
             <h1 id={"title"}>{recipe.title}</h1>
             <div id={"top-image-info"}>
-                <div>Vegetarian: {recipe.vegetarian ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
-                <div>Vegan: {recipe.vegan ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
-                <div>GlutenFree: {recipe.glutenFree ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
+                <div id={"top-image-info-item"}>Vegetarian: {recipe.vegetarian ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
+                <div id={"top-image-info-item"}>Vegan: {recipe.vegan ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
+                <div id={"top-image-info-item"}>GlutenFree: {recipe.glutenFree ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
             </div>
 
             {recipe.image

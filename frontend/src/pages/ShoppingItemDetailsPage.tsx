@@ -1,5 +1,5 @@
 import {ShoppingItem} from "../model/ShoppingItem";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useShoppingItems from "../hooks/useShoppingItems";
 import {useEffect, useState} from "react";
 import EditShoppingItemDetails from "../components/EditShoppingItemDetails";
@@ -7,7 +7,6 @@ import useDetailedShoppingItem from "../hooks/useDetailedShoppingItem";
 import ShowShoppingItemDetails from "../components/ShowShoppingitemDetails";
 
 export default function ShoppingItemDetailsPage() {
-    const navigate = useNavigate()
     const {id} = useParams()
     const {saveShoppingItem} = useShoppingItems()
     const {detailedShoppingItem, getShoppingItemById, setDetailedShoppingItem} = useDetailedShoppingItem()
@@ -44,10 +43,6 @@ export default function ShoppingItemDetailsPage() {
                             item={detailedShoppingItem}
                             toggleEditing={onClickToggleEditing}/>}
                 </div>}
-            <button
-                onClick={() => navigate(-1)}>
-                Back
-            </button>
         </div>
     )
 }

@@ -9,6 +9,7 @@ import AddRecipe from "./AddRecipe";
 import ShoppingItemForm from "./ShoppingItemForm";
 import useShoppingItems from "../hooks/useShoppingItems";
 import * as AiIcons from "react-icons/ai";
+import {useNavigate} from "react-router-dom";
 
 type ShowDetailsRecipeProps = {
     recipe: Recipe;
@@ -27,6 +28,7 @@ export default function ShowDetailsRecipe({
     const [savingEnabled, setSavingEnabled] = useState<boolean>(false);
     const [editingEnabled, setEditingEnabled] = useState<boolean>(false);
     const [cartEnabled, setCartEnabled] = useState(false)
+    const navigate  = useNavigate();
 
 
     const toggleSaving = () => {
@@ -76,6 +78,8 @@ export default function ShowDetailsRecipe({
             {cartEnabled &&
                 <ShoppingItemForm addShoppingItems={addShoppingItems} toggleComponent={toggleCart}
                                   recipe={deepCloneRecipe()} addShoppingItemList={addShoppingItemList}/>}
+            {!savingEnabled && !editingEnabled && !cartEnabled &&
+                <AiIcons.AiFillLeftCircle id={"details-button-symbol"} onClick={() => navigate(-1)}/>}
         </div>
     )
 }

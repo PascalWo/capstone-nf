@@ -33,3 +33,10 @@
     align-items: center;
     padding: 2% 10% 0;
 }
+
+#top-image-info-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

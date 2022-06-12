@@ -16,7 +16,7 @@ export default function ShowInstructions({recipe}: ShowInstructionsProps) {
                         <h2
                             key={"name" + index}
                             id={"instruction-name"}>
-                            Instruction:{instructions.name}
+                            Instruction: {instructions.name && <h6>{instructions.name}</h6>}
                         </h2>
                         <div
                             key={"steps-all" + index}
