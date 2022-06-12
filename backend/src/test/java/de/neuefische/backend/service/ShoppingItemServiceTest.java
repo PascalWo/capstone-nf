@@ -224,25 +224,39 @@ class ShoppingItemServiceTest {
     }
 
     @Test
-    void updateShoppingItemByID() {
+    void updateShoppingItemByID_whenIdExists_shouldReturnShoppingItem() {
         // GIVEN
-        when(shoppingItemRepo.save(item1())).thenReturn(ShoppingItem.builder()
-                .id("1234-test")
-                .name("Apfel")
-                .amount(3)
-                .unit("stk")
+        String updateItemId = "123-456";
+
+        CreateShoppingItemDto itemToUpdate = CreateShoppingItemDto.builder()
+                    .name("Nudeln")
+                    .amount(500)
+                    .unit("g")
+                    .done(false)
+                    .build();
+
+        ShoppingItem updatedItem = ShoppingItem.builder()
+                .id("123-456")
+                .name("Nudeln")
+                .amount(500)
+                .unit("g")
                 .done(false)
-                .build());
+                .build();
+
+        ShoppingItem saveItem = new ShoppingItem(itemToUpdate);
+
+        when(shoppingItemRepo.existsById(updateItemId)).thenReturn(true);
+        when(shoppingItemRepo.save(updatedItem)).thenReturn(updatedItem);
 
         // WHEN
-        ShoppingItem actual = shoppingItemService.updateShoppingItemByID(item1());
+        ShoppingItem actual = shoppingItemService.updateShoppingItemByID(updateItemId, itemToUpdate);
 
         // THEN
         ShoppingItem expexted = ShoppingItem.builder()
-                .id("1234-test")
-                .name("Apfel")
-                .amount(3)
-                .unit("stk")
+                .id("123-456")
+                .name("Nudeln")
+                .amount(500)
+                .unit("g")
                 .done(false)
                 .build();
         assertEquals(expexted,actual);

@@ -1,5 +1,6 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.dto.CreateShoppingItemDto;
 import de.neuefische.backend.model.ShoppingItem;
 import de.neuefische.backend.repository.ShoppingItemRepo;
 import de.neuefische.backend.security.model.AppUser;
@@ -68,6 +69,21 @@ class ShoppingItemControllerTest {
                 .done(false)
                 .build();
     }
+
+    ShoppingItem saveItem = ShoppingItem.builder()
+            .id("123")
+            .name("Apfel")
+            .amount(3)
+            .unit("stk")
+            .done(false)
+            .build();
+
+    CreateShoppingItemDto itemToUpdate = CreateShoppingItemDto.builder()
+            .name("Apfel")
+            .amount(3)
+            .unit("stk")
+            .done(false)
+            .build();
 
     @Test
     void getShoppingItems() {
@@ -249,29 +265,14 @@ class ShoppingItemControllerTest {
     @Test
     void updateShoppingItemByID_whenValid_thenReturnUpdatedShopping() {
         //GIVEN
-        ShoppingItem addedShoppingItem = testClient.post()
-                .uri("/api/shoppingitem")
-                .headers(http -> http.setBearerAuth(jwtToken))
-                .bodyValue(itemToAdd())
-                .exchange()
-                .expectStatus().is2xxSuccessful()
-                .expectBody(ShoppingItem.class)
-                .returnResult()
-                .getResponseBody();
+        shoppingItemRepo.insert(saveItem);
 
         //WHEN
-        assertNotNull(addedShoppingItem);
-        ShoppingItem updatedItem = ShoppingItem.builder()
-                .id(addedShoppingItem.getId())
-                .name("Banane")
-                .amount(2)
-                .unit("stk")
-                .done(false)
-                .build();
+
         ShoppingItem actual = testClient.put()
-                .uri("/api/shoppingitem")
+                .uri("/api/shoppingitem/" + saveItem.getId())
                 .headers(http -> http.setBearerAuth(jwtToken))
-                .bodyValue(updatedItem)
+                .bodyValue(itemToUpdate)
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBody(ShoppingItem.class)
@@ -280,9 +281,9 @@ class ShoppingItemControllerTest {
 
         //THEN
         ShoppingItem expected = ShoppingItem.builder()
-                .id(addedShoppingItem.getId())
-                .name("Banane")
-                .amount(2)
+                .id(saveItem.getId())
+                .name("Apfel")
+                .amount(3)
                 .unit("stk")
                 .done(false)
                 .build();
@@ -290,49 +291,18 @@ class ShoppingItemControllerTest {
     }
 
     @Test
-    void updateShoppingItemByID_whenIDdoesNoteExist_thenReturnNewShoppingItem() {
+    void updateShoppingItemByID_whenIdDoesNoteExist_shouldReturnError() {
         //GIVEN
-        ShoppingItem addedShoppingItem = testClient.post()
-                .uri("/api/shoppingitem")
-                .headers(http -> http.setBearerAuth(jwtToken))
-                .bodyValue(itemToAdd())
-                .exchange()
-                .expectStatus().is2xxSuccessful()
-                .expectBody(ShoppingItem.class)
-                .returnResult()
-                .getResponseBody();
+        shoppingItemRepo.insert(saveItem);
+        String notValidId = "999";
 
-        //WHEN
-        ShoppingItem updatedItem = ShoppingItem.builder()
-                .id("23")
-                .name("Banane")
-                .amount(2)
-                .unit("stk")
-                .done(false).build();
+        //WHEN Then
         testClient.put()
-                .uri("/api/shoppingitem")
+                .uri("/api/shoppingitem/" + notValidId)
                 .headers(http -> http.setBearerAuth(jwtToken))
-                .bodyValue(updatedItem)
+                .bodyValue(itemToUpdate)
                 .exchange()
-                .expectStatus().is2xxSuccessful()
-                .expectBody(ShoppingItem.class)
-                .returnResult()
-                .getResponseBody();
-
-        List<ShoppingItem> actual = testClient.get()
-                .uri("/api/shoppingitem")
-                .headers(http -> http.setBearerAuth(jwtToken))
-                .exchange()
-                .expectStatus().is2xxSuccessful()
-                .expectBodyList(ShoppingItem.class)
-                .returnResult()
-                .getResponseBody();
-
-        //THEN
-        assertNotNull(addedShoppingItem);
-        List<ShoppingItem> expected = List.of(addedShoppingItem, updatedItem);
-        assertEquals(expected,actual);
-
+                .expectStatus().is5xxServerError();
     }
 
     private String generateJWTToken() {

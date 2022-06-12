@@ -44,7 +44,15 @@ public class ShoppingItemService {
         List<ShoppingItem> shoppingItemList = dtoList.stream().map(dto -> new ShoppingItem(dto.getName(), dto.getAmount(), dto.getUnit(), dto.isDone())).toList();
         return shoppingItemRepo.insert(shoppingItemList);
     }
-    public ShoppingItem updateShoppingItemByID(ShoppingItem updatedItem) {
+    public ShoppingItem updateShoppingItemByID(String id, CreateShoppingItemDto itemToUpdate) {
+        if(!shoppingItemRepo.existsById(id)){
+            throw new NoSuchElementException("Item with ID: " + id + "does not exist!");
+        }
+        if (itemToUpdate.getName() == null || itemToUpdate.getName().equals("")){
+            throw new IllegalArgumentException("Item name does not be empty!");
+        }
+        ShoppingItem updatedItem = new ShoppingItem(itemToUpdate);
+        updatedItem.setId(id);
         return shoppingItemRepo.save(updatedItem);
     }
 
