@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ShoppingItemService {
@@ -42,5 +43,21 @@ public class ShoppingItemService {
     public List<ShoppingItem> addNewItemList(List<CreateShoppingItemDto> dtoList){
         List<ShoppingItem> shoppingItemList = dtoList.stream().map(dto -> new ShoppingItem(dto.getName(), dto.getAmount(), dto.getUnit(), dto.isDone())).toList();
         return shoppingItemRepo.insert(shoppingItemList);
+    }
+    public ShoppingItem updateShoppingItemByID(String id, CreateShoppingItemDto itemToUpdate) {
+        if(!shoppingItemRepo.existsById(id)){
+            throw new NoSuchElementException("Item with ID: " + id + "does not exist!");
+        }
+        if (itemToUpdate.getName() == null || itemToUpdate.getName().equals("")){
+            throw new IllegalArgumentException("Item name does not be empty!");
+        }
+        ShoppingItem updatedItem = new ShoppingItem(itemToUpdate);
+        updatedItem.setId(id);
+        return shoppingItemRepo.save(updatedItem);
+    }
+
+    public ShoppingItem getShoppingItemById(String id) {
+        return shoppingItemRepo.findById(id)
+                .orElseThrow( () -> new NoSuchElementException("Shoppingitem not found with id: " + id));
     }
 }
