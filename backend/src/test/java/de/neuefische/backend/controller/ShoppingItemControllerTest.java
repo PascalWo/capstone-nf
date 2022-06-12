@@ -268,7 +268,6 @@ class ShoppingItemControllerTest {
         shoppingItemRepo.insert(saveItem);
 
         //WHEN
-
         ShoppingItem actual = testClient.put()
                 .uri("/api/shoppingitem/" + saveItem.getId())
                 .headers(http -> http.setBearerAuth(jwtToken))
