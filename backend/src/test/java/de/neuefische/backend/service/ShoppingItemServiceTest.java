@@ -261,4 +261,32 @@ class ShoppingItemServiceTest {
                 .build();
         assertEquals(expexted,actual);
     }
+
+    @Test
+    void updateRecipeById_whenTitleEqualsEmptyString_shouldThrowException() {
+        //WHEN
+        String id = "123";
+        CreateShoppingItemDto itemDto = CreateShoppingItemDto
+                .builder()
+                .name("")
+                .build();
+        when(shoppingItemRepo.existsById(id)).thenReturn(true);
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.updateShoppingItemByID(id,itemDto));
+    }
+
+    @Test
+    void updateRecipeById_whenTitleEqualsNull_shouldThrowException() {
+        //WHEN
+        String id = "123";
+        CreateShoppingItemDto itemDto = CreateShoppingItemDto
+                .builder()
+                .name(null)
+                .build();
+        when(shoppingItemRepo.existsById(id)).thenReturn(true);
+
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.updateShoppingItemByID(id,itemDto));
+    }
 }
