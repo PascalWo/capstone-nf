@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ShoppingItemService {
@@ -42,5 +43,13 @@ public class ShoppingItemService {
     public List<ShoppingItem> addNewItemList(List<CreateShoppingItemDto> dtoList){
         List<ShoppingItem> shoppingItemList = dtoList.stream().map(dto -> new ShoppingItem(dto.getName(), dto.getAmount(), dto.getUnit(), dto.isDone())).toList();
         return shoppingItemRepo.insert(shoppingItemList);
+    }
+    public ShoppingItem updateShoppingItemByID(ShoppingItem updatedItem) {
+        return shoppingItemRepo.save(updatedItem);
+    }
+
+    public ShoppingItem getShoppingItemById(String id) {
+        return shoppingItemRepo.findById(id)
+                .orElseThrow( () -> new NoSuchElementException("Shoppingitem not found with id: " + id));
     }
 }
