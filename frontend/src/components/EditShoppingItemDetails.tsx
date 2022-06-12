@@ -35,13 +35,13 @@ export default function EditShoppingItemDetails ({item, updateShoppingItem, togg
                 <input type={"number"} value={amount} onChange={event => setAmount(Number(event.target.value))}/>
                 <select value={unit} onChange={event => setUnit(event.target.value)} >
                     <option value={"stk"}>stk</option>
-                    <option value={"g"}>g</option>
-                    <option value={"kg"}>kg</option>
                     <option value={"ml"}>ml</option>
                     <option value={"l"}>l</option>
                     <option value={"tl"}>tl</option>
                     <option value={"el"}>el</option>
                     <option value={"pr"}>pr</option>
+                    <option value={"g"}>g</option>
+                    <option value={"kg"}>kg</option>
                 </select>
                 <button type={"submit"}>Edit ShoppingItem</button>
             </form>
