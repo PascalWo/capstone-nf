@@ -25,9 +25,6 @@ export default function useShoppingItems() {
     const addShoppingItemList = (newShoppingItemList: Omit<ShoppingItem[], "id">) => {
         postShoppingItemList(newShoppingItemList, token)
             .then(addedShoppingItemList => addedShoppingItemList.map((item: ShoppingItem) => {setShoppingItems([...shoppingItems, item])}))
-            .then(() => {
-                console.log("ShoppingItemList: " + newShoppingItemList + " created");
-            })
             .catch(() => console.error("Connection failed! Please retry later."))
     }
 
