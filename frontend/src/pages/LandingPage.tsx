@@ -1,3 +1,6 @@
+import "../components/LandingPage.css"
+
 export default function LandingPage(){
-    return <div>Hello World!</div>
+    return <div className={"landingPage"}>
+    </div>
 }

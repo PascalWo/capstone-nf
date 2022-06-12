@@ -1,12 +1,9 @@
-.header {
-    background-color: #519E8A;
-    color: whitesmoke;
-    font-size: xx-large;
-    font-family: "Comic Sans MS", serif;
-    font-weight: bolder;
-    font-style: oblique;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
+.header{
+    margin-bottom: 0;
+    padding: 2em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../images/logogreen.JPG");
+    background-size: cover;
 }
+
