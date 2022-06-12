@@ -7,10 +7,10 @@ type ShowIngredientsProps = {
 export default function ShowIngredients({recipe}: ShowIngredientsProps) {
     return (
         <div className={"show-ingredients"}>
-
+            <h2>Ingredients</h2>
             {recipe.extendedIngredients && recipe.extendedIngredients
                 .map((ingredients, index) => (
-                    <div key={"details" + index} id={"ingredient-details"}>
+                    <div key={"details" + index} id={index % 2 === 0? "ingredient-details1": "ingredient-details2" }>
                         <div key={"name" + index} id={"ingredient-name"}>{ingredients.name}</div>
                         <div key={"amount+unit" + index} id={"ingredient-amount-unit"}>
                             <div key={"amount" + index} id={"ingredient-amount"}>{ingredients.amount}</div>

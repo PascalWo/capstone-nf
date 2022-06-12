@@ -2,6 +2,7 @@ import {ShoppingItem} from "../model/ShoppingItem";
 import {ChangeEvent, FormEvent, useState} from "react";
 import {Recipe} from "../model/Recipe";
 import {Ingredient} from "../model/Ingredient";
+import * as AiIcons from "react-icons/ai";
 
 type ShoppingItemFormProps = {
     addShoppingItems : ( newShoppingItem : Omit<ShoppingItem, "id">) => void
@@ -72,7 +73,6 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
 
     return (
         <div className={"new-item"}>
-            <button onClick={toggleComponent}>Back</button>
             <form onSubmit={onAdd}>
                 <input type={"text"} placeholder="Add a new item" value={name} onChange={event => setName(event.target.value)} />
                 <input type={"number"} value={amount} onChange={event => setAmount(Number(event.target.value))}/>
@@ -140,6 +140,7 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
                 </div>
                 <button type={"submit"}>Add ShoppingItemList</button>
             </form>
+            <AiIcons.AiFillLeftCircle id={"details-button-symbol"} onClick={toggleComponent}/>
         </div>
     )
 }

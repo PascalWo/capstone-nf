@@ -11,10 +11,13 @@
 
 #instruction-name {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: larger;
-    font-weight: bolder;
+}
+
+h6{
+    margin-top: 0;
 }
 
 #steps-all {
@@ -36,4 +39,9 @@
 #step-step {
     margin: 5px;
     display: flex;
+}
+
+#placeholder {
+    background-color: #7EB09B;
+    padding: 5%;
 }

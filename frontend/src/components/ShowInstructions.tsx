@@ -7,16 +7,17 @@ type ShowInstructionsProps = {
 export default function ShowInstructions({recipe}: ShowInstructionsProps) {
     return (
         <div className={"instructions"}>
+            <div id={"placeholder"}></div>
             {recipe.analyzedInstructions && recipe.analyzedInstructions
                 .map((instructions, index) => (
                     <div
                         key={"instruction-details" + index}
                         id={"instruction-details"}>
-                        <div
+                        <h2
                             key={"name" + index}
                             id={"instruction-name"}>
-                            Anleitung:{instructions.name}
-                        </div>
+                            Instruction: {instructions.name && <h6>{instructions.name}</h6>}
+                        </h2>
                         <div
                             key={"steps-all" + index}
                             id={"steps-all"}>
