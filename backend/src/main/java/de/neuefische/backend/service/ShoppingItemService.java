@@ -60,4 +60,5 @@ public class ShoppingItemService {
         return shoppingItemRepo.findById(id)
                 .orElseThrow( () -> new NoSuchElementException("Shoppingitem not found with id: " + id));
     }
+
 }
