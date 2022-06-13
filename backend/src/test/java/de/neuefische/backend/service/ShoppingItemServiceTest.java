@@ -289,27 +289,4 @@ class ShoppingItemServiceTest {
         //THEN
         assertThrows(IllegalArgumentException.class, () -> shoppingItemService.updateShoppingItemByID(id, itemDto));
     }
-
-    @Test
-    void updateShoppingItem() {
-        // GIVEN
-        when(shoppingItemRepo.save(item1())).thenReturn(ShoppingItem.builder()
-                .id("1")
-                .name("Apfel")
-                .amount(5)
-                .unit("g")
-                .done(true).build());
-
-        // WHEN
-        ShoppingItem actual = shoppingItemService.updateShoppingItemByID(item1());
-
-        // THEN
-        ShoppingItem expexted = ShoppingItem.builder()
-                .id("1")
-                .name("Apfel")
-                .amount(5)
-                .unit("g")
-                .done(true).build();
-        assertEquals(expexted, actual);
-    }
 }

@@ -38,8 +38,8 @@ export default function useShoppingItems() {
             .catch(() => console.error("Connection failed! Please retry later."))
     }
 
-    const saveShoppingItem = (shoppingItemToUpdate: ShoppingItem) => {
-        return putShoppingItem(shoppingItemToUpdate, token)
+    const saveShoppingItem = (id: string, shoppingItemToUpdate: ShoppingItem) => {
+        return putShoppingItem(id, shoppingItemToUpdate, token)
             .then(updatedShoppingItem => {
                 setShoppingItems(shoppingItems.map(item => item.id === updatedShoppingItem.id? updatedShoppingItem: item))
                 return updatedShoppingItem })

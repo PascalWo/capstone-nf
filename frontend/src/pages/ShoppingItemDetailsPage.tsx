@@ -24,7 +24,7 @@ export default function ShoppingItemDetailsPage() {
     }
 
     const updateDetailedShoppingItem = (updatedShoppingItem: ShoppingItem) => {
-        saveShoppingItem(updatedShoppingItem)
+        saveShoppingItem(updatedShoppingItem.id, updatedShoppingItem)
             .then(() => setDetailedShoppingItem(updatedShoppingItem))
             .then(() => onClickToggleEditing())
     }

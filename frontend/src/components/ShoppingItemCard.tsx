@@ -5,7 +5,7 @@ import * as AiIcons from "react-icons/ai";
 
 type ShoppingItemCardProps = {
     shoppingItem: ShoppingItem;
-    saveShoppingItem: (updatedShoppingItem: ShoppingItem) => void;
+    saveShoppingItem: (id: string, updatedShoppingItem: ShoppingItem) => void;
     deleteShoppingItem: (id: string) => void;
 }
 
@@ -21,7 +21,7 @@ export default function ShoppingItemCard({shoppingItem, saveShoppingItem, delete
             unit: shoppingItem.unit,
             done: changedDone
         }
-        saveShoppingItem(updatedItem)
+        saveShoppingItem(shoppingItem.id,updatedItem)
     }
 
     return (

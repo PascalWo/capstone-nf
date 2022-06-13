@@ -4,7 +4,7 @@ import {ChangeEvent, useState} from "react";
 
 type ShoppingItemsOverviewProps = {
     shoppingItems: ShoppingItem [];
-    saveShoppingItem: (updatedShoppingItem: ShoppingItem) => void;
+    saveShoppingItem: (id: string, updatedShoppingItem: ShoppingItem) => void;
     deleteShoppingItem: (id: string) => void;
 }
 

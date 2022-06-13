@@ -62,8 +62,8 @@ export const postShoppingItemList: (newShoppingItemList: Omit<ShoppingItem, "id"
         .then(response => response.data)
 }
 
-export const putShoppingItem: (updatedShoppingItem: ShoppingItem, token?: string) => Promise<ShoppingItem> = (updatedShoppingItem, token) => {
-    return axios.put("/api/shoppingitem", updatedShoppingItem, token
+export const putShoppingItem: (id: string, updatedShoppingItem: ShoppingItem, token?: string) => Promise<ShoppingItem> = (id, updatedShoppingItem, token) => {
+    return axios.put(`/api/shoppingitem/${id}`, updatedShoppingItem, token
         ? {headers: {"Authorization": token}}
         : {})
         .then(response => response.data)
