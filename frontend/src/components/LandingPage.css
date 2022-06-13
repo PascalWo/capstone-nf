@@ -1,0 +1,7 @@
+.landingPage {
+    background-image: url("../images/mainpage.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-position: top -100px center ;
+}

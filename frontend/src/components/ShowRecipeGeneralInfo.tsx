@@ -1,7 +1,8 @@
 import {SyntheticEvent} from "react";
 import recipeDefaultImg from "./recipeimage.jpeg";
 import {Recipe} from "../model/Recipe";
-import "./ShowDetailsRecipe.css"
+import "./ShowRecipeGeneralInfo.css";
+import * as AiIcons from 'react-icons/ai';
 
 type ShowRecipeGeneralInfoProps = {
     recipe: Recipe;
@@ -11,10 +12,11 @@ export default function ShowRecipeGeneralInfo({recipe}: ShowRecipeGeneralInfoPro
     return (<div className={"general-recipe-info"}>
             <h1 id={"title"}>{recipe.title}</h1>
             <div id={"top-image-info"}>
-                <p>Vegetarian: {recipe.vegetarian ? "Yes" : "No"}</p>
-                <p>Vegan: {recipe.vegan ? "Yes" : "No"}</p>
-                <p>GlutenFree: {recipe.glutenFree ? "Yes" : "No"}</p>
+                <div id={"top-image-info-item"}>Vegetarian: {recipe.vegetarian ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
+                <div id={"top-image-info-item"}>Vegan: {recipe.vegan ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
+                <div id={"top-image-info-item"}>GlutenFree: {recipe.glutenFree ? <AiIcons.AiFillCheckCircle/> : <AiIcons.AiFillCloseCircle/>}</div>
             </div>
+
             {recipe.image
                 ? <img id={"recipe-image"}
                        src={recipe.image}
@@ -24,8 +26,8 @@ export default function ShowRecipeGeneralInfo({recipe}: ShowRecipeGeneralInfoPro
                        src={recipeDefaultImg}
                        alt={"Recipe Default"}/>}
             <div id={"bottom-image-info"}>
-                <p>ReadyInMinutes: {recipe.readyInMinutes}</p>
-                <p>Servings: {recipe.servings}</p>
+                <div><AiIcons.AiFillClockCircle/> {recipe.readyInMinutes}</div>
+                <p><AiIcons.AiFillSkin/> {recipe.servings}</p>
             </div>
         </div>
     )

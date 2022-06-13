@@ -1,17 +1,15 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useSpoonaDetailsRecipe from "../hooks/useSpoonaDetailsRecipe";
 import {useEffect} from "react";
 import ShowDetailsRecipe from "../components/ShowDetailsRecipe";
 import useRecipes from "../hooks/useRecipes";
 
 export default function SpoonacularDetailsPage(){
-    const navigate = useNavigate()
     const {id} = useParams()
     const {spoonaDetailsRecipe, getSpoonaDetailsRecipeById} = useSpoonaDetailsRecipe()
     const {addRecipeItem} = useRecipes()
 
     useEffect(() => {
-
         if(id) {
             getSpoonaDetailsRecipeById(id)
         }
@@ -20,8 +18,6 @@ export default function SpoonacularDetailsPage(){
 
     return (
         <div>
-            <div>Detailspage</div>
-            <button onClick={() => navigate(-1)}>Back to Overview</button>
             <div>
                 {spoonaDetailsRecipe
                 ?<ShowDetailsRecipe recipe={spoonaDetailsRecipe} openedFromSpoonaApi={true} addRecipeItem={addRecipeItem}/>

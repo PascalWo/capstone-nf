@@ -4,6 +4,7 @@ import "./AddRecipe.css"
 import {InstructionStep} from "../model/InstructionStep";
 import {Ingredient} from "../model/Ingredient";
 import {Instruction} from "../model/Instruction";
+import * as AiIcons from "react-icons/ai";
 
 type AddRecipeProps = {
     addRecipeItem?: (newRecipe: Omit<Recipe, "id">) => void
@@ -311,7 +312,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                 {updateRecipe &&
                     <button type={"submit"}>Edit recipe</button>}
             </form>
-            <button onClick={onClickToggleAndGoBack}>Cancel</button>
+            <AiIcons.AiFillLeftCircle id={"details-button-symbol"} onClick={onClickToggleAndGoBack}/>
             <p id={"url-warning"}>*Image Source bitte als Website-Link "https://..." angeben!</p>
         </div>
     )
