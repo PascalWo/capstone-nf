@@ -30,5 +30,4 @@ public class Recipe {
     private String instructions;
     private List<Instruction> analyzedInstructions;
     private List<Equipment> equipment;
-
 }

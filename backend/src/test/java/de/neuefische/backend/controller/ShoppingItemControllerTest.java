@@ -304,6 +304,79 @@ class ShoppingItemControllerTest {
                 .expectStatus().is5xxServerError();
     }
 
+    @Test
+    void updateShoppingItem_whenValid_thenReturnUpdatedShopping() {
+        //GIVEN
+        shoppingItemRepo.insert(saveItem);
+
+        //WHEN
+        ShoppingItem updatedItem = ShoppingItem.builder()
+                .id("123")
+                .name("Apfel")
+                .amount(5)
+                .unit("stk")
+                .done(false)
+                .build();
+        ShoppingItem actual = testClient.put()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(updatedItem)
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //THEN
+        ShoppingItem expected = ShoppingItem.builder()
+                .id(saveItem.getId())
+                .name("Apfel")
+                .amount(5)
+                .unit("stk")
+                .done(false)
+                .build();
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void updateShoppingItem_whenIDdoesNoteExist_thenReturnNewShoppingItem() {
+        //GIVEN
+        shoppingItemRepo.insert(saveItem);
+
+        //WHEN
+        ShoppingItem updatedItem = ShoppingItem.builder()
+                .id("123-456")
+                .name("Apfel")
+                .amount(5)
+                .unit("stk")
+                .done(false)
+                .build();
+        ShoppingItem updated = testClient.put()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .bodyValue(updatedItem)
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        List<ShoppingItem> actual = testClient.get()
+                .uri("/api/shoppingitem")
+                .headers(http -> http.setBearerAuth(jwtToken))
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBodyList(ShoppingItem.class)
+                .returnResult()
+                .getResponseBody();
+
+        //THEN
+        assertNotNull(saveItem);
+        assertNotNull(updated);
+        List<ShoppingItem> expected = List.of(saveItem, updated);
+        assertEquals(expected,actual);
+    }
+
     private String generateJWTToken() {
         String hashedPassword = passwordEncoder.encode("passwort");
         AppUser testUser = AppUser.builder()

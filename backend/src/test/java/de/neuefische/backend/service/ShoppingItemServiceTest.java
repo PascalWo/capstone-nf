@@ -159,8 +159,8 @@ class ShoppingItemServiceTest {
     @Test
     void addNewItemList() {
         //GIVEN
-        List<ShoppingItem> shoppingItemList = List.of(itemToAdd(),itemToAdd2());
-        List<CreateShoppingItemDto> dtoList = List.of(newItemDto(),newItemDto2());
+        List<ShoppingItem> shoppingItemList = List.of(itemToAdd(), itemToAdd2());
+        List<CreateShoppingItemDto> dtoList = List.of(newItemDto(), newItemDto2());
         when(shoppingItemRepo.insert(shoppingItemList)).thenReturn(List.of(
                 ShoppingItem.builder()
                         .id("123-456")
@@ -182,18 +182,18 @@ class ShoppingItemServiceTest {
 
         //THEN
         List<ShoppingItem> expected = List.of(ShoppingItem.builder()
-                .id("123-456")
-                .name("Mehl")
-                .amount(500)
-                .unit("g")
-                .done(false).build(),
-        ShoppingItem.builder()
-                .id("234-567")
-                .name("Nudeln")
-                .amount(500)
-                .unit("g")
-                .done(false)
-                .build());
+                        .id("123-456")
+                        .name("Mehl")
+                        .amount(500)
+                        .unit("g")
+                        .done(false).build(),
+                ShoppingItem.builder()
+                        .id("234-567")
+                        .name("Nudeln")
+                        .amount(500)
+                        .unit("g")
+                        .done(false)
+                        .build());
         verify(shoppingItemRepo).insert(shoppingItemList);
         assertEquals(expected, actual);
     }
@@ -211,7 +211,7 @@ class ShoppingItemServiceTest {
         ShoppingItem expected = item1();
 
         verify(shoppingItemRepo).findById("1");
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -229,11 +229,11 @@ class ShoppingItemServiceTest {
         String updateItemId = "123-456";
 
         CreateShoppingItemDto itemToUpdate = CreateShoppingItemDto.builder()
-                    .name("Nudeln")
-                    .amount(500)
-                    .unit("g")
-                    .done(false)
-                    .build();
+                .name("Nudeln")
+                .amount(500)
+                .unit("g")
+                .done(false)
+                .build();
 
         ShoppingItem updatedItem = ShoppingItem.builder()
                 .id("123-456")
@@ -259,11 +259,11 @@ class ShoppingItemServiceTest {
                 .unit("g")
                 .done(false)
                 .build();
-        assertEquals(expexted,actual);
+        assertEquals(expexted, actual);
     }
 
     @Test
-    void updateRecipeById_whenTitleEqualsEmptyString_shouldThrowException() {
+    void updateShoppingItemById_whenTitleEqualsEmptyString_shouldThrowException() {
         //WHEN
         String id = "123";
         CreateShoppingItemDto itemDto = CreateShoppingItemDto
@@ -273,11 +273,11 @@ class ShoppingItemServiceTest {
         when(shoppingItemRepo.existsById(id)).thenReturn(true);
 
         //THEN
-        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.updateShoppingItemByID(id,itemDto));
+        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.updateShoppingItemByID(id, itemDto));
     }
 
     @Test
-    void updateRecipeById_whenTitleEqualsNull_shouldThrowException() {
+    void updateShoppingItemById_whenTitleEqualsNull_shouldThrowException() {
         //WHEN
         String id = "123";
         CreateShoppingItemDto itemDto = CreateShoppingItemDto
@@ -287,6 +287,29 @@ class ShoppingItemServiceTest {
         when(shoppingItemRepo.existsById(id)).thenReturn(true);
 
         //THEN
-        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.updateShoppingItemByID(id,itemDto));
+        assertThrows(IllegalArgumentException.class, () -> shoppingItemService.updateShoppingItemByID(id, itemDto));
+    }
+
+    @Test
+    void updateShoppingItem() {
+        // GIVEN
+        when(shoppingItemRepo.save(item1())).thenReturn(ShoppingItem.builder()
+                .id("1")
+                .name("Apfel")
+                .amount(5)
+                .unit("g")
+                .done(true).build());
+
+        // WHEN
+        ShoppingItem actual = shoppingItemService.updateShoppingItemByID(item1());
+
+        // THEN
+        ShoppingItem expexted = ShoppingItem.builder()
+                .id("1")
+                .name("Apfel")
+                .amount(5)
+                .unit("g")
+                .done(true).build();
+        assertEquals(expexted, actual);
     }
 }
