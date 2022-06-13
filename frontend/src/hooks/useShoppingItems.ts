@@ -1,7 +1,13 @@
 import {useContext, useEffect, useState} from "react";
 import {ShoppingItem} from "../model/ShoppingItem";
 import {AuthContext} from "../context/AuthProvider";
-import {getAllShoppingItem, postShoppingItem, postShoppingItemList, putShoppingItem} from "../service/lapa-api-service";
+import {
+    getAllShoppingItem,
+    postShoppingItem,
+    postShoppingItemList,
+    putShoppingItem,
+    removeShoppingItem
+} from "../service/lapa-api-service";
 
 export default function useShoppingItems() {
     const [shoppingItems, setShoppingItems] = useState<ShoppingItem[]>([]);
@@ -22,9 +28,10 @@ export default function useShoppingItems() {
             .catch(() => console.error("Connection failed! Please retry later."))
     }
 
-    const addShoppingItemList = (newShoppingItemList: Omit<ShoppingItem[], "id">) => {
+    const addShoppingItemList = (newShoppingItemList: Omit<ShoppingItem, "id">[]) => {
         postShoppingItemList(newShoppingItemList, token)
-            .then(addedShoppingItemList => addedShoppingItemList.map((item: ShoppingItem) => (setShoppingItems([...shoppingItems, item]))))
+            .then(addedShoppingList => setShoppingItems([...addedShoppingList, ...shoppingItems]))
+            // .then(addedShoppingItemList => addedShoppingItemList.map((item: ShoppingItem) => (setShoppingItems([...shoppingItems, item]))))
             .then(() => {
                 console.log("ShoppingItemList: " + newShoppingItemList + " created");
             })
@@ -41,5 +48,14 @@ export default function useShoppingItems() {
             })
     }
 
-    return {shoppingItems, addShoppingItems, addShoppingItemList, saveShoppingItem, getAllShoppingItem};
+    const deleteShoppingItem = (id: string) => {
+        removeShoppingItem(id, token)
+            .then(() => setShoppingItems(shoppingItems.filter(shoppingItem => shoppingItem.id !==id)))
+            .then(() => console.log("ShoppingItem removed"))
+            .catch(() => {
+                console.error("Connection failed! Please retry later.")
+            })
+    }
+
+    return {shoppingItems, addShoppingItems, addShoppingItemList, saveShoppingItem, getAllShoppingItem, deleteShoppingItem};
 }

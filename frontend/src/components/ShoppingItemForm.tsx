@@ -8,7 +8,7 @@ type ShoppingItemFormProps = {
     addShoppingItems : ( newShoppingItem : Omit<ShoppingItem, "id">) => void
     toggleComponent: () => void
     recipe?: Recipe
-    addShoppingItemList: (newShoppingItemList: Omit<ShoppingItem[], "id">) => void
+    addShoppingItemList: (newShoppingItemList: Omit<ShoppingItem, "id">[]) => void
 }
 
 export default function ShoppingItemForm({addShoppingItems, toggleComponent, recipe, addShoppingItemList}: ShoppingItemFormProps){
@@ -65,7 +65,7 @@ export default function ShoppingItemForm({addShoppingItems, toggleComponent, rec
     const onListAdd= (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const shoppingItemList: ShoppingItem[] = ingredients.map(item => {return {name: item.name, amount: item.amount, unit: item.unit, done: false}})
+        const shoppingItemList: Omit<ShoppingItem, "id">[] = ingredients.map(item => {return {name: item.name, amount: item.amount, unit: item.unit, done: false}})
 
         addShoppingItemList(shoppingItemList);
         toggleComponent();

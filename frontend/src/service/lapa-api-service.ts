@@ -55,7 +55,7 @@ export const postShoppingItem: (newShoppingItem: Omit<ShoppingItem, "id">, token
         : {})
         .then(response => response.data)
 }
-export const postShoppingItemList: (newShoppingItemList: Omit<ShoppingItem[], "id">, token?: string) => Promise<ShoppingItem[]> = (newShoppingItemList, token) => {
+export const postShoppingItemList: (newShoppingItemList: Omit<ShoppingItem, "id">[], token?: string) => Promise<ShoppingItem[]> = (newShoppingItemList, token) => {
     return axios.post("/api/shoppingitem/list", newShoppingItemList, token
         ? {headers: {"Authorization": token}}
         : {})
@@ -74,4 +74,10 @@ export function getShoppingItemBy(id: string, token?: string) {
         ? {headers: {"Authorization": token}}
         : {})
         .then(response => response.data)
+}
+
+export const removeShoppingItem: (id: string, token?: string) => Promise<void> = (id: string, token) => {
+    return axios.delete(`/api/shoppingitem/${id}`, token
+        ? {headers: {"Authorization": token}}
+        : {})
 }

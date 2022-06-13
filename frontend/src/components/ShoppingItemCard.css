@@ -9,10 +9,23 @@
     align-content: space-evenly;
 }
 
+.shopping-item-card-done{
+    text-decoration: line-through;
+    background-color: #666666;
+    color: #9f9f9f;
+    margin: 3px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+}
+
 #item-container{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     flex-grow: 1;
     padding: 10px;
 }
@@ -24,6 +37,15 @@
     border-radius: 100%;
     margin-right: 10px;
 }
+
+#bulletpoint-done{
+    width: 20px;
+    height: 20px;
+    background-color: #9f9f9f;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
 #bulletpoint:hover{
     background-color: #476A6F;
 }
@@ -34,5 +56,39 @@
 }
 
 #done-item{
-    text-decoration: line-through;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#undone-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#delete-button-symbol{
+    color: whitesmoke;
+    font-size: x-large;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: #476A6F;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+}
+
+#delete-button-symbol-done{
+    color: #9f9f9f;
+    font-size: x-large;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: #666666;
+    border: 1px solid #9f9f9f;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+}
+
+#delete-button-div{
+    padding-left: 10%;
 }
