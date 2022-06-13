@@ -46,5 +46,4 @@ public class ShoppingItemController {
     public ShoppingItem updateShoppingItemById(@PathVariable String id, @RequestBody CreateShoppingItemDto updatedItem) {
         return shoppingItemService.updateShoppingItemByID(id, updatedItem);
     }
-
 }
