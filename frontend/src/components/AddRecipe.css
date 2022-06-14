@@ -75,6 +75,7 @@ input[type="checkbox"]:checked {
     flex-direction: row;
     width: inherit;
 }
+
 #recipe-form-ingredients-without-button{
     display: flex;
     width: inherit;
