@@ -8,7 +8,7 @@ import ShowShoppingItemDetails from "../components/ShowShoppingitemDetails";
 
 export default function ShoppingItemDetailsPage() {
     const {id} = useParams()
-    const {saveShoppingItem} = useShoppingItems()
+    const {saveShoppingItem, deleteShoppingItem} = useShoppingItems()
     const {detailedShoppingItem, getShoppingItemById, setDetailedShoppingItem} = useDetailedShoppingItem()
     const [editingEnabled, setEditingEnabled] = useState(false)
 
@@ -24,7 +24,7 @@ export default function ShoppingItemDetailsPage() {
     }
 
     const updateDetailedShoppingItem = (updatedShoppingItem: ShoppingItem) => {
-        saveShoppingItem(updatedShoppingItem)
+        saveShoppingItem(updatedShoppingItem.id, updatedShoppingItem)
             .then(() => setDetailedShoppingItem(updatedShoppingItem))
             .then(() => onClickToggleEditing())
     }
@@ -41,7 +41,8 @@ export default function ShoppingItemDetailsPage() {
                             toggleComponent={onClickToggleEditing}/>
                         : <ShowShoppingItemDetails
                             item={detailedShoppingItem}
-                            toggleEditing={onClickToggleEditing}/>}
+                            toggleEditing={onClickToggleEditing}
+                        deleteShoppingItem={deleteShoppingItem}/>}
                 </div>}
         </div>
     )

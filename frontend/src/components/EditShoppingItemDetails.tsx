@@ -1,5 +1,6 @@
 import {ShoppingItem} from "../model/ShoppingItem";
 import {FormEvent, useState} from "react";
+import * as AiIcons from "react-icons/ai";
 
 type EditShoppingItemDetailsProps = {
     item: ShoppingItem
@@ -45,6 +46,9 @@ export default function EditShoppingItemDetails ({item, updateShoppingItem, togg
                 </select>
                 <button type={"submit"}>Edit ShoppingItem</button>
             </form>
+            <AiIcons.AiFillLeftCircle
+                id={"details-button-symbol"}
+                onClick={toggleComponent}/>
         </div>
     )
 }

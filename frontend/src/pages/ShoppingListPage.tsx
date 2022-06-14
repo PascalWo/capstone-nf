@@ -4,7 +4,7 @@ import {useState} from "react";
 import ShoppingItemForm from "../components/ShoppingItemForm";
 
 export default function ShoppingListPage(){
-    const {shoppingItems, addShoppingItems, addShoppingItemList} = useShoppingItems()
+    const {shoppingItems, addShoppingItems, addShoppingItemList, saveShoppingItem, deleteShoppingItem} = useShoppingItems()
     const [toggleAdding, setToggleAdding] = useState(false  )
     
     const onClickToggleAdding = () => {
@@ -17,7 +17,7 @@ export default function ShoppingListPage(){
             {!toggleAdding &&
                 <div>
                 <button onClick={onClickToggleAdding}>Add ShoppingItem</button>
-                <ShoppingItemsOverview shoppingItems={shoppingItems}/>
+                <ShoppingItemsOverview shoppingItems={shoppingItems} saveShoppingItem={saveShoppingItem} deleteShoppingItem={deleteShoppingItem}/>
                 </div>}
             {toggleAdding &&
             <ShoppingItemForm addShoppingItems={addShoppingItems} toggleComponent={onClickToggleAdding} addShoppingItemList={addShoppingItemList}/>}
