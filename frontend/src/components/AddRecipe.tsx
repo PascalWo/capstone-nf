@@ -280,25 +280,27 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                     </select>
                                     </div>
                                     </div>
-                                    <div id={"form-delete-input-button"}
+                                    <button type={"button"} id={"form-delete-input-button"}
                                          key={"remove" + index}
                                          onClick={() => removeIngredientField(index)}>
                                         <AiIcons.AiFillDelete/>
-                                    </div>
+                                    </button>
                                     {/*<button key={"remove" + index} type={"button"} onClick={() => removeIngredientField(index)}>Remove Ingredient</button>*/}
                                 </div>
                             )
                         })}
-                    <button
+                    <div
+                        id={"button-icon-box"}>
+                        <button type={"button"} id={"form-add-input-button"}
                         key={"add-ingredient"}
-                        type={"button"}
                         onClick={addIngredientFields}>
-                        Add More..
-                    </button>
+                        <AiIcons.AiFillPlusCircle/>
+                        </button>
+                    </div>
                 </div>
                 </label>
                 <label>
-                Instructions:
+                Instructions
                 <div>
                     {instructions
                         .map((instructionsInput: Instruction, instructionIndex: number) => {

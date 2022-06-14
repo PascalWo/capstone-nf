@@ -2,16 +2,6 @@
     color: black;
 }
 
-.save-recipe-form {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*margin-left: 20%;*/
-    /*margin-right: 20%;*/
-    /*box-sizing: border-box;*/
-    /*text-transform: capitalize;*/
-    /*text-decoration: none;*/
-}
-
 #recipe-form{
     border: 2px solid whitesmoke;
     margin: 2rem auto;
@@ -24,7 +14,6 @@
     justify-content: center;
     align-content: center;
     margin-bottom: 5%;
-
 }
 
 #recipe-form-text{
@@ -100,4 +89,37 @@ input[type="checkbox"]:checked {
     /*margin-bottom: 10%;*/
     /*margin-top: 10%;*/
 
+}
+
+#details-button-symbol{
+    color: whitesmoke;
+    font-size: xx-large;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: #476A6F;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+}
+
+#button-icon-box{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    /*border-radius: 100%;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*padding: 10% 0 10%;*/
+}
+#form-add-input-button{
+    color: whitesmoke;
+    font-size: xx-large;
+    padding: 2%;
+    border-radius: 100%;
+    background-color: #476A6F;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    display: flex;
+    /*height: initial;*/
+    /*width: initial;*/
 }
