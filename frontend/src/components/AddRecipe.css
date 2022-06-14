@@ -2,12 +2,102 @@
     color: black;
 }
 
-.add-form {
+.save-recipe-form {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*margin-left: 20%;*/
+    /*margin-right: 20%;*/
+    /*box-sizing: border-box;*/
+    /*text-transform: capitalize;*/
+    /*text-decoration: none;*/
+}
+
+#recipe-form{
+    border: 2px solid whitesmoke;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+#recipe-form label{
     display: flex;
     flex-direction: column;
-    margin-left: 20%;
-    margin-right: 20%;
-    box-sizing: border-box;
-    text-transform: capitalize;
-    text-decoration: none;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 5%;
+
+}
+
+#recipe-form-text{
+    padding: 10px;
+    margin: 5px 0 10px;
+    border-radius: 10px;
+    width: inherit;
+}
+
+input[type="checkbox"]:checked {
+    accent-color: #476A6F;
+}
+
+#recipe-label-checkbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 55%;
+    margin-bottom: 10%;
+}
+
+#recipe-form-ingredients{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 7%;
+    width: inherit;
+}
+
+#recipe-form-number{
+    background-color: white;
+    display: flex;
+    width: inherit;
+    height: inherit;
+    padding: 10px;
+    border-radius: 10px;
+    /*margin-bottom: 5%;*/
+}
+
+#recipe-form-unit{
+    display: flex;
+    width: inherit;
+    height: inherit;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#recipe-form-amount-unit{
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+}
+#recipe-form-ingredients-without-button{
+    display: flex;
+    width: inherit;
+    flex-direction: column;
+
+}
+
+#form-delete-input-button{
+    color: whitesmoke;
+    font-size: xx-large;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: #476A6F;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    width: initial;
+    display: flex;
+    /*margin-bottom: 10%;*/
+    /*margin-top: 10%;*/
+
 }

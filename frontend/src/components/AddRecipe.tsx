@@ -163,30 +163,50 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
     }
 
     return (
-        <div>
+        <div className={"save-recipe-form"}>
             <h1>Hier können Sie ein neues Rezept hinzufügen:</h1>
-            <form className={"add-form"} onSubmit={onAdd}>
-                <input type={"text"} placeholder="Title"
+            <form id={"recipe-form"} onSubmit={onAdd}>
+                <label>
+                    Titel
+                <input id={"recipe-form-text"}
+                    type={"text"}
+                       placeholder="Title"
                        value={title}
                        onChange={event => setTitle(event.target.value)}/>
-                <input type={"url"}
+                </label>
+                <label>
+                    Image
+                <input id={"recipe-form-text"}
+                    type={"url"}
                        placeholder="Image Source"
                        value={image}
                        onChange={event => setImage(event.target.value)}/>
-                Vegetarian:
-                <input type={"checkbox"}
+                </label>
+                <div id={"recipe-label-checkbox"}>
+                    <div>Vegetarian </div>
+                <input id={"recipe-form-box"}
+                    type={"checkbox"}
                        checked={vegetarian}
-                       onChange={event => setVegetarian(event.target.checked)}/>
-                Vegan:
+                       onChange={event => setVegetarian(event.target.checked)}
+                       style={{
+                           backgroundColor: "#00e676"
+                       }}/>
+                </div>
+                <div id={"recipe-label-checkbox"}>
+                    <div>Vegan </div>
                 <input type={"checkbox"}
                        checked={vegan}
                        onChange={event => setVegan(event.target.checked)}/>
-                GlutenFree:
+                </div>
+                <div id={"recipe-label-checkbox"}>
+                    <div>GlutenFree </div>
                 <input type={"checkbox"}
                        checked={glutenFree}
                        onChange={event => setGlutenFree(event.target.checked)}/>
-                Ready in Minutes:
-                <select name={"readyInMinutes"} value={readyInMinutes} onChange={event => setReadyInMinutes(Number(event.target.value))}>
+                </div>
+                <label>
+                Ready in Minutes
+                <select  id={"recipe-form-number"} name={"readyInMinutes"} value={readyInMinutes} onChange={event => setReadyInMinutes(Number(event.target.value))}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={15}>15</option>
@@ -200,8 +220,10 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                     <option value={60}>60</option>
                     <option value={90}>90</option>
                 </select>
-                Servings:
-                <select name={"servings"} value={servings} onChange={event => setServings(Number(event.target.value))}>
+                </label>
+                <label>
+                Servings
+                <select id={"recipe-form-number"} name={"servings"} value={servings} onChange={event => setServings(Number(event.target.value))}>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                     <option value={3}>3</option>
@@ -213,33 +235,40 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                     <option value={9}>9</option>
                     <option value={10}>10</option>
                 </select>
-                Summary:
-                <input key={"summary"}
-                       type={"text"}
+                </label>
+                <label>
+                Summary
+                <textarea id={"recipe-form-text"}
+                    key={"summary"}
                        placeholder="Summary"
                        value={summary}
                        onChange={event => setSummary(event.target.value)}/>
-
-                Ingredients:
+                </label>
+                <label>
+                Ingredients
                 <div>
                     {ingredients
                         .map((ingredientsInput: Ingredient, index: number) => {
                             return (
-                                <div>
-                                    <input key={"name" + index}
+                                <div id={"recipe-form-ingredients"}>
+                                    <div id={"recipe-form-ingredients-without-button"}>
+                                    <input id={"recipe-form-text"}
+                                        key={"name" + index}
                                            name={"name"}
                                            type={"text"}
                                            placeholder={"name"}
                                            onChange={event => handleIngredientFormChange(event, index)}
                                            value={ingredientsInput.name}/>
-                                    <input key={"amount" + index}
+                                    <div id={"recipe-form-amount-unit"}>
+                                    <input id={"recipe-form-number"}
+                                        key={"amount" + index}
                                            name={"amount"}
                                            type={"number"}
                                            placeholder={"amount"}
                                            onChange={event => handleIngredientFormChange(event, index)}
                                            value={ingredientsInput.amount}
                                     />
-                                    <select key={"unit" + index} name={"unit"} value={ingredientsInput.unit} onChange={event => handleIngredientFormChange(event, index)} >
+                                    <select id={"recipe-form-unit"} key={"unit" + index} name={"unit"} value={ingredientsInput.unit} onChange={event => handleIngredientFormChange(event, index)} >
                                         <option value={"stk"}>stk</option>
                                         <option value={"g"}>g</option>
                                         <option value={"kg"}>kg</option>
@@ -249,7 +278,14 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                         <option value={"el"}>el</option>
                                         <option value={"pr"}>pr</option>
                                     </select>
-                                    <button key={"remove" + index} type={"button"} onClick={() => removeIngredientField(index)}>Remove Ingredient</button>
+                                    </div>
+                                    </div>
+                                    <div id={"form-delete-input-button"}
+                                         key={"remove" + index}
+                                         onClick={() => removeIngredientField(index)}>
+                                        <AiIcons.AiFillDelete/>
+                                    </div>
+                                    {/*<button key={"remove" + index} type={"button"} onClick={() => removeIngredientField(index)}>Remove Ingredient</button>*/}
                                 </div>
                             )
                         })}
@@ -260,7 +296,8 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                         Add More..
                     </button>
                 </div>
-
+                </label>
+                <label>
                 Instructions:
                 <div>
                     {instructions
@@ -307,6 +344,7 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                         Add More InstructionFields..
                     </button>
                 </div>
+                </label>
                 {addRecipeItem &&
                     <button type={"submit"}>Add recipe</button>}
                 {updateRecipe &&
