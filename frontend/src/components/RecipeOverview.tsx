@@ -1,7 +1,8 @@
 import {Recipe} from "../model/Recipe";
 import RecipeCard from "./RecipeCard";
 import {ChangeEvent, FormEvent, useState} from "react";
-import "./RecipeOverview.css"
+import "./RecipeOverview.css";
+import "./Buttons.css";
 
 type RecipeOverviewProps = {
     recipes: Recipe[];
@@ -21,14 +22,19 @@ export default function RecipeOverview({recipes, toggleAdding, showAddButton}: R
 
     return (
         <div className={"recipe-overview"}>
-            <input type={"text"}
-                   value={search}
-                   placeholder={"Filter..."}
-                   onChange={(event: ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)}/>
-            {showAddButton &&
-                <form onSubmit={onSubmit}>
-                    <button type={"submit"}>Neues Rezept hinzufügen</button>
-                </form>}
+            <div id={"recipe-overview-input"}>
+                <input className={"search-input-field"}
+                       type={"text"}
+                       value={search}
+                       placeholder={"Filter..."}
+                       onChange={(event: ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)}/>
+                {showAddButton &&
+                    <form onSubmit={onSubmit}>
+                        <button className={"add-item-button"}
+                                type={"submit"}>NEW RECIPE
+                        </button>
+                    </form>}
+            </div>
             <div className={"recipe-cards"}>
                 {recipes
                     .filter(recipe => recipe.title.toLowerCase().includes(search.toLowerCase()))

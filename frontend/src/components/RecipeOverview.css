@@ -13,3 +13,11 @@
     flex-wrap: wrap;
     background-color: #7EB09B;
 }
+
+#recipe-overview-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: center;
+}
