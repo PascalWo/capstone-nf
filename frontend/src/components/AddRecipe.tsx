@@ -352,7 +352,6 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                                                 onClick={() => removeInstructionStepField(instructionIndex, stepIndex)}>
                                                             <AiIcons.AiFillDelete/>
                                                         </button>
-
                                                     </div>
                                                 )
                                             })}

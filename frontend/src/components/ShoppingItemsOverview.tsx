@@ -21,15 +21,15 @@ export default function ShoppingItemsOverview({
     return (
         <div className={"shopping-item-overview"}>
             <div className={"search-input-button"}>
-            <input className={"search-input-field"}
-                type={"text"}
-                   value={search}
-                   placeholder={"Search"}
-                   onChange={(event: ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)}/>
-            <button className={"add-item-button"}
-                onClick={toggleAdding}>
-                ADD ITEM
-            </button>
+                <input className={"search-input-field"}
+                       type={"text"}
+                       value={search}
+                       placeholder={"Search"}
+                       onChange={(event: ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)}/>
+                <button className={"add-item-button"}
+                        onClick={toggleAdding}>
+                    ADD ITEM
+                </button>
             </div>
             {shoppingItems
                 .filter(

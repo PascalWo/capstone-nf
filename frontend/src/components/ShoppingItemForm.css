@@ -96,7 +96,7 @@
 #items-form-amount-unit{
     display: flex;
     flex-direction: row;
-    width: inherit;
+    width: 100%;
 }
 
 #items-form-delete-input-button{
