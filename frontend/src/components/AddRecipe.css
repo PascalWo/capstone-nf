@@ -3,9 +3,16 @@
 }
 
 #recipe-form{
-    border: 2px solid whitesmoke;
     margin: 2rem auto;
-    padding: 2rem;
+    padding: 0 2rem 2rem;
+}
+
+#recipe-form-title{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding-bottom: -10%;
 }
 
 #recipe-form label{
@@ -53,7 +60,6 @@ input[type="checkbox"]:checked {
     height: inherit;
     padding: 10px;
     border-radius: 10px;
-    /*margin-bottom: 5%;*/
 }
 
 #recipe-form-unit{
@@ -73,7 +79,6 @@ input[type="checkbox"]:checked {
     display: flex;
     width: inherit;
     flex-direction: column;
-
 }
 
 #form-delete-input-button{
@@ -86,9 +91,6 @@ input[type="checkbox"]:checked {
     box-shadow: 0 10px 10px rgba(0,0,0,0.1);
     width: initial;
     display: flex;
-    /*margin-bottom: 10%;*/
-    /*margin-top: 10%;*/
-
 }
 
 #details-button-symbol{
@@ -106,10 +108,6 @@ input[type="checkbox"]:checked {
     justify-content: center;
     align-content: center;
     align-items: center;
-    /*border-radius: 100%;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*padding: 10% 0 10%;*/
 }
 #form-add-input-button{
     color: whitesmoke;
@@ -120,9 +118,6 @@ input[type="checkbox"]:checked {
     border: 1px solid whitesmoke;
     box-shadow: 0 10px 10px rgba(0,0,0,0.1);
     display: flex;
-
-    /*height: initial;*/
-    /*width: initial;*/
 }
 
 #instructions-form{
@@ -132,7 +127,7 @@ input[type="checkbox"]:checked {
     justify-content: flex-start;
     align-content: center;
     align-items: center;
-    margin-bottom: 15%;
+    margin-bottom: 5%;
     width: 100%;
 }
 
@@ -141,18 +136,13 @@ input[type="checkbox"]:checked {
     justify-content: center;
     align-content: center;
     align-items: center;
-    /*justify-content: flex-start;*/
-    /*align-content: center;*/
-    /*align-items: center;*/
     margin-bottom: 7%;
-    /*width: inherit;*/
     flex-grow: 1;
 }
 
 #instruction-step-form-without-button{
     display: flex;
     flex-direction: column;
-    /*width: inherit;*/
 }
 
 #instruction-form-text{
@@ -188,6 +178,15 @@ input[type="checkbox"]:checked {
     margin-bottom: 10%;
 }
 
+#submit-button-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-around;
+}
+
 #recipe-form-submit-button{
     font-size: xx-large;
     font-weight: bolder;
@@ -196,6 +195,13 @@ input[type="checkbox"]:checked {
     padding: 10px;
     margin: 5px 0 10px;
     border-radius: 10px;
+}
 
-
+#recipe-form-add-instruction-button{
+    font-size: medium;
+    font-weight: bolder;
+    color: white;
+    background-color: #476A6F;
+    padding: 10px;
+    border-radius: 10px;
 }
