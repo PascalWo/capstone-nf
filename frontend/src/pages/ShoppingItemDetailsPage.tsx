@@ -31,7 +31,6 @@ export default function ShoppingItemDetailsPage() {
 
     return (
         <div className={"shopping-item-details"}>
-            <h2>Your ShoppingItem</h2>
             {detailedShoppingItem &&
                 <div>
                     {editingEnabled

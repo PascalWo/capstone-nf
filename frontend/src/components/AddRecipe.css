@@ -2,12 +2,207 @@
     color: black;
 }
 
-.add-form {
+#recipe-form{
+    margin: 2rem auto;
+    padding: 0 2rem 2rem;
+}
+
+#recipe-form-title{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding-bottom: -10%;
+}
+
+#recipe-form label{
     display: flex;
     flex-direction: column;
-    margin-left: 20%;
-    margin-right: 20%;
-    box-sizing: border-box;
-    text-transform: capitalize;
-    text-decoration: none;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 5%;
+}
+
+#recipe-form-text{
+    padding: 10px;
+    margin: 5px 0 10px;
+    border-radius: 10px;
+    width: inherit;
+}
+
+input[type="checkbox"]:checked {
+    accent-color: #476A6F;
+}
+
+#recipe-label-checkbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 55%;
+    margin-bottom: 10%;
+}
+
+#recipe-form-ingredients{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 7%;
+    width: inherit;
+}
+
+#recipe-form-number{
+    background-color: white;
+    display: flex;
+    width: inherit;
+    height: inherit;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#recipe-form-unit{
+    display: flex;
+    width: inherit;
+    height: inherit;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#recipe-form-amount-unit{
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+}
+
+#recipe-form-ingredients-without-button{
+    display: flex;
+    width: inherit;
+    flex-direction: column;
+}
+
+#form-delete-input-button{
+    color: whitesmoke;
+    font-size: xx-large;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: #476A6F;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    width: initial;
+    display: flex;
+}
+
+#details-button-symbol{
+    color: whitesmoke;
+    font-size: xx-large;
+    padding: 2%;
+    border-radius: 50%;
+    background-color: #476A6F;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+}
+
+#button-icon-box{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+#form-add-input-button{
+    color: whitesmoke;
+    font-size: xx-large;
+    padding: 2%;
+    border-radius: 100%;
+    background-color: #476A6F;
+    border: 1px solid whitesmoke;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+    display: flex;
+}
+
+#instructions-form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    width: 100%;
+}
+
+#instruction-step-form{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 7%;
+    flex-grow: 1;
+}
+
+#instruction-step-form-without-button{
+    display: flex;
+    flex-direction: column;
+}
+
+#instruction-form-text{
+    padding: 10px;
+    margin: 10px 0 20px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+#instruction-step-form-text{
+    padding: 10px;
+    margin: 10px 0 10px;
+    border-radius: 10px;
+    width: inherit;
+}
+
+#instruction-step-form-number{
+    background-color: white;
+    display: flex;
+    width: inherit;
+    height: inherit;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#instruction-step-button-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-around;
+    margin-bottom: 10%;
+}
+
+#submit-button-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-around;
+}
+
+#recipe-form-submit-button{
+    font-size: xx-large;
+    font-weight: bolder;
+    color: white;
+    background-color: #476A6F;
+    padding: 10px;
+    margin: 5px 0 10px;
+    border-radius: 10px;
+}
+
+#recipe-form-add-instruction-button{
+    font-size: medium;
+    font-weight: bolder;
+    color: white;
+    background-color: #476A6F;
+    padding: 10px;
+    border-radius: 10px;
 }

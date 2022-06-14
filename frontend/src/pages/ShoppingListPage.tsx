@@ -6,21 +6,24 @@ import ShoppingItemForm from "../components/ShoppingItemForm";
 export default function ShoppingListPage(){
     const {shoppingItems, addShoppingItems, addShoppingItemList, saveShoppingItem, deleteShoppingItem} = useShoppingItems()
     const [toggleAdding, setToggleAdding] = useState(false  )
-    
+
     const onClickToggleAdding = () => {
         setToggleAdding(!toggleAdding)
     }
 
     return (
         <div>
-            <p>Hier stehen Ihre ShoppingItems</p>
             {!toggleAdding &&
-                <div>
-                <button onClick={onClickToggleAdding}>Add ShoppingItem</button>
-                <ShoppingItemsOverview shoppingItems={shoppingItems} saveShoppingItem={saveShoppingItem} deleteShoppingItem={deleteShoppingItem}/>
-                </div>}
+                <ShoppingItemsOverview
+                    shoppingItems={shoppingItems}
+                    saveShoppingItem={saveShoppingItem}
+                    deleteShoppingItem={deleteShoppingItem}
+                    toggleAdding={onClickToggleAdding}/>}
             {toggleAdding &&
-            <ShoppingItemForm addShoppingItems={addShoppingItems} toggleComponent={onClickToggleAdding} addShoppingItemList={addShoppingItemList}/>}
+            <ShoppingItemForm
+                addShoppingItems={addShoppingItems}
+                toggleComponent={onClickToggleAdding}
+                addShoppingItemList={addShoppingItemList}/>}
         </div>
     )
 }
