@@ -305,8 +305,9 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                     {instructions
                         .map((instructionsInput: Instruction, instructionIndex: number) => {
                             return (
-                                <div>
-                                    <input key={"instructionsName" + instructionIndex}
+                                <div id={"instructions-form"}>
+                                    <input id={"instruction-form-text"}
+                                        key={"instructionsName" + instructionIndex}
                                            name={"name"}
                                            type={"text"}
                                            placeholder={"instructionsName"}
@@ -316,41 +317,96 @@ export default function AddRecipe({addRecipeItem, updateRecipe, toggleComponent,
                                         .steps
                                         .map((instructionsStepInput, stepIndex) => {
                                             return (
-                                                <div key={"step" + stepIndex}>
-                                                    <input key={"stepNumber" + stepIndex}
+                                                <div id={"instruction-step-form"}
+                                                    key={"step" + stepIndex}>
+                                                    <div id={"instruction-step-form-without-button"}>
+                                                    <input id={"instruction-step-form-number"}
+                                                        key={"stepNumber" + stepIndex}
                                                            name={"number"}
                                                            type={"number"}
                                                            placeholder={"stepNumber"}
                                                            onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
                                                            value={instructionsStepInput.number}/>
-                                                    <input key={"stepDescription" + stepIndex}
+                                                    <input id={"instruction-step-form-text"}
+                                                        key={"stepDescription" + stepIndex}
                                                            name={"step"}
                                                            type={"text"}
                                                            placeholder={"stepDescription"}
                                                            onChange={event => handleInstructionStepFormChange(event, instructionIndex, stepIndex)}
                                                            value={instructionsStepInput.step}/>
-                                                    <button key={"removeButton" + stepIndex} type={"button"} onClick={() => removeInstructionStepField(instructionIndex, stepIndex)}>Remove InstructionStep</button>
+                                                    </div>
+                                                    {/*<button*/}
+                                                    {/*    key={"removeButton" + stepIndex}*/}
+                                                    {/*    type={"button"}*/}
+                                                    {/*    onClick={() => removeInstructionStepField(instructionIndex, stepIndex)}>*/}
+                                                    {/*    Remove InstructionStep*/}
+                                                    {/*</button>*/}
+
+                                                    <button key={"removeButton" + stepIndex}
+                                                        type={"button"} id={"form-delete-input-button"}
+                                                            onClick={() => removeInstructionStepField(instructionIndex, stepIndex)}>
+                                                        <AiIcons.AiFillDelete/>
+                                                    </button>
+
                                                 </div>
                                             )
                                         })}
-                                    <button key={"add-step-field"} type={"button"}
+                                    <div id={"instruction-step-button-container"}>
+                                    <button id={"form-add-input-button"}
+                                        type={"button"}
+                                            key={"add-step-field" + instructionIndex}
                                             onClick={() => addInstructionStepFields(instructionIndex)}>
-                                        Add More InstructionStepFields..
+                                        <AiIcons.AiFillPlusCircle/>
                                     </button>
-                                    <button type={"button"} onClick={() => removeInstructionField(instructionIndex)}>Remove Instruction</button>
+                                        <button key={"removeButton" + instructionIndex}
+                                                type={"button"}
+                                                id={"form-delete-input-button"}
+                                                onClick={() => removeInstructionField(instructionIndex)}>
+                                            <AiIcons.AiFillDelete/>
+                                        </button>
+                                    </div>
+
+                                    {/*<button key={"add-step-field"} type={"button"}*/}
+                                    {/*        onClick={() => addInstructionStepFields(instructionIndex)}>*/}
+                                    {/*    Add More InstructionStepFields..*/}
+                                    {/*</button>*/}
+
+                                    {/*<button key={"removeButton" + instructionIndex}*/}
+                                    {/*        type={"button"}*/}
+                                    {/*        id={"form-delete-input-button"}*/}
+                                    {/*        onClick={() => removeInstructionField(instructionIndex)}>*/}
+                                    {/*    <AiIcons.AiFillDelete/>*/}
+                                    {/*</button>*/}
+
+                                    {/*<button key={"removeButton" + instructionIndex}*/}
+                                    {/*    type={"button"}*/}
+                                    {/*    onClick={() => removeInstructionField(instructionIndex)}>*/}
+                                    {/*    Remove Instruction*/}
+                                    {/*</button>*/}
                                 </div>)
                         })}
-
-                    <button type={"button"}
+                    <div id={"instruction-step-button-container"}>
+                        <div>New Instruction</div>
+                    <button id={"form-add-input-button"}
+                            type={"button"}
+                            key={"add-instruction" }
                             onClick={addInstructionsFields}>
-                        Add More InstructionFields..
+                        <AiIcons.AiFillPlusCircle/>
                     </button>
+                    </div>
+
+                    {/*<button type={"button"}*/}
+                    {/*        onClick={addInstructionsFields}>*/}
+                    {/*    Add More InstructionFields..*/}
+                    {/*</button>*/}
                 </div>
                 </label>
+                <div id={"instruction-step-button-container"}>
                 {addRecipeItem &&
-                    <button type={"submit"}>Add recipe</button>}
+                    <button id={"recipe-form-submit-button"} type={"submit"}>ADD RECIPE</button>}
                 {updateRecipe &&
-                    <button type={"submit"}>Edit recipe</button>}
+                    <button id={"recipe-form-submit-button"} type={"submit"}>EDIT RECIPE</button>}
+                </div>
             </form>
             <AiIcons.AiFillLeftCircle id={"details-button-symbol"} onClick={onClickToggleAndGoBack}/>
             <p id={"url-warning"}>*Image Source bitte als Website-Link "https://..." angeben!</p>
