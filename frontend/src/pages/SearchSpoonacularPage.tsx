@@ -2,6 +2,7 @@ import RecipeOverview from "../components/RecipeOverview";
 import useSpoonaRecipes from "../hooks/useSpoonaRecipes";
 import {useNavigate, useParams} from "react-router-dom";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import "../components/Buttons.css";
 
 export default function SearchSpoonacularPage(){
     const {spoonaRecipes, getSpoonaRecipeBySearch} = useSpoonaRecipes()
@@ -24,8 +25,16 @@ export default function SearchSpoonacularPage(){
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <input type={"text"} placeholder={"SpoonaSearch..."} onChangeCapture={(event:ChangeEvent<HTMLInputElement>) => setSpoonaSearch(event.target.value) }/>
-                <button type={"submit"}>Search</button>
+                <div className={"search-input-button"}>
+                <input className={"search-input-field"}
+                       type={"text"}
+                       placeholder={"SpoonaSearch..."}
+                       onChangeCapture={(event:ChangeEvent<HTMLInputElement>) => setSpoonaSearch(event.target.value) }/>
+                <button className={"add-item-button"}
+                        type={"submit"}>
+                    Search
+                </button>
+                </div>
             </form>
             <div>
             {spoonaSearch?
