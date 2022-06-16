@@ -1,0 +1,31 @@
+.add-item-button{
+    font-size: small;
+    font-weight: bolder;
+    color: white;
+    background-color: #476A6F;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.search-button{
+    font-size: small;
+    font-weight: bolder;
+    color: white;
+    background-color: #476A6F;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.search-input-field{
+    padding: 10px;
+    margin: 5px 0 10px;
+    border-radius: 10px;
+}
+
+.search-input-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
