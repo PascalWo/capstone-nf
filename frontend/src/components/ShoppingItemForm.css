@@ -93,12 +93,6 @@
     flex-direction: column;
 }
 
-#items-form-amount-unit{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
 #items-form-delete-input-button{
     color: whitesmoke;
     font-size: xx-large;
