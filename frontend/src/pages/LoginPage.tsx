@@ -6,7 +6,7 @@ export default function LoginPage() {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const {login} = useContext(AuthContext)
+    const {login, logout} = useContext(AuthContext)
 
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -32,5 +32,6 @@ export default function LoginPage() {
             </button>
             </div>
         </form>
+        <button type={"submit"} onClick={logout}>Logout</button>
     </div>
 }

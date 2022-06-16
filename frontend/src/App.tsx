@@ -20,7 +20,6 @@ function App() {
           <Navbar/>
           <Routes>
               <Route element={<RequireAuth/>}>
-                  <Route path="/" element={<LandingPage/>}/>
                   <Route path='/recipes' element={<RecipePage/>}/>
                   <Route path='/spoona/search/:search' element={<SearchSpoonacularPage/>}/>
                   <Route path='/spoona/search' element={<SearchSpoonacularPage/>}/>
@@ -30,6 +29,7 @@ function App() {
                   <Route path={'/shoppingitem/:id'} element={<ShoppingItemDetailsPage/>}/>
               </Route>
 
+              <Route path="/" element={<LandingPage/>}/>
               <Route path={'/login'} element={<LoginPage/>}/>
           </Routes>
       </div>

@@ -4,8 +4,18 @@ import axios from "axios";
 
 const AUTH_KEY = "AuthToken"
 
-export const AuthContext = createContext<{ token: string | undefined, login: (credentials: {username: string, password: string}) => void }>
-    ({token: undefined, login: () => {console.error("Login not initialized")}})
+export type AuthContextProps = {
+    token: string | undefined,
+    login: (credentials: {username: string, password: string}) => void,
+    logout: () => void,
+
+}
+
+export const AuthContext = createContext<AuthContextProps>({
+    token: undefined,
+    login: () => {console.error("Login not initialized")},
+    logout: () => {console.error("Logout went wrong")}
+})
 
 export type AuthProviderProps = {
     children : ReactElement
@@ -26,8 +36,15 @@ export default function AuthProvider({children}: AuthProviderProps){
             .catch(() => console.error("Login failed. Credentials invalid?"))
     }
 
+    const logout = () => {
+        localStorage.removeItem(AUTH_KEY)
+        setToken("")
+        console.log("You have been logged out")
+        navigate("/")
+    }
+
     return <div>
-        <AuthContext.Provider value={{token, login}}>
+        <AuthContext.Provider value={{token, login, logout}}>
             {children}
         </AuthContext.Provider>
     </div>
